@@ -12,6 +12,6 @@
             <a class="nav-link mx-3 fw-semibold" href="/faq">FAQ</a>
          </div>
       </div>
-      <a class="btn btn-dark" href="/login" role="button">Login</a>
+      <a class="btn btn-dark" href="/login" role="button">Log in</a>
   </div>
 </nav>
