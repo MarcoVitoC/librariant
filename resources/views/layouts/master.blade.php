@@ -2,7 +2,7 @@
 <html lang="en">
   @include('layouts.header')
   <body>
-      @include('components.guest-navbar')
+      @include('layouts.navbar')
       @yield('content')
       @include('layouts.script')
   </body>
