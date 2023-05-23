@@ -9,3 +9,12 @@
 .w-30 {
    width: 30%;
 }
+
+.nav-pills a:hover {
+   background-color: #343A40;
+}
+
+.nav-pills .active {
+   color: #1A1A1A !important;
+   background-color: #F7E8D3 !important;
+}

@@ -26,5 +26,11 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
-   Route::get('/', [LibrarianController::class, 'index'])->name('librarian.home');
+   Route::get('/', [LibrarianController::class, 'dashboard'])->name('librarian.dashboard');
+   Route::get('/books', [LibrarianController::class, 'books'])->name('librarian.books');
+   Route::get('/transactions', [LibrarianController::class, 'transactions'])->name('librarian.transactions');
+   Route::get('/reservations', [LibrarianController::class, 'reservations'])->name('librarian.reservations');
+   Route::get('/users', [LibrarianController::class, 'users'])->name('librarian.users');
+   Route::get('/settings', [LibrarianController::class, 'settings'])->name('librarian.settings');
+   Route::get('/supports', [LibrarianController::class, 'supports'])->name('librarian.supports');
 });
