@@ -10,7 +10,7 @@
             <a class="btn btn-dark" href="/login" role="button">Explore Now</a>
          </div>
          <div class="align-items-center">
-            <img src="{{ asset('images/banner.png') }}" alt="Library" width="530px" height="530px">
+            <img src="{{ asset('images/banner.png') }}" alt="Library" width="490px" height="490px">
          </div>
       </div>
    </div>

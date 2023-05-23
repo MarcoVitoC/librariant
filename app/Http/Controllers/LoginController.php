@@ -23,7 +23,7 @@ class LoginController extends Controller
       $loginSuccess = $this->loginService->attemptLogin($request);
 
       if ($loginSuccess) {
-         return (auth()->user()->role_id === 0) ? redirect()->intended(route('user.home')) : redirect()->intended(route('librarian.home'));
+         return (auth()->user()->role_id === 0) ? redirect()->intended(route('user.home')) : redirect()->intended(route('librarian.dashboard'));
       }
 
       return back()->with('loginError', 'Login failed! Please check your input.');
