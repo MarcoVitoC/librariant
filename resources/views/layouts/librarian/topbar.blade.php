@@ -4,8 +4,8 @@
          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="d-flex align-items-center">
-         <div class="border-end">
-            <a href="" class="text-secondary"><i class="bi bi-bell me-3"></i></a>
+         <div class="border-end pe-3">
+            <a href="" class="text-secondary"><i class="bi bi-bell"></i></a>
          </div>
          <div class="dropdown d-flex align-items-center ms-3">
             <a class="nav-link fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
