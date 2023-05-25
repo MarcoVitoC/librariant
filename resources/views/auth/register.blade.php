@@ -11,9 +11,9 @@
          <form action="/register" method="POST">
             @csrf
             <div class="mb-3">
-               <label for="fullName" class="form-label">Full Name</label>
-               <input type="text" class="form-control @error('fullName') is-invalid @enderror @if (old('fullName')) is-valid @endif" id="fullName" name="fullName" value="{{ old('fullName') }}">
-               @error('fullName')
+               <label for="full_name" class="form-label">Full Name</label>
+               <input type="text" class="form-control @error('full_name') is-invalid @enderror @if (old('full_name')) is-valid @endif" id="full_name" name="full_name" value="{{ old('full_name') }}">
+               @error('full_name')
                   <div class="invalid-feedback">{{ $message }}</div>
                @enderror
             </div>
@@ -35,16 +35,16 @@
             </div>
             <div class="d-flex">
                <div class="pe-3 mb-3 col-6">
-                  <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                  <input type="date" class="form-control @error('dateOfBirth') is-invalid @enderror @if (old('dateOfBirth')) is-valid @endif" id="dateOfBirth" name="dateOfBirth" value="{{ old('dateOfBirth') }}">
-                  @error('dateOfBirth')
+                  <label for="date_of_birth" class="form-label">Date of Birth</label>
+                  <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror @if (old('date_of_birth')) is-valid @endif" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
+                  @error('date_of_birth')
                      <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                </div>
                <div class="ps-3 mb-3 col-6">
-                  <label for="phoneNumber" class="form-label">Phone Number</label>
-                  <input type="text" class="form-control @error('phoneNumber') is-invalid @enderror @if (old('phoneNumber')) is-valid @endif" id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}">
-                  @error('phoneNumber')
+                  <label for="phone_number" class="form-label">Phone Number</label>
+                  <input type="text" class="form-control @error('phone_number') is-invalid @enderror @if (old('phone_number')) is-valid @endif" id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
+                  @error('phone_number')
                      <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                </div>
@@ -72,17 +72,17 @@
                   @enderror
                </div>
                <div class="ps-3 mb-3 col-6">
-                  <label for="confirmPassword" class="form-label">Confirm Password</label>
-                  <input type="password" class="form-control @error('confirmPassword') is-invalid @enderror" id="confirmPassword" name="confirmPassword">
-                  @error('confirmPassword')
+                  <label for="confirm_password" class="form-label">Confirm Password</label>
+                  <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="confirm_password" name="confirm_password">
+                  @error('confirm_password')
                      <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                </div>
             </div>
             <div class="form-check">
-               <input class="form-check-input @error('termsAndConditions') is-invalid @enderror" type="checkbox" id="termsAndConditions" name="termsAndConditions">
-               <label class="form-check-label" for="termsAndConditions">I agree to the terms and conditions</label>
-               @error('termsAndConditions')
+               <input class="form-check-input @error('terms_and_conditions') is-invalid @enderror" type="checkbox" id="terms_and_conditions" name="terms_and_conditions">
+               <label class="form-check-label" for="terms_and_conditions">I agree to the terms and conditions</label>
+               @error('terms_and_conditions')
                   <div class="invalid-feedback">You must agree before submitting.</div>
                @enderror
              </div>

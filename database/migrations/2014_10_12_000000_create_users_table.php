@@ -16,11 +16,11 @@ return new class extends Migration
       Schema::create('users', function (Blueprint $table) {
          $table->string('id')->primary();
          $table->foreignId('role_id')->default('0');
-         $table->string('fullName');
+         $table->string('full_name');
          $table->string('username')->unique();
          $table->string('gender');
-         $table->date('dateOfBirth');
-         $table->string('phoneNumber')->unique();
+         $table->date('date_of_birth');
+         $table->string('phone_number')->unique();
          $table->string('address');
          $table->string('email')->unique();
          $table->timestamp('email_verified_at')->nullable();
