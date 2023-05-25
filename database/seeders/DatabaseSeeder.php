@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
       // \App\Models\User::factory(10)->create();
       User::create([
          'role_id' => 1,
-         'fullName' => 'Librariant',
+         'full_name' => 'Librariant',
          'username' => 'librarianttt',
          'gender' => 'Male',
-         'dateOfBirth' => '2003-01-23',
-         'phoneNumber' => '000000000000',
+         'date_of_birth' => '2003-01-23',
+         'phone_number' => '000000000000',
          'address' => 'Library Center',
          'email' => 'librariant@gmail.com',
          'password' => Hash::make('librariant')
@@ -32,11 +32,11 @@ class DatabaseSeeder extends Seeder
 
       Role::create([
          'id' => 0,
-         'roleName' => 'user'
+         'role_name' => 'user'
       ]);
       Role::create([
          'id' => 1,
-         'roleName' => 'librarian'
+         'role_name' => 'librarian'
       ]);
    }
 }
