@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LibrarianController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
 Route::middleware(['guest'])->group(function() {
    Route::get('/', [GuestController::class, 'welcome'])->name('welcome');
@@ -27,7 +28,10 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
    Route::get('/', [LibrarianController::class, 'dashboard'])->name('librarian.dashboard');
+   
    Route::get('/books', [LibrarianController::class, 'books'])->name('librarian.books');
+   Route::post('/books', [BookController::class, 'addBook'])->name('librarian.add_book');
+
    Route::get('/transactions', [LibrarianController::class, 'transactions'])->name('librarian.transactions');
    Route::get('/reservations', [LibrarianController::class, 'reservations'])->name('librarian.reservations');
    Route::get('/users', [LibrarianController::class, 'users'])->name('librarian.users');

@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string('isbn');
             $table->string('book_title');
             $table->string('author');
-            $table->date('publication_year');
+            $table->integer('pages');
+            $table->string('publisher');
+            $table->date('publish_date');
             $table->string('genre');
             $table->integer('quantity');
-            $table->text('summary');
+            $table->string('language');
             $table->string('book_photo');
+            $table->text('summary');
             $table->timestamps();
         });
     }

@@ -25,7 +25,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
          </div>
          @endif
-         <form action="/login" method="POST">
+         <form action="{{ route('login.authenticate') }}" method="POST">
             @csrf
             <div class="mb-3">
                <label for="email" class="form-label">Email</label>

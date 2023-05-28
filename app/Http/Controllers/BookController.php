@@ -16,6 +16,6 @@ class BookController extends Controller
 
    public function addBook(AddBookRequest $request) {
       $this->bookService->addBook($request);
-      return back();
+      return response()->json(['message' => 'Book added successfully!'], 200);
    }
 }
