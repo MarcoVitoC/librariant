@@ -8,7 +8,7 @@
             <h1 class="text-center fs-3">Register</h1>
             <hr>
          </div>
-         <form action="/register" method="POST">
+         <form action="{{ route('register.create') }}" method="POST">
             @csrf
             <div class="mb-3">
                <label for="full_name" class="form-label">Full Name</label>

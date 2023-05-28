@@ -24,14 +24,17 @@ class AddBookRequest extends FormRequest
    public function rules()
    {
       return [
-         'isbn' => ['required'],
+         'isbn' => ['required', 'numeric', 'unique:books'],
          'book_title' => ['required', 'max:255', 'unique:books'],
          'author' => ['required'],
-         'publication_year' => ['required'],
-         'genre' => ['required'],
+         'pages' => ['required', 'numeric'],
+         'publisher' => ['required', 'string'],
+         'publish_date' => ['required', 'date'],
+         'genre' => ['required', 'string'],
          'quantity' => ['required', 'numeric'],
-         'summary' => ['required', 'min:5'],
-         'book_photo' => ['required']
+         'language' => ['required', 'string'],
+         'book_photo' => ['required', 'mimes:jpeg, png, jpg', 'file', 'max:1024'],
+         'summary' => ['required', 'string'],
       ];
    }
 }
