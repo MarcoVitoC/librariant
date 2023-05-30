@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Services\RegisterService;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -20,6 +21,8 @@ class RegisterController extends Controller
 
    public function create(RegisterRequest $request) {
       $this->registerService->registerUser($request);
-      return to_route('login')->with('success', 'Registration succeed. Please Login!');
+      session()->flash('registrationSuccess', 'Registration succeed. Please login!');
+
+      return response()->json(['message' => 'Registration succeed. Please login!'], 200);
    }
 }

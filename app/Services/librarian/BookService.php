@@ -13,4 +13,8 @@ class BookService {
 
       return $book;
    }
+
+   public function showBooks() {
+      return Book::all();
+   }
 }
