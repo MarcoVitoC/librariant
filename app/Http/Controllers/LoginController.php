@@ -23,10 +23,10 @@ class LoginController extends Controller
       $loginSuccess = $this->loginService->attemptLogin($request);
 
       if ($loginSuccess) {
-         return (auth()->user()->role_id === 0) ? redirect()->intended(route('user.home')) : redirect()->intended(route('librarian.dashboard'));
+         return response()->json(['status' => 'loginSuccess', 'role' => auth()->user()->role_id], 200);
       }
 
-      return back()->with('loginError', 'Login failed! Please check your input.');
+      return response()->json(['loginFailed' => 'Failed to login!'], 200);
    }
 
    public function logout(Request $request) {

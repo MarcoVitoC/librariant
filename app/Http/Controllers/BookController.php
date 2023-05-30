@@ -18,4 +18,8 @@ class BookController extends Controller
       $this->bookService->addBook($request);
       return response()->json(['message' => 'Book added successfully!'], 200);
    }
+
+   public function showBooks() {
+      $this->bookService->showBooks();
+   }
 }

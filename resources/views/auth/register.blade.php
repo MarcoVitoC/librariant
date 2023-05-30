@@ -8,22 +8,18 @@
             <h1 class="text-center fs-3">Register</h1>
             <hr>
          </div>
-         <form action="{{ route('register.create') }}" method="POST">
+         <form action="{{ route('register.create') }}" method="POST" id="registerForm">
             @csrf
             <div class="mb-3">
                <label for="full_name" class="form-label">Full Name</label>
-               <input type="text" class="form-control @error('full_name') is-invalid @enderror @if (old('full_name')) is-valid @endif" id="full_name" name="full_name" value="{{ old('full_name') }}">
-               @error('full_name')
-                  <div class="invalid-feedback">{{ $message }}</div>
-               @enderror
+               <input type="text" class="form-control input-field" id="full_name" name="full_name" value="{{ old('full_name') }}">
+               <div class="full_name-feedback"></div>
             </div>
             <div class="d-flex">
                <div class="pe-3 mb-3 col-6">
                   <label for="username" class="form-label">Username</label>
-                  <input type="text" class="form-control @error('username') is-invalid @enderror @if (old('username')) is-valid @endif" id="username" name="username" value="{{ old('username') }}">
-                  @error('username')
-                     <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <input type="text" class="form-control input-field" id="username" name="username" value="{{ old('username') }}">
+                  <div class="username-feedback"></div>
                </div>
                <div class="ps-3 mb-3 col-6">
                   <label for="gender" class="form-label">Gender</label>
@@ -36,59 +32,86 @@
             <div class="d-flex">
                <div class="pe-3 mb-3 col-6">
                   <label for="date_of_birth" class="form-label">Date of Birth</label>
-                  <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror @if (old('date_of_birth')) is-valid @endif" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
-                  @error('date_of_birth')
-                     <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <input type="date" class="form-control input-field" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}">
+                  <div class="date_of_birth-feedback"></div>
                </div>
                <div class="ps-3 mb-3 col-6">
                   <label for="phone_number" class="form-label">Phone Number</label>
-                  <input type="text" class="form-control @error('phone_number') is-invalid @enderror @if (old('phone_number')) is-valid @endif" id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
-                  @error('phone_number')
-                     <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <input type="text" class="form-control input-field" id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
+                  <div class="phone_number-feedback"></div>
                </div>
             </div>
             <div class="mb-3">
                <label for="address" class="form-label">Address</label>
-               <input type="text" class="form-control @error('address') is-invalid @enderror  @if (old('address')) is-valid @endif" id="address" name="address" value="{{ old('address') }}">
-               @error('address')
-                  <div class="invalid-feedback">{{ $message }}</div>
-               @enderror
+               <input type="text" class="form-control input-field" id="address" name="address" value="{{ old('address') }}">
+               <div class="address-feedback"></div>
             </div>
             <div class="mb-3">
                <label for="email" class="form-label">Email</label>
-               <input type="email" class="form-control @error('email') is-invalid @enderror @if (old('email')) is-valid @endif" id="email" name="email" aria-describedby="emailHelp" value="{{ old('email') }}">
-               @error('email')
-                  <div class="invalid-feedback">{{ $message }}</div>
-               @enderror
+               <input type="email" class="form-control input-field" id="email" name="email" aria-describedby="emailHelp" value="{{ old('email') }}">
+               <div class="email-feedback"></div>
             </div>
             <div class="d-flex">
                <div class="pe-3 mb-3 col-6">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                  @error('password')
-                     <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <input type="password" class="form-control input-field" id="password" name="password">
+                  <div class="password-feedback"></div>
                </div>
                <div class="ps-3 mb-3 col-6">
                   <label for="confirm_password" class="form-label">Confirm Password</label>
-                  <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="confirm_password" name="confirm_password">
-                  @error('confirm_password')
-                     <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <input type="password" class="form-control input-field" id="confirm_password" name="confirm_password">
+                  <div class="confirm_password-feedback"></div>
                </div>
             </div>
             <div class="form-check">
-               <input class="form-check-input @error('terms_and_conditions') is-invalid @enderror" type="checkbox" id="terms_and_conditions" name="terms_and_conditions">
+               <input class="form-check-input input-field" type="checkbox" id="terms_and_conditions" name="terms_and_conditions">
                <label class="form-check-label" for="terms_and_conditions">I agree to the terms and conditions</label>
-               @error('terms_and_conditions')
-                  <div class="invalid-feedback">You must agree before submitting.</div>
-               @enderror
+               <div class="terms_and_conditions-feedback"></div>
              </div>
-            <button type="submit" class="btn btn-dark col-12 mt-5">Register</button>
+            <button type="submit" class="btn btn-dark col-12 mt-5" id="registerBtn">Register</button>
          </form>
-         <h6 class="text-center my-2">Already have an account? <a href="/login">Log in</a></h6>
+         <h6 class="text-center text-secondary my-2">Already have an account? <a href="/login" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Log in</a></h6>
       </div>
    </div>
+@endsection
+
+@section('js-extra')
+<script>
+   $(document).ready(() => {
+      $('#registerBtn').click((e) => {
+         e.preventDefault();
+
+         $.ajax({
+            type: 'POST',
+            url: "{{ route('register.create') }}",
+            data: new FormData($('#registerForm')[0]),
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: (response) => {
+               window.location.href = "{{ route('login') }}"
+            },
+            error: (xhr, status, error) => {
+               let response = JSON.parse(xhr.responseText);
+               let inputFields = $('.input-field').map(function() {
+                  return this.id;
+               }).get();
+
+               for (let inputField of inputFields) {
+                  let errorMessage = response.errors[inputField];
+                  if (response.errors.hasOwnProperty(inputField)) {
+                     $('#' +inputField).removeClass('is-valid');
+                     $('#' +inputField).addClass('is-invalid');
+                     $('.' +inputField+ '-feedback').addClass('invalid-feedback').text(errorMessage);
+                  } else {
+                     $('#' +inputField).removeClass('is-invalid');
+                     $('.' +inputField+ '-feedback').removeClass('invalid-feedback').text('');
+                     $('#' +inputField).addClass('is-valid');
+                  }
+               }
+            }
+         });
+      });
+   });
+</script>
 @endsection
