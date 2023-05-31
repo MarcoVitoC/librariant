@@ -26,13 +26,13 @@ class AddBookRequest extends FormRequest
       return [
          'isbn' => ['required', 'numeric', 'unique:books'],
          'book_title' => ['required', 'max:255', 'unique:books'],
-         'author' => ['required'],
+         'author' => ['required', 'string'],
          'pages' => ['required', 'numeric'],
          'publisher' => ['required', 'string'],
          'publish_date' => ['required', 'date'],
-         'genre' => ['required', 'string'],
+         'genre' => ['required', 'string', 'alpha'],
          'quantity' => ['required', 'numeric'],
-         'language' => ['required', 'string'],
+         'language' => ['required', 'string', 'alpha'],
          'book_photo' => ['required', 'mimes:jpeg, png, jpg', 'file', 'max:1024'],
          'summary' => ['required', 'string'],
       ];

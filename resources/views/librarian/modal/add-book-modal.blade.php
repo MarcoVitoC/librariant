@@ -3,13 +3,13 @@
       <div class="modal-content">
          <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add book</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close1"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="addBookBtn-close1"></button>
          </div>
-         <form action="{{ route('librarian.add_book') }}" method="POST" enctype="multipart/form-data" id="addbookForm">
+         <form action="{{ route('librarian.add_book') }}" method="POST" enctype="multipart/form-data" id="addBookForm">
             @csrf
             <div class="modal-body d-flex align-items-center justify-content-center">
                <div class="">
-                  <img src="{{ asset('images/banner.png') }}" alt="Book Preview" class="me-4 bookPreview" width="330px" height="445px">
+                  <img src="{{ asset('images/banner.png') }}" alt="Book Preview" class="me-4 addBookPreview" width="330px" height="445px">
                </div>
                <div class="col-8">
                   <div class="d-flex">
@@ -68,7 +68,7 @@
                      </div>
                      <div class="ps-3 mb-3 col-6">
                         <label for="book_photo" class="form-label">Book Photo:</label>
-                        <input class="form-control input-field" type="file" id="book_photo" name="book_photo"  onchange="bookPreview()">
+                        <input class="form-control input-field" type="file" id="book_photo" name="book_photo"  onchange="addBookPreview()">
                         <div class="book_photo-feedback"></div>
                      </div>
                   </div>
@@ -80,7 +80,7 @@
                </div>
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btn-close2">Close</button>
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="addBookBtn-close2">Close</button>
                <button type="submit" class="btn btn-primary" id="addBookBtn">Add book</button>
             </div>
          </form>
