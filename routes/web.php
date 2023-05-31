@@ -29,8 +29,10 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
    Route::get('/', [LibrarianController::class, 'dashboard'])->name('librarian.dashboard');
    
-   Route::get('/books', [LibrarianController::class, 'books'])->name('librarian.books');
+   Route::get('/books', [BookController::class, 'showBooks'])->name('librarian.books');
    Route::post('/books', [BookController::class, 'addBook'])->name('librarian.add_book');
+   Route::put('/books', [BookController::class, 'updateBook'])->name('librarian.update_book');
+   Route::delete('/books', [BookController::class, 'deleteBook'])->name('librarian.delete_book');
 
    Route::get('/transactions', [LibrarianController::class, 'transactions'])->name('librarian.transactions');
    Route::get('/reservations', [LibrarianController::class, 'reservations'])->name('librarian.reservations');
