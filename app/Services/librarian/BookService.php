@@ -30,7 +30,8 @@ class BookService {
       $book->update($updatedBook);
    }
 
-   public function deleteBook() {
-      //
+   public function removeBook($book) {
+      Storage::delete($book->book_photo);
+      $book->delete();
    }
 }

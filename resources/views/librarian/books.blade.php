@@ -15,7 +15,7 @@
    <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 m-4">
       @foreach ($books as $book)
          <div class="d-flex justify-content-center">
-            <div class="card w-85 h-100 cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateBookModal-{{ $book->id }}">
+            <div class="card w-85 h-100 cursor-pointer bookCard" data-book-id="{{ $book->id }}" data-bs-toggle="modal" data-bs-target="#editBookModal-{{ $book->id }}">
                <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="210px">
                <div class="card-body text-decoration">
                   <h5 class="card-title">{{ $book->book_title }}</h5>
@@ -25,7 +25,7 @@
          </div>
       @endforeach
    </div>
-   @include('librarian.modal.update-book-modal')
+   @include('librarian.modal.edit-book-modal')
    <div class="d-flex justify-content-between align-items-center mx-5">
       <p class="text-secondary fw-normal fs-7">
          Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
@@ -90,10 +90,10 @@
 
          $('updateBookBtn').click((e) => {
             e.preventDefault();
-
+            
             $.ajax({
                type: 'PUT',
-               url: "{{ route('librarian.update_book') }}",
+               url: $('#updateBookForm').attr('action'),
                data: new FormData($('#updateBookForm')[0]),
                dataType: 'json',
                processData: false,
@@ -103,7 +103,7 @@
                      icon: 'success',
                      title: response.message,
                   }).then(() => {
-                     $('#updateBookModal').modal('hide');
+                     $('#editBookModal').modal('hide');
                   });
                },
                error: (xhr, status, error) => {
@@ -125,36 +125,54 @@
                      }
                   }
 
-                  $('#updateBookModal').modal('show');
+                  $('#editBookModal').modal('show');
                }
             });
          });
 
-         $('#updateBookBtn-close1, #updateBookBtn-close2').click(() => {
+         $('#removeBookBtn').click((e) => {
+            e.preventDefault();
+
+            Swal.fire({
+               icon: 'warning',
+               title: 'Are you sure want to remove this book?',
+               text: 'Removed book cannot be undo!',
+               showCancelButton: true,
+               cancelButtonColor: '#D33',
+               confirmButtonColor: '#3085D6',
+               confirmButtonText: 'Yes'
+            }).then((result) => {
+               if (result.isConfirmed) {
+                  Swal.fire(
+                     icon: 'success',
+                     title: 'Book removed successfully!'
+                  )
+               }
+               $('#editBookModal').modal('hide');
+            });
+         })
+
+         $('.bookCard').click(function() {
+            const bookId = $(this).data('book-id');
+            const bookPhoto = $(this).find('img').attr('src');
+            $('.updatedBookPreview_' +bookId).attr('src', bookPhoto);
+            $('#updateBookForm input[name="book_photo"]').val('');
+         })
+
+         $('#editBookBtn-close1, #editBookBtn-close2').click(() => {
             $('.input-field').removeClass('is-valid');
             $('.input-field').removeClass('is-invalid');
          });
       });
 
-      const addBookPreview = () => {
-         const bookImg = document.querySelector('#book_photo');
-         const addBookPreview = document.querySelector('.addBookPreview');
+      const bookPreview = (bookPhoto, bookPreview) => {
+         const bookImg = document.querySelector('#' +bookPhoto);
+         const bookPreviewDisplay = document.querySelector('.' +bookPreview);
 
          const oFReader = new FileReader();
          oFReader.readAsDataURL(bookImg.files[0]);
          oFReader.onload = (oFREvent) => {
-            addBookPreview.src = oFREvent.target.result;
-         }
-      }
-
-      const updateBookPreview = () => {
-         const bookImg = document.querySelector('#book_photo');
-         const updateBookPreview = document.querySelector('.updateBookPreview');
-
-         const oFReader = new FileReader();
-         oFReader.readAsDataURL(bookImg.files[0]);
-         oFReader.onload = (oFREvent) => {
-            updateBookPreview.src = oFREvent.target.result;
+            bookPreviewDisplay.src = oFREvent.target.result;
          }
       }
    </script>
