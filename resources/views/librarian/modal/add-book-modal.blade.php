@@ -68,13 +68,13 @@
                      </div>
                      <div class="ps-3 mb-3 col-6">
                         <label for="book_photo" class="form-label">Book Photo:</label>
-                        <input class="form-control input-field" type="file" id="book_photo" name="book_photo"  onchange="addBookPreview()">
+                        <input class="form-control input-field" type="file" id="book_photo" name="book_photo"  onchange="bookPreview('book_photo', 'addBookPreview')">
                         <div class="book_photo-feedback"></div>
                      </div>
                   </div>
                   <div class="mb-3">
                      <label for="summary" class="col-form-label">Summary:</label>
-                     <textarea class="form-control input-field" id="summary" name="summary" value="{{ old('summary') }}"></textarea>
+                     <textarea class="form-control input-field" id="summary" name="summary">{{ old('summary') }}</textarea>
                      <div class="summary-feedback"></div>
                   </div>
                </div>

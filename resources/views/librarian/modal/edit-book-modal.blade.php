@@ -1,18 +1,17 @@
 @foreach ($books as $book)
-   <div class="modal fade" id="updateBookModal-{{ $book->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" id="editBookModal-{{ $book->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-xl">
          <div class="modal-content">
             <div class="modal-header">
-               <h1 class="modal-title fs-5" id="exampleModalLabel">Update book</h1>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="updateBookBtn-close1"></button>
+               <h1 class="modal-title fs-5" id="exampleModalLabel">Edit book</h1>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="editBookBtn-close1"></button>
             </div>
             <form action="{{ route('librarian.update_book') }}" method="POST" enctype="multipart/form-data" id="updateBookForm">
-               @method('PUT')
+               @method('put')
                @csrf
-               <input type="hidden" id="updatedBookId" name="book_id">
                <div class="modal-body d-flex align-items-center justify-content-center">
                   <div class="">
-                     <img src="{{ asset('storage/' . $book->book_photo) }}" alt="Book Preview" class="me-4 updateBookPreview" width="330px" height="445px">
+                     <img src="{{ asset('storage/' . $book->book_photo) }}" alt="Book Preview" class="me-4 updatedBookPreview_{{ $book->id }}" width="330px" height="445px">
                      <input type="hidden" name="oldBookPreview" value="{{ $book->book_photo }}">
                   </div>
                   <div class="col-8">
@@ -72,20 +71,25 @@
                         </div>
                         <div class="ps-3 mb-3 col-6">
                            <label for="book_photo" class="form-label">Book Photo:</label>
-                           <input class="form-control input-field" type="file" id="book_photo" name="book_photo"  onchange="updateBookPreview()">
+                           <input class="form-control input-field" type="file" id="book_photo_{{ $book->id }}" name="book_photo"  onchange="bookPreview(this.id, 'updatedBookPreview_{{ $book->id }}')">
                            <div class="book_photo-feedback"></div>
                         </div>
                      </div>
                      <div class="mb-3">
                         <label for="summary" class="col-form-label">Summary:</label>
-                        <textarea class="form-control input-field" id="summary" name="summary" value="{{ old('summary', $book->summary) }}"></textarea>
+                        <textarea class="form-control input-field" id="summary" name="summary">{{ old('summary', $book->summary) }}</textarea>
                         <div class="summary-feedback"></div>
                      </div>
                   </div>
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updateBookBtn-close2">Close</button>
-                  <button type="submit" class="btn btn-primary" id="updateBookBtn">Save Changes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="editBookBtn-close2">Close</button>
+                  <form action="{{ route('librarian.remove_book') }}" method="POST">
+                     @method('delete')
+                     @csrf
+                     <button type="submit" class="btn btn-danger" id="removeBookBtn">Remove Book</button>
+                  </form>
+                  <button type="submit" class="btn btn-primary" id="updateBookBtn">Update Book</button>
                </div>
             </form>
          </div>
