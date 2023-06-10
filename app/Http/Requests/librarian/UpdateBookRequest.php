@@ -24,17 +24,17 @@ class UpdateBookRequest extends FormRequest
    public function rules()
    {
       return [
-         'isbn' => ['numeric'],
-         'book_title' => ['max:255'],
-         'author' => ['string'],
-         'pages' => ['numeric'],
-         'publisher' => ['string'],
-         'publish_date' => ['date'],
-         'genre' => ['string', 'alpha'],
-         'quantity' => ['numeric'],
-         'language' => ['string', 'alpha'],
+         'isbn' => ['required', 'numeric'],
+         'book_title' => ['required', 'max:255'],
+         'author' => ['required', 'string'],
+         'pages' => ['required', 'numeric'],
+         'publisher' => ['required', 'string'],
+         'publish_date' => ['required', 'date'],
+         'genre' => ['required', 'string', 'not_regex:/[0-9]/'],
+         'quantity' => ['required', 'numeric'],
+         'language' => ['required', 'string', 'alpha'],
          'book_photo' => ['mimes:jpeg, png, jpg', 'file', 'max:1024'],
-         'summary' => ['string'],
+         'summary' => ['required', 'string'],
       ];
    }
 }

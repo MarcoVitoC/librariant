@@ -30,9 +30,10 @@ Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
    Route::get('/', [LibrarianController::class, 'dashboard'])->name('librarian.dashboard');
    
    Route::get('/books', [BookController::class, 'showBooks'])->name('librarian.books');
-   Route::post('/books', [BookController::class, 'addBook'])->name('librarian.add_book');
-   Route::put('/books', [BookController::class, 'updateBook'])->name('librarian.update_book');
-   Route::delete('/books', [BookController::class, 'removeBook'])->name('librarian.remove_book');
+   Route::get('/bookDetails', [BookController::class, 'showBookDetails'])->name('librarian.book_details');
+   Route::post('/addBook', [BookController::class, 'addBook'])->name('librarian.add_book');
+   Route::put('/updateBook', [BookController::class, 'updateBook'])->name('librarian.update_book');
+   Route::delete('/books/{id}', [BookController::class, 'removeBook'])->name('librarian.remove_book');
 
    Route::get('/transactions', [LibrarianController::class, 'transactions'])->name('librarian.transactions');
    Route::get('/reservations', [LibrarianController::class, 'reservations'])->name('librarian.reservations');

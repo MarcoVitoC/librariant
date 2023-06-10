@@ -30,7 +30,7 @@ class AddBookRequest extends FormRequest
          'pages' => ['required', 'numeric'],
          'publisher' => ['required', 'string'],
          'publish_date' => ['required', 'date'],
-         'genre' => ['required', 'string', 'alpha'],
+         'genre' => ['required', 'string', 'not_regex:/[0-9]/'],
          'quantity' => ['required', 'numeric'],
          'language' => ['required', 'string', 'alpha'],
          'book_photo' => ['required', 'mimes:jpeg, png, jpg', 'file', 'max:1024'],

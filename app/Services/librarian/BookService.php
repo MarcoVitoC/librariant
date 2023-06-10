@@ -19,18 +19,25 @@ class BookService {
       return Book::paginate(12)->withQueryString();
    }
 
-   public function updateBook($request, $book) {
-      $updatedBook = $request->validated();
+   public function showBookDetails($request) {
+      return Book::find($request->id);
+   }
 
+   public function updateBook($request) {
+      $book = Book::find($request->book_id);
+      $updatedBook = $request->validated();
+      
       if ($request->file('book_photo')) {
          $updatedBook['book_photo'] = $request->file('book_photo')->store('book-photos');
          Storage::delete($request->oldBookPreview);
       }
-
+      
       $book->update($updatedBook);
    }
 
-   public function removeBook($book) {
+   public function removeBook($id) {
+      $book = Book::find($id);
+
       Storage::delete($book->book_photo);
       $book->delete();
    }
