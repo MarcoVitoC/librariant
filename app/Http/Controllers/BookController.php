@@ -26,13 +26,18 @@ class BookController extends Controller
       return view('librarian.books', ['books' => $books]);
    }
 
-   public function updateBook(UpdateBookRequest $request, Book $book) {
-      $this->bookService->updateBook($request, $book);
-      return response()->json(['message' => 'Book updated successfully!'], 200);
+   public function showBookDetails(Request $request) {
+      $bookDetails = $this->bookService->showBookDetails($request);
+      return response()->json(['book' => $bookDetails]);
    }
 
-   public function removeBook(Book $book) {
-      $this->bookService->removeBook($book);
+   public function updateBook(UpdateBookRequest $request) {
+      $updatedBook = $this->bookService->updateBook($request);
+      return response()->json(['message' => 'Book updated successfully!', 'updatedBook' => $updatedBook], 200);
+   }
+
+   public function removeBook($id) {
+      $this->bookService->removeBook($id);
       return response()->json(['message' => 'Book removed successfully!'], 200);
    }
 }
