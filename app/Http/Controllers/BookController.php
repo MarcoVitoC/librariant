@@ -32,8 +32,8 @@ class BookController extends Controller
    }
 
    public function updateBook(UpdateBookRequest $request) {
-      $updatedBook = $this->bookService->updateBook($request);
-      return response()->json(['message' => 'Book updated successfully!', 'updatedBook' => $updatedBook], 200);
+      $this->bookService->updateBook($request);
+      return response()->json(['message' => 'Book updated successfully!'], 200);
    }
 
    public function removeBook($id) {
