@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Http\Requests\librarian\UpdateBookRequest;
 use App\Http\Requests\librarian\AddBookRequest;
