@@ -16,7 +16,7 @@ class BookService {
    }
 
    public function showBooks() {
-      return Book::paginate(12)->withQueryString();
+      return Book::paginate(10)->withQueryString();
    }
 
    public function showBookDetails($request) {
@@ -35,8 +35,8 @@ class BookService {
       $book->update($updatedBook);
    }
 
-   public function removeBook($id) {
-      $book = Book::find($id);
+   public function removeBook($request) {
+      $book = Book::find($request->id);
 
       Storage::delete($book->book_photo);
       $book->delete();

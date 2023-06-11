@@ -68,7 +68,7 @@
                      </div>
                      <div class="ps-3 mb-3 col-6">
                         <label for="book_photo" class="form-label">Book Photo:</label>
-                        <input class="form-control input-field" type="file" id="book_photo" name="book_photo"  onchange="bookPreview('book_photo', 'addBookPreview')">
+                        <input class="form-control input-field" type="file" id="book_photo" name="book_photo">
                         <div class="book_photo-feedback"></div>
                      </div>
                   </div>

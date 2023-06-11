@@ -36,8 +36,8 @@ class BookController extends Controller
       return response()->json(['message' => 'Book updated successfully!'], 200);
    }
 
-   public function removeBook($id) {
-      $this->bookService->removeBook($id);
+   public function removeBook(Request $request) {
+      $this->bookService->removeBook($request);
       return response()->json(['message' => 'Book removed successfully!'], 200);
    }
 }

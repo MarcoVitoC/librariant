@@ -1,9 +1,9 @@
-<div class="modal fade editBookModal" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade updateBookModal" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
          <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit book</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="editBookBtn-close1"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="updateBookBtn-close1"></button>
          </div>
          <form action="{{ route('librarian.update_book') }}" method="POST" enctype="multipart/form-data" id="updateBookForm">
             @method('put')
@@ -71,7 +71,7 @@
                      </div>
                      <div class="ps-3 mb-3 col-6">
                         <label for="book_photo" class="form-label">Book Photo:</label>
-                        <input class="form-control update-input-field" type="file" id="update-book_photo" name="book_photo" data-value="">
+                        <input class="form-control update-input-field" type="file" id="update-book_photo" name="book_photo">
                         <div class="book_photo-feedback"></div>
                      </div>
                   </div>
@@ -83,8 +83,7 @@
                </div>
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="editBookBtn-close2">Close</button>
-               {{-- <button type="submit" class="btn btn-danger" id="removeBookBtn">Remove Book</button> --}}
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updateBookBtn-close2">Close</button>
                <button type="submit" class="btn btn-primary">Update Book</button>
             </div>
          </form>
