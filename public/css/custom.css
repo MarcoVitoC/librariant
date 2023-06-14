@@ -2,12 +2,24 @@
    font-family: 'Roboto Slab';
 }
 
+.m-6 {
+   margin: 80px;
+}
+
+.mx-6 {
+   margin: 0px 80px;
+}
+
 .bg-champagne {
    background-color: #FAF8F6;
 }
 
 .title-lg {
    font-size: 55px;
+}
+
+.fs-header {
+   font-size: 17px;
 }
 
 .w-30 {
