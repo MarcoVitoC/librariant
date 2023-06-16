@@ -6,15 +6,15 @@
       </button>
       <div class="collapse navbar-collapse mx-2" id="navbarNavAltMarkup">
          <div class="navbar-nav mx-2">
-         <a class="nav-link active mx-3 fw-semibold" aria-current="page" href="{{ route('guest.welcome') }}">Home</a>
+         <a class="nav-link {{ Route::currentRouteNamed('guest.welcome') ? 'active' : '' }} mx-3 fw-semibold" href="{{ route('guest.welcome') }}">Home</a>
          @if (!Auth::check())
-            <a class="nav-link mx-3 fw-semibold" href="/books">Books</a>
+            <a class="nav-link {{ Route::currentRouteNamed('guest.books') ? 'active' : '' }} mx-3 fw-semibold" href="/books">Books</a>
          @else
-            <a class="nav-link mx-3 fw-semibold" href="/mybooks">My Books</a>
-            <a class="nav-link mx-3 fw-semibold" href="/requests">Requests</a>
+            <a class="nav-link {{ Route::currentRouteNamed('user.books') ? 'active' : '' }} mx-3 fw-semibold" href="/mybooks">My Books</a>
+            <a class="nav-link {{ Route::currentRouteNamed('user.requests') ? 'active' : '' }} mx-3 fw-semibold" href="/requests">Requests</a>
          @endif
-            <a class="nav-link mx-3 fw-semibold" href="/about">About</a>
-            <a class="nav-link mx-3 fw-semibold" href="/faq">FAQ</a>
+            <a class="nav-link {{ Route::currentRouteNamed('guest.about_us') ? 'active' : '' }} mx-3 fw-semibold" href="/about">About</a>
+            <a class="nav-link {{ Route::currentRouteNamed('guest.faq') ? 'active' : '' }} mx-3 fw-semibold" href="/faq">FAQ</a>
          </div>
       </div>
       @if (!Auth::check())
