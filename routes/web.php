@@ -9,7 +9,8 @@ use App\Http\Controllers\LibrarianController;
 use App\Http\Controllers\BookController;
 
 Route::middleware(['guest'])->group(function() {
-   Route::get('/', [GuestController::class, 'welcome'])->name('welcome');
+   Route::get('/', [GuestController::class, 'welcome'])->name('guest.welcome');
+   Route::get('/books', [GuestController::class, 'books'])->name('guest.books');
 
    Route::get('/login', [LoginController::class, 'login'])->name('login');
    Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
