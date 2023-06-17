@@ -1,6 +1,6 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 220px; height: 100vh;">
    <a class="navbar-brand d-flex justify-content-center" href="/">
-      <img src="{{ asset('images/Librariant Logo (Dark Mode).png') }}" alt="Librariant" width="160px" height="50px">
+      <img src="{{ asset('images/Librariant Logo (Dark).png') }}" alt="Librariant" width="160px" height="50px">
    </a>
    <hr>
    <div class="nav nav-pills flex-column mb-auto">

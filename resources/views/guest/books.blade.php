@@ -45,4 +45,5 @@
          </ul>
       </nav>
    </div>
+   @include('layouts.footer')
 @endsection

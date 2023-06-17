@@ -5,4 +5,5 @@
    <div class="">
       FAQ Page
    </div>
+   @include('layouts.footer')
 @endsection

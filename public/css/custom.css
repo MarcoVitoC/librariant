@@ -10,12 +10,20 @@
    margin: 0px 80px;
 }
 
-.bg-champagne {
-   background-color: #FBF3E9;
+.bg-cornsilk {
+   background-color: #FFF4E0;
 }
 
-.bg-alabaster {
-   background-color: #FDF9F4;
+.bg-pale {
+   background-color: #FFBF9B;
+}
+
+.text-pale {
+   color: #FFBF9B;
+}
+
+.border-pale {
+   border-color: #FFBF9B !important;
 }
 
 .title-lg {
@@ -40,7 +48,7 @@
 
 .nav-pills .active {
    color: #1A1A1A !important;
-   background-color: #F7E8D3 !important;
+   background-color: #FFF4E0 !important;
 }
 
 .fs-7 {
@@ -49,4 +57,16 @@
 
 .cursor-pointer {
    cursor: pointer;
+}
+
+.line {
+   width: 5%;
+   height: 5px;
+   background-color: #FFBF9B;
+   border-radius: 20px;
+}
+
+.img-fluid {
+   max-width: 100%;
+   height: 310px;
 }
