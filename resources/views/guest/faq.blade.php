@@ -5,5 +5,5 @@
    <div class="">
       FAQ Page
    </div>
-   @include('layouts.footer')
+   {{-- @include('layouts.footer') --}}
 @endsection

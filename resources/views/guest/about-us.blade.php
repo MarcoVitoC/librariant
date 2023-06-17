@@ -11,7 +11,7 @@
    <div class="d-flex mx-6">
       <div class="ms-3 w-85 pe-5">
          <p>Welcome to Librariant, your gateway to knowledge, exploration, and inspiration. As a cherished institution in our community, we are dedicated to providing a nurturing and inclusive environment for individuals of all ages and backgrounds.</p>
-         <p>At Librariant, we believe in the power of books and information to transform lives. Our library is more than just a building filled with shelves; it's a vibrant hub where ideas flourish, imaginations soar, and connections are made. Step through our doors, and you'll discover a world of possibilities. </p>
+         <p>At Librariant, we believe in the power of books and information to transform lives. Our library is more than just a building filled with shelves; it's a vibrant hub where ideas flourish, imaginations soar, and connections are made. Step through our doors, and you'll discover a world of possibilities.</p>
       </div>
       <div class="me-3 w-85">
          <p>Our extensive collection spans a diverse range of subjects, from classic literature to cutting-edge research, from captivating novels to practical guides. Whether you're seeking enlightenment, entertainment, or a little bit of both, you'll find the resources you need to satisfy your thirst for knowledge.</p>
