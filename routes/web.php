@@ -11,6 +11,8 @@ use App\Http\Controllers\BookController;
 Route::middleware(['guest'])->group(function() {
    Route::get('/', [GuestController::class, 'welcome'])->name('guest.welcome');
    Route::get('/books', [GuestController::class, 'books'])->name('guest.books');
+   Route::get('/about-us', [GuestController::class, 'aboutUs'])->name('guest.about_us');
+   Route::get('/faq', [GuestController::class, 'faq'])->name('guest.faq');
 
    Route::get('/login', [LoginController::class, 'login'])->name('login');
    Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');

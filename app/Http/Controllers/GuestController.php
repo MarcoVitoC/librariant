@@ -14,12 +14,20 @@ class GuestController extends Controller
    }
 
    public function welcome() {
-      $books = $this->guestService->fetchBooks();
+      $books = $this->guestService->fetchSomeBooks();
       return view('guest.welcome', ['books' => $books]);
    }
 
    public function books() {
-      $books = $this->guestService->fetchBooks();
+      $books = $this->guestService->fetchAllBooks();
       return view('guest.books', ['books' => $books]);
+   }
+
+   public function aboutUs() {
+      return view('guest.about-us');
+   }
+
+   public function faq() {
+      return view('guest.faq');
    }
 }

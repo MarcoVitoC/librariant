@@ -8,13 +8,13 @@
          <div class="navbar-nav mx-2">
          <a class="nav-link {{ Route::currentRouteNamed('guest.welcome') ? 'active' : '' }} mx-3 fw-semibold" href="{{ route('guest.welcome') }}">Home</a>
          @if (!Auth::check())
-            <a class="nav-link {{ Route::currentRouteNamed('guest.books') ? 'active' : '' }} mx-3 fw-semibold" href="/books">Books</a>
+            <a class="nav-link {{ Route::currentRouteNamed('guest.books') ? 'active' : '' }} mx-3 fw-semibold" href="{{ route('guest.books') }}">Books</a>
          @else
             <a class="nav-link {{ Route::currentRouteNamed('user.books') ? 'active' : '' }} mx-3 fw-semibold" href="/mybooks">My Books</a>
             <a class="nav-link {{ Route::currentRouteNamed('user.requests') ? 'active' : '' }} mx-3 fw-semibold" href="/requests">Requests</a>
          @endif
-            <a class="nav-link {{ Route::currentRouteNamed('guest.about_us') ? 'active' : '' }} mx-3 fw-semibold" href="/about">About</a>
-            <a class="nav-link {{ Route::currentRouteNamed('guest.faq') ? 'active' : '' }} mx-3 fw-semibold" href="/faq">FAQ</a>
+            <a class="nav-link {{ Route::currentRouteNamed('guest.about_us') ? 'active' : '' }} mx-3 fw-semibold" href="{{ route('guest.about_us') }}">About</a>
+            <a class="nav-link {{ Route::currentRouteNamed('guest.faq') ? 'active' : '' }} mx-3 fw-semibold" href="{{ route('guest.faq') }}">FAQ</a>
          </div>
       </div>
       @if (!Auth::check())

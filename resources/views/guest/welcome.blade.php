@@ -36,7 +36,7 @@
    <div class="m-6">
       <div class="d-flex align-items-baseline justify-content-between mb-3 px-4">
          <h1 class="fw-medium">Popular Books</h1>
-         <a href="/books" class="fw-medium cursor-pointer link-dark link-offset-1 link-underline-opacity-0 link-underline-opacity-100-hover">See all</a>
+         <a href="{{ route('guest.books') }}" class="fw-medium cursor-pointer link-dark link-offset-1 link-underline-opacity-0 link-underline-opacity-100-hover">See all</a>
       </div>
       <div class="d-flex align-items-baseline justify-content-between px-4">
          @php
@@ -49,7 +49,7 @@
                   <div class="card-body">
                      <h5 class="card-title">{{ $book->book_title }}</h5>
                      <p class="card-text">by: {{ $book->author }}</p>
-                     <a href="/register" class="btn btn-dark">Borrow</a>
+                     <a href="{{ route('register') }}" class="btn btn-dark">Borrow</a>
                   </div>
                </div>
                @php

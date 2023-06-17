@@ -2,7 +2,7 @@
 @section('title', 'Librariant')
 
 @section('content')
-   <div class="bg-champagne">
+   <div class="">
       <div class="container pt-4">
          <form class="d-flex justify-content-center" role="search">
             <input class="form-control w-50 me-2" type="search" placeholder="Search..." aria-label="Search">
@@ -14,7 +14,7 @@
       <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 mt-4 mx-4 pb-5">
          @foreach ($books as $book)
             <div class="d-flex justify-content-center">
-               <a href="{{ route('guest.book_details') }}" class="card w-85 h-100 text-decoration-none cursor-pointer">
+               <a href="" class="card w-85 h-100 text-decoration-none cursor-pointer">
                   <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
                   <div class="card-body text-decoration">
                      <h5 class="card-title">{{ $book->book_title }}</h5>
@@ -24,5 +24,25 @@
             </div>
          @endforeach
       </div>
+   </div>
+   <div class="d-flex justify-content-between align-items-center mx-5">
+      <p class="text-secondary fw-normal fs-7">
+         Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
+      </p>
+      <nav>
+         <ul class="pagination">
+            <li class="page-item {{ $books->currentPage() === 1 ? 'disabled' : '' }}">
+               <a class="page-link" href="{{ $books->previousPageUrl() }}" tabindex="-1" aria-disabled="true">&lsaquo;</a>
+            </li>
+            @for ($i = 1; $i <= $books->lastPage(); $i++)
+               <li class="page-item {{ $books->currentPage() === $i ? 'active' : '' }}">
+                  <a class="page-link" href="{{ $books->url($i) }}">{{ $i }}</a>
+               </li>
+            @endfor
+            <li class="page-item {{ $books->currentPage() === $books->lastPage() ? 'disabled' : '' }}">
+               <a class="page-link" href="{{ $books->nextPageUrl() }}">&rsaquo;</a>
+            </li>
+         </ul>
+      </nav>
    </div>
 @endsection

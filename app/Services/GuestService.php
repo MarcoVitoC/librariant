@@ -5,7 +5,11 @@ namespace App\Services;
 use App\Models\Book;
 
 class GuestService {
-   public function fetchBooks() {
+   public function fetchSomeBooks() {
       return Book::all();
+   }
+
+   public function fetchAllBooks() {
+      return Book::paginate(18)->withQueryString();
    }
 }
