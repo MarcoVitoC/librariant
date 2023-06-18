@@ -3,7 +3,7 @@
 
 @section('content')
    <div class="bg-cornsilk mb-5 py-5">
-      <h1 class="text-center">About Us</h1>
+      <h2 class="text-center">About Us</h2>
       <div class="line mt-5 mb-4 mx-auto"></div>
       <h2 class="fw-normal text-center w-75 m-auto">"<span class="text-pale">Empowering</span> minds through the fusion<br> of <span class="text-pale">knowledge and readers.</span>"</h2>
       <div class="line mt-4 mb-2 mx-auto"></div>

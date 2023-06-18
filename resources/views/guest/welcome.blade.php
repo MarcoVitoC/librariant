@@ -7,7 +7,7 @@
          <div class="px-4">
             <h1 class="title-lg fw-bold">Unleash Your Curiosity: <br>Welcome to Librariant!</h1>
             <h5 class="fw-normal fs-header lh-sm w-75 my-3">Streamline library operations with our user-friendly platform for cataloging, lending, and returning books. Find books easily, place holds, and receive notifications. Enjoy secure access and data protection. Explore our platform for an organized and accessible library environment!</h5>
-            <a class="btn btn-dark" href="{{ route('login') }}" role="button">Explore now</a>
+            <a class="btn btn-dark" href="{{ route('guest.books') }}" role="button">Explore now</a>
          </div>
          <div class="align-items-center">
             <img src="{{ asset('images/banner.png') }}" alt="Library" width="430px" height="450px">
@@ -35,7 +35,7 @@
    </div>
    <div class="m-6">
       <div class="d-flex align-items-baseline justify-content-between mb-3 px-4">
-         <h1 class="fw-medium">Popular Books</h1>
+         <h2 class="fw-medium">Popular Books</h2>
          <a href="{{ route('guest.books') }}" class="fw-medium cursor-pointer link-dark link-offset-1 link-underline-opacity-0 link-underline-opacity-100-hover">See all</a>
       </div>
       <div class="d-flex justify-content-between px-4">

@@ -1,4 +1,4 @@
-<div class="bg-cornsilk px-4">
+<footer class="bg-cornsilk mt-5 px-4">
    <div class="d-flex align-items-center justify-content-between mx-6 pt-3 pb-4">
       <div>
          <div class="d-flex">
@@ -16,7 +16,7 @@
       </div>
       <div>
          <div class="d-flex justify-content-center pb-3">
-            <a href="https://www.facebook.com/" target="_blank"><i class="bi bi-facebook text-dark fs-4 mx-2"></i></a>
+            <a href="https://www.facebook.com/" target="_blank"><i class="bi bi-facebook text-dark fs-4 me-2"></i></a>
             <a href="https://twitter.com/" target="_blank"><i class="bi bi-twitter text-dark fs-4 mx-2"></i></a>
             <a href="https://www.instagram.com/" target="_blank"><i class="bi bi-instagram text-dark fs-4 mx-2"></i></a>
             <a href="https://www.linkedin.com/" target="_blank"><i class="bi bi-linkedin text-dark fs-4 mx-2"></i></a>
@@ -29,4 +29,4 @@
          <p class="ps-3">Discover a world of knowledge at our library. We offer a vast collection of books, magazines, and e-books to fuel your curiosity.</p>
       </div>
    </div>
-</div>
+</footer>

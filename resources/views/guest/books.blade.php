@@ -14,7 +14,7 @@
       <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 mt-4 mx-4 pb-5">
          @foreach ($books as $book)
             <div class="d-flex justify-content-center">
-               <a href="" class="card w-85 h-100 text-decoration-none cursor-pointer">
+               <a href="/books/book-details" class="card w-85 h-100 text-decoration-none cursor-pointer">
                   <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
                   <div class="card-body text-decoration">
                      <h5 class="card-title">{{ $book->book_title }}</h5>
