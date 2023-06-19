@@ -21,16 +21,26 @@
       @if (!Auth::check())
          <a class="btn btn-dark" href="/login" role="button">Log in</a>
       @else
-         <div class="dropdown d-flex align-items-center">
-            <a class="nav-link fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="d-flex align-items-center">
+         <div class="border-end pe-3">
+            <a href="" class="text-secondary fs-5 me-3"><i class="bi bi-bookmarks-fill"></i></a>
+            <a href="" class="text-secondary fs-5 me-3"><i class="bi bi-bag-plus-fill"></i></a>
+            <a href="" class="text-secondary fs-5"><i class="bi bi-bell-fill"></i></a>
+         </div>
+         <div class="dropdown d-flex align-items-center ms-3">
+            <a class="nav-link fs-2 text-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="bi bi-person-circle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
+               <a class="dropdown-item" href="#">
+                  <i class="bi bi-person me-2"></i>My Profile
+               </a>
                <a class="dropdown-item text-danger" href="{{ route('logout') }}">
                   <i class="bi bi-box-arrow-right me-2 text-danger"></i>Log out
                </a>
             </div>
          </div>
+      </div>
       @endif
    </div>
  </nav>

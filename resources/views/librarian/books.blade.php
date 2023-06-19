@@ -33,11 +33,11 @@
                   <td class="border text-center">{{ $book->author }}</td>
                   <td class="border text-center">{{ $book->quantity }}</td>
                   <td class="border text-center">
-                     <button type="button" class="btn btn-warning updateBookBtn" data-book-id="{{ $book->id }}">
-                        <i class="bi bi-pencil-square"></i>
+                     <button type="button" class="btn updateBookBtn" data-book-id="{{ $book->id }}">
+                        <i class="bi bi-pencil-fill"></i>
                      </button>
-                     <button type="button" class="btn btn-danger removeBookBtn" data-book-id="{{ $book->id }}">
-                        <i class="bi bi-trash"></i>
+                     <button type="button" class="btn removeBookBtn" data-book-id="{{ $book->id }}">
+                        <i class="bi bi-trash-fill"></i>
                      </button>
                   </td>
                </tr>

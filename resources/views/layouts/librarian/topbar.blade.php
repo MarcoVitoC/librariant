@@ -5,10 +5,10 @@
       </button>
       <div class="d-flex align-items-center">
          <div class="border-end pe-3">
-            <a href="" class="text-secondary"><i class="bi bi-bell-fill"></i></a>
+            <a href="" class="text-secondary fs-5"><i class="bi bi-bell-fill"></i></a>
          </div>
          <div class="dropdown d-flex align-items-center ms-3">
-            <a class="nav-link fs-5 text-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link fs-4 text-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="bi bi-person-circle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
