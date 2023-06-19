@@ -10,7 +10,7 @@ class BookService {
       return Book::paginate(18)->withQueryString();
    }
 
-   public function showBookDetails($request) {
-      return Book::find($request->id);
+   public function fetchBookDetails($id) {
+      return Book::find($id);
    }
 }

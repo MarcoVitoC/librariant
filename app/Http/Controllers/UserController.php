@@ -17,4 +17,9 @@ class UserController extends Controller
       $books = $this->bookService->fetchBooks();
       return view('user.index', ['books' => $books]);
    }
+
+   public function bookDetails($id) {
+      $bookDetails = $this->bookService->fetchBookDetails($id);
+      return view('user.book-details', ['bookDetails' => $bookDetails]);
+   }
 }

@@ -23,19 +23,23 @@
       @else
       <div class="d-flex align-items-center">
          <div class="border-end pe-3">
-            <a href="" class="text-secondary fs-5 me-3"><i class="bi bi-bookmarks-fill"></i></a>
-            <a href="" class="text-secondary fs-5 me-3"><i class="bi bi-bag-plus-fill"></i></a>
-            <a href="" class="text-secondary fs-5"><i class="bi bi-bell-fill"></i></a>
+            <a href="" class="text-secondary fs-4"><i class="bi bi-bell-fill"></i></a>
          </div>
          <div class="dropdown d-flex align-items-center ms-3">
-            <a class="nav-link fs-2 text-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link fs-4 text-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="bi bi-person-circle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-               <a class="dropdown-item" href="#">
+               <a class="dropdown-item py-2" href="#">
                   <i class="bi bi-person me-2"></i>My Profile
                </a>
-               <a class="dropdown-item text-danger" href="{{ route('logout') }}">
+               <a class="dropdown-item py-2" href="#">
+                  <i class="bi bi-bookmarks me-2"></i>My Bookmarks
+               </a>
+               <a class="dropdown-item py-2" href="#">
+                  <i class="bi bi-bag me-2"></i></i>My Requests
+               </a>
+               <a class="dropdown-item py-2 text-danger" href="{{ route('logout') }}">
                   <i class="bi bi-box-arrow-right me-2 text-danger"></i>Log out
                </a>
             </div>
