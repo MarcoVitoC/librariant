@@ -9,8 +9,13 @@ use App\Http\Controllers\LibrarianController;
 use App\Http\Controllers\BookController;
 
 Route::middleware(['visitor'])->group(function() {
-   Route::get('/about-us', [GuestController::class, 'aboutUs'])->name('guest.about_us');
-   Route::get('/faq', [GuestController::class, 'faq'])->name('guest.faq');
+   Route::get('/about-us', function() {
+      return view('visitor.about-us');
+   })->name('visitor.about_us');
+
+   Route::get('/faq', function() {
+      return view('visitor.faq');
+   })->name('visitor.faq');
 });
 
 Route::middleware(['guest'])->group(function() {

@@ -22,12 +22,4 @@ class GuestController extends Controller
       $books = $this->guestService->fetchAllBooks();
       return view('guest.books', ['books' => $books]);
    }
-
-   public function aboutUs() {
-      return view('guest.about-us');
-   }
-
-   public function faq() {
-      return view('guest.faq');
-   }
 }
