@@ -9,7 +9,7 @@
             @csrf
             <div class="modal-body d-flex align-items-center justify-content-center">
                <div class="">
-                  <img src="{{ asset('images/banner.png') }}" alt="Book Preview" class="me-4 addBookPreview" width="330px" height="445px">
+                  <img src="{{ asset('images/Book Preview.png') }}" alt="Book Preview" class="me-4 addBookPreview" width="330px" height="445px">
                </div>
                <div class="col-8">
                   <div class="d-flex">

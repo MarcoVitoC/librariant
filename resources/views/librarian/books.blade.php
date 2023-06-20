@@ -12,46 +12,52 @@
       </form>
    </div>
    @include('librarian.modal.add-book-modal')
-   <div class="m-4">
-      <table class="table table-hover border">
-         <thead class="align-middle">
-            <tr>
-              <th scope="col" class="border text-center">ISBN</th>
-              <th scope="col" class="border text-center">Book Preview</th>
-              <th scope="col" class="border text-center">Book Title</th>
-              <th scope="col" class="border text-center">Author</th>
-              <th scope="col" class="border text-center">Quantity</th>
-              <th scope="col" class="border text-center">Action</th>
-            </tr>
-         </thead>
-         <tbody>
-            @foreach ($books as $book)
-               <tr class="align-middle">
-                  <td class="border text-center">{{ $book->isbn }}</td>
-                  <td class="border text-center"><img src="{{ asset('storage/' . $book->book_photo) }}" alt="Book Preview" width="60px" height="70px" id="displayBookPhoto"></td>
-                  <td class="border text-center">{{ $book->book_title }}</td>
-                  <td class="border text-center">{{ $book->author }}</td>
-                  <td class="border text-center">{{ $book->quantity }}</td>
-                  <td class="border text-center">
-                     <button type="button" class="btn updateBookBtn" data-book-id="{{ $book->id }}">
-                        <i class="bi bi-pencil-fill"></i>
-                     </button>
-                     <button type="button" class="btn removeBookBtn" data-book-id="{{ $book->id }}">
-                        <i class="bi bi-trash-fill"></i>
-                     </button>
-                  </td>
+   @if ($books->isEmpty())
+      <div class="d-flex justify-content-center align-items-center h-75">
+         <h1 class="text-secondary">📚 No books available.</h1>
+      </div>
+   @else
+      <div class="m-4">
+         <table class="table table-hover border">
+            <thead class="align-middle">
+               <tr>
+               <th scope="col" class="border text-center">ISBN</th>
+               <th scope="col" class="border text-center">Book Preview</th>
+               <th scope="col" class="border text-center">Book Title</th>
+               <th scope="col" class="border text-center">Author</th>
+               <th scope="col" class="border text-center">Quantity</th>
+               <th scope="col" class="border text-center">Action</th>
                </tr>
-            @endforeach
-         </tbody>
-      </table>
-   </div>
+            </thead>
+            <tbody>
+               @foreach ($books as $book)
+                  <tr class="align-middle">
+                     <td class="border text-center">{{ $book->isbn }}</td>
+                     <td class="border text-center"><img src="{{ asset('storage/' . $book->book_photo) }}" alt="Book Preview" width="60px" height="70px" id="displayBookPhoto"></td>
+                     <td class="border text-center">{{ $book->book_title }}</td>
+                     <td class="border text-center">{{ $book->author }}</td>
+                     <td class="border text-center">{{ $book->quantity }}</td>
+                     <td class="border text-center">
+                        <button type="button" class="btn updateBookBtn" data-book-id="{{ $book->id }}">
+                           <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button type="button" class="btn removeBookBtn" data-book-id="{{ $book->id }}">
+                           <i class="bi bi-trash-fill"></i>
+                        </button>
+                     </td>
+                  </tr>
+               @endforeach
+            </tbody>
+         </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mx-5">
+         <p class="text-secondary fw-normal fs-7">
+            Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
+         </p>
+         {{ $books->links() }}
+      </div>
+   @endif
    @include('librarian.modal.update-book-modal')
-   <div class="d-flex justify-content-between align-items-center mx-5">
-      <p class="text-secondary fw-normal fs-7">
-         Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
-      </p>
-      {{ $books->links() }}
-   </div>
 @endsection
 
 @section('js-extra')
@@ -73,7 +79,7 @@
                      title: response.message,
                   }).then(function() {
                      $('#addBookForm')[0].reset();
-                     $('.addBookPreview').attr('src', "{{ asset('images/banner.png') }}");
+                     $('.addBookPreview').attr('src', "{{ asset('images/Book Preview.png') }}");
                      $('#addBookModal').modal('hide');
                   });
                },
@@ -111,7 +117,7 @@
 
          $('#addBookBtn-close1, #addBookBtn-close2').click(function() {
             $('#addBookForm')[0].reset();
-            $('.addBookPreview').attr('src', "{{ asset('images/banner.png') }}");
+            $('.addBookPreview').attr('src', "{{ asset('images/Book Preview.png') }}");
             $('.input-field').removeClass('is-valid');
             $('.input-field').removeClass('is-invalid');
          });

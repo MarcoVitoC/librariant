@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class LoanHeader extends Model
 {
    use HasFactory;
 
@@ -15,7 +15,11 @@ class Book extends Model
       return $this->hasMany(LoanDetail::class);
    }
 
-   public function bookmarks() {
-      return $this->hasMany(Bookmark::class);
+   public function user() {
+      return $this->belongsTo(User::class);
+   }
+
+   public function status() {
+      return $this->belongsTo(Status::class);
    }
 }

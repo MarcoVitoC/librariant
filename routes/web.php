@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LibrarianController;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\librarian\LibrarianController;
+use App\Http\Controllers\librarian\BookController;
 
 Route::middleware(['visitor'])->group(function() {
    Route::get('/about-us', function() {

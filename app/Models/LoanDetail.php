@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class LoanDetail extends Model
 {
    use HasFactory;
 
    protected $guarded = ['id'];
 
-   public function loanDetails() {
-      return $this->hasMany(LoanDetail::class);
+   public function loanHeader() {
+      return $this->belongsTo(LoanHeader::class);
    }
 
-   public function bookmarks() {
-      return $this->hasMany(Bookmark::class);
+   public function books() {
+      return $this->hasMany(Book::class);
    }
 }

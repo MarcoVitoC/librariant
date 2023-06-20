@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\user\BookService;
 
 class UserController extends Controller

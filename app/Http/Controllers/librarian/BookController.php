@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\librarian;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\librarian\UpdateBookRequest;
 use App\Http\Requests\librarian\AddBookRequest;
 use App\Services\librarian\BookService;
