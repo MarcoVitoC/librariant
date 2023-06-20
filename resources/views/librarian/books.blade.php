@@ -81,6 +81,7 @@
                      $('#addBookForm')[0].reset();
                      $('.addBookPreview').attr('src', "{{ asset('images/Book Preview.png') }}");
                      $('#addBookModal').modal('hide');
+                     location.reload();
                   });
                },
                error: function(xhr, status, error) {
