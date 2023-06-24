@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\user\BookService;
 
-class UserController extends Controller
+class BookController extends Controller
 {
    private $bookService;
 
@@ -21,6 +21,9 @@ class UserController extends Controller
 
    public function bookDetails($id) {
       $bookDetails = $this->bookService->fetchBookDetails($id);
-      return view('user.book-details', ['bookDetails' => $bookDetails]);
+      return view('user.book-details', [
+         'bookDetails' => $bookDetails['book'], 
+         'bookStatus' => $bookDetails['bookStatus']
+      ]);
    }
 }

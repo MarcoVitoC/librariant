@@ -3,7 +3,8 @@
 namespace App\Services\user;
 
 use App\Models\Book;
-use Illuminate\Support\Facades\Storage;
+use App\Models\LoanHeader;
+use Illuminate\Support\Facades\Auth;
 
 class BookService {
    public function fetchBooks() {
@@ -11,6 +12,19 @@ class BookService {
    }
 
    public function fetchBookDetails($id) {
-      return Book::find($id);
+      $book = Book::find($id);
+      $bookStatus = LoanHeader::with('loanDetails')
+                     ->join('loan_details', 'loan_details.loan_header_id', '=', 'loan_headers.id')
+                     ->where('user_id', Auth::user()->id)
+                     ->where('book_id', $book->id)
+                     ->where('status_id', 3)
+                     ->first();
+
+      if ($bookStatus) {
+         $bookDetails = ['book' => $book, 'bookStatus' => $bookStatus->status_id];
+      }else {
+         $bookDetails = ['book' => $book, 'bookStatus' => 3];
+      }
+      return $bookDetails;
    }
 }

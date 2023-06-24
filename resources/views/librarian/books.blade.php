@@ -1,4 +1,4 @@
-@extends('layouts.librarian.master')
+@extends('layouts.librarian.main')
 @section('title', 'Librarian | Books')
 
 @section('content')
@@ -217,7 +217,8 @@
                showCancelButton: true,
                cancelButtonColor: '#D33',
                confirmButtonColor: '#3085D6',
-               confirmButtonText: 'Yes'
+               confirmButtonText: 'Yes',
+               reverseButtons: true
             }).then(function(result) {
                if (result.isConfirmed) {
                   $.ajax({

@@ -25,27 +25,27 @@
                <i class="bi bi-bell-fill"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-               <a class="dropdown-item py-2" href="#">
+               <a class="dropdown-item py-2" href="">
                   <i class="bi bi-bell-slash me-2"></i>You have no notifications at the moment.
                </a>
             </div>
          </div>
          <div class="vr mx-3 text-secondary"></div>
          <div class="dropdown">
-            <a class="nav-link fs-4 text-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link fs-4 text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                <i class="bi bi-person-circle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-               <a class="dropdown-item py-2" href="#">
+               <a class="dropdown-item py-2" href="">
                   <i class="bi bi-person me-2"></i>My Profile
                </a>
-               <a class="dropdown-item py-2" href="#">
+               <a class="dropdown-item py-2" href="">
                   <i class="bi bi-bookmarks me-2"></i>Bookmarks
                </a>
-               <a class="dropdown-item py-2" href="#">
+               <a class="dropdown-item py-2" href="">
                   <i class="bi bi-book me-2"></i>Loans
                </a>
-               <a class="dropdown-item py-2" href="#">
+               <a class="dropdown-item py-2" href="">
                   <i class="bi bi-gear me-2"></i>Settings
                </a>
                <a class="dropdown-item py-2 text-danger" href="{{ route('logout') }}">

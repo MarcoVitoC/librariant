@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Services\RegisterService;
-use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {

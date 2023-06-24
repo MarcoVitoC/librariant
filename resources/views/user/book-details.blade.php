@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.main')
 @section('title', 'Librariant | Book Details')
 
 @section('content')
@@ -7,8 +7,8 @@
          <div class="px-4">
             <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" alt="Book Photo" width="240px" height="310px" class="rounded">
             <div class="my-3">
-               <button type="submit" class="btn btn-dark col-12 mb-1"><i class="bi bi-bag-plus-fill me-2"></i>Add to cart</button>
-               <button type="submit" class="btn btn-dark col-12 mt-1"><i class="bi bi-book-fill me-2"></i>Borrow</button>
+               {{-- <button type="submit" class="btn btn-dark col-12 mb-1"><i class="bi bi-bag-plus-fill me-2"></i>Add to cart</button> --}}
+               <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
             </div>
          </div>
          <div>
@@ -28,4 +28,67 @@
       </div>
    </div>
    @include('layouts.footer')
+@endsection
+
+@section('js-extra')
+   <script>
+      $(document).ready(function() {
+         $('.borrowBtn').click(function() {
+            let borrowBtn = $(this);
+            let bookId = $(this).data('book-id');
+            let bookQuantity = $(this).data('book-quantity');
+            let bookStatus = $(this).data('book-status')
+            let url = "{{ route('user.make_loan') }}";
+
+            if (bookStatus === 1) {
+               Swal.fire({
+                  icon: 'info',
+                  title: 'Oops...',
+                  text: 'You are on the queue list, please wait!'
+               });
+            }else if (bookStatus === 2) {
+               Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Please return the borrowed book first!'
+               });
+            }else {
+                  Swal.fire({
+                     icon: 'question',
+                     title: 'Are you want to borrow this book?',
+                     showCancelButton: true,
+                     cancelButtonColor: '#D33',
+                     confirmButtonColor: '#3085D6',
+                     confirmButtonText: 'Yes',
+                     reverseButtons: true
+               }).then(function(result) {
+                  if (result.isConfirmed) {
+                     if (bookQuantity > 0) {
+                        $.ajax({
+                           type: 'POST',
+                           url: url,
+                           data: {book_id: bookId},
+                           dataType: 'json',
+                           success: function(response) {
+                              Swal.fire({
+                                 icon: 'success',
+                                 title: response.message
+                              }).then(function() {
+                                 location.reload();
+                              });
+                           }
+                        });
+                     }else {
+                        Swal.fire({
+                           icon: 'info',
+                           title: 'Sorry.. 😓',
+                           text: 'Your selected book is currently unavailable!'
+                        });
+                     }
+                  }
+               });
+            }
+         });
+      });
+   </script>
 @endsection

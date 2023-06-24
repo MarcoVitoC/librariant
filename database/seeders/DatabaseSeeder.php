@@ -53,11 +53,15 @@ class DatabaseSeeder extends Seeder
 
       Status::create([
          'id' => 1,
+         'status_name' => 'queued'
+      ]);
+      Status::create([
+         'id' => 2,
          'status_name' => 'loaned'
       ]);
       Status::create([
-         'id' => 0,
-         'status_name' => 'queued'
+         'id' => 3,
+         'status_name' => 'returned'
       ]);
    }
 }

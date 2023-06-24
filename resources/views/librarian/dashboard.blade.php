@@ -1,4 +1,4 @@
-@extends('layouts.librarian.master')
+@extends('layouts.librarian.main')
 @section('title', 'Librarian | Dashboard')
 
 @section('content')

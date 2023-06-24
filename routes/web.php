@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\user\BookController as UserBookController;
+use App\Http\Controllers\user\LoanController;
 use App\Http\Controllers\librarian\LibrarianController;
-use App\Http\Controllers\librarian\BookController;
+use App\Http\Controllers\librarian\BookController as LibrarianBookController;
 
 Route::middleware(['visitor'])->group(function() {
    Route::get('/about-us', function() {
@@ -34,18 +35,19 @@ Route::middleware(['auth'])->group(function() {
 });
 
 Route::middleware(['user'])->prefix('/user')->group(function() {
-   Route::get('/', [UserController::class, 'index'])->name('user.home');
-   Route::get('/book-details/{id}', [UserController::class, 'bookDetails'])->name('user.book_details');
+   Route::get('/', [UserBookController::class, 'index'])->name('user.home');
+   Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('user.book_details');
+   Route::post('/make-loan', [LoanController::class, 'makeLoan'])->name('user.make_loan');
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
    Route::get('/', [LibrarianController::class, 'dashboard'])->name('librarian.dashboard');
    
-   Route::get('/books', [BookController::class, 'showBooks'])->name('librarian.books');
-   Route::get('/book-details', [BookController::class, 'showBookDetails'])->name('librarian.book_details');
-   Route::post('/add-book', [BookController::class, 'addBook'])->name('librarian.add_book');
-   Route::put('/update-book', [BookController::class, 'updateBook'])->name('librarian.update_book');
-   Route::delete('/remove-book', [BookController::class, 'removeBook'])->name('librarian.remove_book');
+   Route::get('/books', [LibrarianBookController::class, 'showBooks'])->name('librarian.books');
+   Route::get('/book-details', [LibrarianBookController::class, 'showBookDetails'])->name('librarian.book_details');
+   Route::post('/add-book', [LibrarianBookController::class, 'addBook'])->name('librarian.add_book');
+   Route::put('/update-book', [LibrarianBookController::class, 'updateBook'])->name('librarian.update_book');
+   Route::delete('/remove-book', [LibrarianBookController::class, 'removeBook'])->name('librarian.remove_book');
 
    Route::get('/transactions', [LibrarianController::class, 'transactions'])->name('librarian.transactions');
    Route::get('/reservations', [LibrarianController::class, 'reservations'])->name('librarian.reservations');

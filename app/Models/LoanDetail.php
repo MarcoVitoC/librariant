@@ -15,7 +15,7 @@ class LoanDetail extends Model
       return $this->belongsTo(LoanHeader::class);
    }
 
-   public function books() {
-      return $this->hasMany(Book::class);
+   public function book() {
+      return $this->belongsTo(Book::class);
    }
 }

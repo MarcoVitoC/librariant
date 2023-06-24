@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.main')
 @section('title', 'Librariant | Home')
 
 @section('content')
