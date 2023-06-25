@@ -13,18 +13,15 @@ class BookService {
 
    public function fetchBookDetails($id) {
       $book = Book::find($id);
-      $bookStatus = LoanHeader::with('loanDetails')
-                     ->join('loan_details', 'loan_details.loan_header_id', '=', 'loan_headers.id')
-                     ->where('user_id', Auth::user()->id)
-                     ->where('book_id', $book->id)
-                     ->where('status_id', 3)
-                     ->first();
+      $loan = LoanHeader::with('loanDetails')
+               ->join('loan_details', 'loan_details.loan_header_id', '=', 'loan_headers.id')
+               ->where('user_id', Auth::user()->id)
+               ->where('book_id', $book->id)
+               ->first();
 
-      if ($bookStatus) {
-         $bookDetails = ['book' => $book, 'bookStatus' => $bookStatus->status_id];
-      }else {
-         $bookDetails = ['book' => $book, 'bookStatus' => 3];
-      }
+      $bookStatus = ($loan != null) ? $loan->status_id : 3;
+      $bookDetails = ['book' => $book, 'bookStatus' => $bookStatus];
+
       return $bookDetails;
    }
 }
