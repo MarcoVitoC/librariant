@@ -38,7 +38,6 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('user.home');
    Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('user.book_details');
    Route::post('/make-loan', [LoanController::class, 'makeLoan'])->name('user.make_loan');
-   Route::post('/enqueue-loan', [LoanController::class, 'enqueueLoan'])->name('user.enqueue_loan');
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {

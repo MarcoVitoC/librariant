@@ -92,19 +92,16 @@
                            if (result.isConfirmed) {
                               $.ajax({
                                  type: 'POST',
-                                 url: "{{ route('user.enqueue_loan') }}",
+                                 url: "{{ route('user.make_loan') }}",
                                  data: {book_id: bookId},
                                  dataType: 'json',
-                                 success: function(response) {
+                                 success: function() {
                                     Swal.fire({
                                        icon: 'success',
-                                       title: response.message
+                                       title: 'You are in queue! 😃'
                                     }).then(function() {
                                        location.reload();
                                     });
-                                 },
-                                 error: function(xhr, status, error) {
-                                    console.log('ERROR');
                                  }
                               });
                            }else {

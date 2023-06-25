@@ -18,9 +18,4 @@ class LoanController extends Controller
       $this->loanService->makeLoan($request);
       return response()->json(['message' => 'Book borrowed successfully!'], 200);
    }
-
-   public function enqueueLoan(Request $request) {
-      $this->loanService->enqueueLoan($request);
-      return response()->json(['message' => 'You are in queue! 😃'], 200);
-   }
 }
