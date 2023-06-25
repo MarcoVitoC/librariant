@@ -18,6 +18,7 @@ return new class extends Migration
          $table->foreignId('loan_header_id');
          $table->foreignId('book_id');
          $table->dateTime('loan_due_date');
+         $table->dateTime('loan_returned_date');
          $table->timestamps();
       });
    }

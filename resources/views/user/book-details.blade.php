@@ -37,8 +37,7 @@
             let borrowBtn = $(this);
             let bookId = $(this).data('book-id');
             let bookQuantity = $(this).data('book-quantity');
-            let bookStatus = $(this).data('book-status')
-            let url = "{{ route('user.make_loan') }}";
+            let bookStatus = $(this).data('book-status');
 
             if (bookStatus === 1) {
                Swal.fire({
@@ -66,7 +65,7 @@
                      if (bookQuantity > 0) {
                         $.ajax({
                            type: 'POST',
-                           url: url,
+                           url: "{{ route('user.make_loan') }}",
                            data: {book_id: bookId},
                            dataType: 'json',
                            success: function(response) {
@@ -81,8 +80,41 @@
                      }else {
                         Swal.fire({
                            icon: 'info',
-                           title: 'Sorry.. 😓',
-                           text: 'Your selected book is currently unavailable!'
+                           title: 'Sorry... 😓',
+                           text: 'Your selected book is currently unavailable. Would you like to join the queue?',
+                           showCancelButton: true,
+                           cancelButtonColor: '#D33',
+                           cancelButtonText: 'No',
+                           confirmButtonColor: '#3085D6',
+                           confirmButtonText: 'Yes',
+                           reverseButtons: true
+                        }).then(function(result) {
+                           if (result.isConfirmed) {
+                              $.ajax({
+                                 type: 'POST',
+                                 url: "{{ route('user.enqueue_loan') }}",
+                                 data: {book_id: bookId},
+                                 dataType: 'json',
+                                 success: function(response) {
+                                    Swal.fire({
+                                       icon: 'success',
+                                       title: response.message
+                                    }).then(function() {
+                                       location.reload();
+                                    });
+                                 },
+                                 error: function(xhr, status, error) {
+                                    console.log('ERROR');
+                                 }
+                              });
+                           }else {
+                              Swal.fire({
+                                 icon: 'info',
+                                 title: 'Our apologies!',
+                                 text: 'We are sorry for the inconvenience. Thank you for your understanding. 🙂',
+                                 confirmButtonText: "It's okay"
+                              });
+                           }
                         });
                      }
                   }
