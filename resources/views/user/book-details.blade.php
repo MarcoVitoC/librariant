@@ -9,6 +9,9 @@
             <div class="my-3">
                {{-- <button type="submit" class="btn btn-dark col-12 mb-1"><i class="bi bi-bag-plus-fill me-2"></i>Add to cart</button> --}}
                <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
+               @if ($bookStatus === 2)
+                  <button type="submit" class="btn btn-outline-dark col-12 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
+               @endif
             </div>
          </div>
          <div>
@@ -34,7 +37,6 @@
    <script>
       $(document).ready(function() {
          $('.borrowBtn').click(function() {
-            let borrowBtn = $(this);
             let bookId = $(this).data('book-id');
             let bookQuantity = $(this).data('book-quantity');
             let bookStatus = $(this).data('book-status');
@@ -52,14 +54,14 @@
                   text: 'Please return the borrowed book first!'
                });
             }else {
-                  Swal.fire({
-                     icon: 'question',
-                     title: 'Are you want to borrow this book?',
-                     showCancelButton: true,
-                     cancelButtonColor: '#D33',
-                     confirmButtonColor: '#3085D6',
-                     confirmButtonText: 'Yes',
-                     reverseButtons: true
+               Swal.fire({
+                  icon: 'question',
+                  title: 'Are you want to borrow this book?',
+                  showCancelButton: true,
+                  cancelButtonColor: '#D33',
+                  confirmButtonColor: '#3085D6',
+                  confirmButtonText: 'Yes',
+                  reverseButtons: true
                }).then(function(result) {
                   if (result.isConfirmed) {
                      if (bookQuantity > 0) {
@@ -75,6 +77,10 @@
                               }).then(function() {
                                  location.reload();
                               });
+                           },
+                           error: function(xhr, status, error) {
+                              let response = JSON.parse(xhr.responseText);
+                              console.log(response.message);
                            }
                         });
                      }else {
@@ -102,6 +108,10 @@
                                     }).then(function() {
                                        location.reload();
                                     });
+                                 },
+                                 error: function(xhr, status, error) {
+                                    let response = JSON.parse(xhr.responseText);
+                                    console.log(response.message);
                                  }
                               });
                            }else {
@@ -117,6 +127,42 @@
                   }
                });
             }
+         });
+
+         $('.returnBookBtn').click(function() {
+            let bookId = $(this).data('book-id');
+
+            Swal.fire({
+               icon: 'question',
+               title: 'Are you want to return this book?',
+               showCancelButton: true,
+               cancelButtonColor: '#D33',
+               confirmButtonColor: '#3085D6',
+               confirmButtonText: 'Yes',
+               reverseButtons: true
+            }).then(function(result) {
+               if (result.isConfirmed) {
+                  $.ajax({
+                     type: 'POST',
+                     url: "{{ route('user.return_book') }}",
+                     data: {book_id: bookId},
+                     dataType: 'json',
+                     success: function(response) {
+                        Swal.fire({
+                           icon: 'success',
+                           title: 'Thank you 🙏',
+                           text: response.message
+                        }).then(function() {
+                           location.reload();
+                        });
+                     },
+                     error: function(xhr, status, error) {
+                        let response = JSON.parse(xhr.responseText);
+                        console.log(response.message);
+                     }
+                  });
+               }
+            });
          });
       });
    </script>
