@@ -23,4 +23,9 @@ class LoanController extends Controller
       $this->loanService->confirmReturnedBook($request);
       return response()->json(['message' => 'Book return confirmed!'], 200);
    }
+
+   public function loans() {
+      $loanedBooks = $this->loanService->showLoans();
+      return view('librarian.loans', ['loanedBooks' => $loanedBooks]);
+   }
 }

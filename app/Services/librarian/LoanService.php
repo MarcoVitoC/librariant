@@ -41,4 +41,12 @@ class LoanService {
          $book->save();
       }
    }
+
+   public function showLoans() {
+      $loanedBooks = LoanDetail::with(['book', 'loanHeader.user'])
+                     ->whereNull('returned_date')
+                     ->where('status_id', 0)
+                     ->get();
+      return $loanedBooks;
+   }
 }

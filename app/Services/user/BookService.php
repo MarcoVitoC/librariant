@@ -16,10 +16,9 @@ class BookService {
       $book = Book::find($id);
       $loan = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
-               })->where('book_id', $book->id)
-               ->first();
+               })->where('book_id', $book->id)->latest()->first();
 
-      $bookStatus = ($loan != null) ? $loan->status_id : 1;
+      $bookStatus = ($loan != null && $loan->status_id === 0) ? 'loaned' : 'available';
       $queue = Queue::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       if ($queue != null) {
          $bookStatus = 'queued';
@@ -28,7 +27,6 @@ class BookService {
       }
 
       $bookDetails = ['book' => $book, 'bookStatus' => $bookStatus];
-
       return $bookDetails;
    }
 }

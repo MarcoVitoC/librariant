@@ -11,10 +11,6 @@ class LibrarianController extends Controller
       return view('librarian.dashboard');
    }
 
-   public function loans() {
-      return view('librarian.loans');
-   }
-
    public function users() {
       return view('librarian.users');
    }

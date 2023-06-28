@@ -54,8 +54,9 @@ Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
 
    Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('librarian.returns');
    Route::post('/return-confirmation', [LibrarianLoanController::class, 'returnConfirmation'])->name('librarian.return_confirmation');
+   
+   Route::get('/loans', [LibrarianLoanController::class, 'loans'])->name('librarian.loans');
 
-   Route::get('/loans', [LibrarianController::class, 'loans'])->name('librarian.loans');
    Route::get('/users', [LibrarianController::class, 'users'])->name('librarian.users');
    Route::get('/settings', [LibrarianController::class, 'settings'])->name('librarian.settings');
    Route::get('/supports', [LibrarianController::class, 'supports'])->name('librarian.supports');

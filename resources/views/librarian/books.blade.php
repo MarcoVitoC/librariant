@@ -21,12 +21,12 @@
          <table class="table table-hover border">
             <thead class="align-middle">
                <tr>
-               <th scope="col" class="border text-center">ISBN</th>
-               <th scope="col" class="border text-center">Book Preview</th>
-               <th scope="col" class="border text-center">Book Title</th>
-               <th scope="col" class="border text-center">Author</th>
-               <th scope="col" class="border text-center">Quantity</th>
-               <th scope="col" class="border text-center">Action</th>
+                  <th scope="col" class="border text-center">ISBN</th>
+                  <th scope="col" class="border text-center">Book Preview</th>
+                  <th scope="col" class="border text-center">Book Title</th>
+                  <th scope="col" class="border text-center">Author</th>
+                  <th scope="col" class="border text-center">Quantity</th>
+                  <th scope="col" class="border text-center">Action</th>
                </tr>
             </thead>
             <tbody>

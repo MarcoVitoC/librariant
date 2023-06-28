@@ -2,28 +2,28 @@
 @section('title', 'Librarian | Returned Books')
 
 @section('content')
-   <div class="container mt-4">
-      <form class="d-flex justify-content-center" role="search">
-         <input class="form-control w-50 me-2" type="search" placeholder="Search..." aria-label="Search">
-         <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
-         <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
-      </form>
-   </div>
    @if ($returnedBooks->isEmpty())
       <div class="d-flex justify-content-center align-items-center h-75">
          <h1 class="text-secondary">🚫 No returned books available at the moment.</h1>
       </div>
    @else
+      <div class="container mt-4">
+         <form class="d-flex justify-content-center" role="search">
+            <input class="form-control w-50 me-2" type="search" placeholder="Search..." aria-label="Search">
+            <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
+            <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
+         </form>
+      </div>
       <div class="m-4">
          <table class="table table-hover border">
             <thead class="align-middle">
                <tr>
-               <th scope="col" class="border text-center">Book Preview</th>
-               <th scope="col" class="border text-center">Book Title</th>
-               <th scope="col" class="border text-center">Borrower</th>
-               <th scope="col" class="border text-center">Loan Date</th>
-               <th scope="col" class="border text-center">Returned Date</th>
-               <th scope="col" class="border text-center">Action</th>
+                  <th scope="col" class="border text-center">Book Preview</th>
+                  <th scope="col" class="border text-center">Book Title</th>
+                  <th scope="col" class="border text-center">Borrower</th>
+                  <th scope="col" class="border text-center">Loan Date</th>
+                  <th scope="col" class="border text-center">Returned Date</th>
+                  <th scope="col" class="border text-center">Action</th>
                </tr>
             </thead>
             <tbody>
