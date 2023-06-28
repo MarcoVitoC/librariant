@@ -2,7 +2,7 @@
    <div class="d-flex align-items-center justify-content-between mx-6 pt-3 pb-4">
       <div>
          <div class="d-flex">
-            <i class="bi bi-clock-fill me-2"></i><p>Everyday from 9:00 a.m. to 6:00 p.m.</p>
+            <i class="bi bi-clock-fill me-2"></i><p>Monday - Saturday, from 9:00 a.m. to 6:00 p.m.</p>
          </div>
          <div class="d-flex">
             <i class="bi bi-geo-alt-fill me-2"></i></i><p>Education Street No.10B</p>
