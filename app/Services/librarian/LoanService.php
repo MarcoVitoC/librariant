@@ -3,6 +3,7 @@
 namespace App\Services\librarian;
 
 use App\Models\Book;
+use App\Models\User;
 use App\Models\Queue;
 use App\Models\LoanDetail;
 use App\Models\LoanHeader;
@@ -35,6 +36,11 @@ class LoanService {
             'book_id' => $book->id,
             'due_date' => Carbon::parse($loanHeader->loan_date)->addWeeks(2)
          ]);
+
+         $user = User::find($queue->user_id);
+         $user->books_borrowed += 1;
+         $user->save();
+
          $queue->delete();
       }else {
          $book->quantity += 1;

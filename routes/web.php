@@ -6,9 +6,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\user\BookController as UserBookController;
 use App\Http\Controllers\user\LoanController as LoanUserController;
-use App\Http\Controllers\librarian\LibrarianController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
 use App\Http\Controllers\librarian\LoanController as LibrarianLoanController;
+use App\Http\Controllers\librarian\UserController;
 
 Route::middleware(['visitor'])->group(function() {
    Route::get('/about-us', function() {
@@ -44,7 +44,9 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
-   Route::get('/', [LibrarianController::class, 'dashboard'])->name('librarian.dashboard');
+   Route::get('/', function() {
+      return view('librarian.dashboard');
+   })->name('librarian.dashboard');
    
    Route::get('/books', [LibrarianBookController::class, 'showBooks'])->name('librarian.books');
    Route::get('/book-details', [LibrarianBookController::class, 'showBookDetails'])->name('librarian.book_details');
@@ -54,10 +56,15 @@ Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
 
    Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('librarian.returns');
    Route::post('/return-confirmation', [LibrarianLoanController::class, 'returnConfirmation'])->name('librarian.return_confirmation');
-   
    Route::get('/loans', [LibrarianLoanController::class, 'loans'])->name('librarian.loans');
 
-   Route::get('/users', [LibrarianController::class, 'users'])->name('librarian.users');
-   Route::get('/settings', [LibrarianController::class, 'settings'])->name('librarian.settings');
-   Route::get('/supports', [LibrarianController::class, 'supports'])->name('librarian.supports');
+   Route::get('/users', [UserController::class, 'users'])->name('librarian.users');
+
+   Route::get('/settings', function() {
+      return view('librarian.settings');
+   })->name('librarian.settings');
+
+   Route::get('/supports', function() {
+      return view('librarian.supports');
+   })->name('librarian.supports');
 });
