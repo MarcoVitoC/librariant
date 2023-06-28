@@ -10,11 +10,11 @@
       <a href="{{ route('librarian.books') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.books') ? 'active' : '' }}">
          <i class="bi bi-book me-3"></i>Books
       </a>
-      <a href="{{ route('librarian.transactions') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.transactions') ? 'active' : '' }}">
-         <i class="bi bi-arrow-repeat me-3"></i>Transactions
+      <a href="{{ route('librarian.returns') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.returns') ? 'active' : '' }}">
+         <i class="bi bi-arrow-repeat me-3"></i>Returns
       </a>
-      <a href="{{ route('librarian.reservations') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.reservations') ? 'active' : '' }}">
-         <i class="bi bi-table me-3"></i>Reservations
+      <a href="{{ route('librarian.loans') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.loans') ? 'active' : '' }}">
+         <i class="bi bi-table me-3"></i>Loans
       </a>
       <a href="{{ route('librarian.users') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.users') ? 'active' : '' }}">
          <i class="bi bi-people me-3"></i>Users

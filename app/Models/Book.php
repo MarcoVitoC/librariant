@@ -18,4 +18,8 @@ class Book extends Model
    public function bookmarks() {
       return $this->hasMany(Bookmark::class);
    }
+
+   public function queues() {
+      return $this->hasMany(Queue::class);
+   }
 }

@@ -17,9 +17,9 @@ return new class extends Migration
          $table->id();
          $table->foreignId('loan_header_id')->constrained();
          $table->foreignId('book_id')->constrained();
-         $table->foreignId('status_id')->default('2');
-         $table->dateTime('loan_due_date');
-         $table->dateTime('loan_returned_date');
+         $table->foreignId('status_id')->default('0');
+         $table->dateTime('due_date');
+         $table->dateTime('returned_date')->nullable();
          $table->timestamps();
       });
    }

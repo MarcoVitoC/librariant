@@ -13,7 +13,7 @@ return new class extends Migration
     */
    public function up()
    {
-      Schema::create('bookmarks', function (Blueprint $table) {
+      Schema::create('queues', function (Blueprint $table) {
          $table->id();
          $table->foreignUuid('user_id');
          $table->foreignId('book_id');
@@ -28,6 +28,6 @@ return new class extends Migration
     */
    public function down()
    {
-      Schema::dropIfExists('bookmarks');
+      Schema::dropIfExists('queues');
    }
 };

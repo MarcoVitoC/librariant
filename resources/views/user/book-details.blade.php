@@ -9,7 +9,7 @@
             <div class="my-3">
                {{-- <button type="submit" class="btn btn-dark col-12 mb-1"><i class="bi bi-bag-plus-fill me-2"></i>Add to cart</button> --}}
                <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
-               @if ($bookStatus === 2)
+               @if ($bookStatus === 0)
                   <button type="submit" class="btn btn-outline-dark col-12 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
                @endif
             </div>
@@ -41,13 +41,19 @@
             let bookQuantity = $(this).data('book-quantity');
             let bookStatus = $(this).data('book-status');
 
-            if (bookStatus === 1) {
+            if (bookStatus === 'queued') {
                Swal.fire({
                   icon: 'info',
                   title: 'Oops...',
                   text: 'You are on the queue list, please wait!'
                });
-            }else if (bookStatus === 2) {
+            }else if (bookStatus === 'pending') {
+               Swal.fire({
+                  icon: 'info',
+                  title: 'Please wait!',
+                  text: 'You borrowed this book earlier, and the book return is still in the verification process.'
+               });
+            }else if (bookStatus === 0) {
                Swal.fire({
                   icon: 'error',
                   title: 'Oops...',
@@ -98,13 +104,13 @@
                            if (result.isConfirmed) {
                               $.ajax({
                                  type: 'POST',
-                                 url: "{{ route('user.make_loan') }}",
+                                 url: "{{ route('user.enqueue') }}",
                                  data: {book_id: bookId},
                                  dataType: 'json',
-                                 success: function() {
+                                 success: function(response) {
                                     Swal.fire({
                                        icon: 'success',
-                                       title: 'You are in queue! 😃'
+                                       title: response.message
                                     }).then(function() {
                                        location.reload();
                                     });
@@ -118,7 +124,7 @@
                               Swal.fire({
                                  icon: 'info',
                                  title: 'Our apologies!',
-                                 text: 'We are sorry for the inconvenience. Thank you for your understanding. 🙂',
+                                 text: 'We are sorry for the inconvenience. Thank you for your understanding. 🙂🙏',
                                  confirmButtonText: "It's okay"
                               });
                            }

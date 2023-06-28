@@ -5,9 +5,10 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\user\BookController as UserBookController;
-use App\Http\Controllers\user\LoanController;
+use App\Http\Controllers\user\LoanController as LoanUserController;
 use App\Http\Controllers\librarian\LibrarianController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
+use App\Http\Controllers\librarian\LoanController as LibrarianLoanController;
 
 Route::middleware(['visitor'])->group(function() {
    Route::get('/about-us', function() {
@@ -37,8 +38,9 @@ Route::middleware(['auth'])->group(function() {
 Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('user.home');
    Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('user.book_details');
-   Route::post('/make-loan', [LoanController::class, 'makeLoan'])->name('user.make_loan');
-   Route::post('/return-book', [LoanController::class, 'returnBook'])->name('user.return_book');
+   Route::post('/make-loan', [LoanUserController::class, 'makeLoan'])->name('user.make_loan');
+   Route::post('/enqueue', [LoanUserController::class, 'enqueue'])->name('user.enqueue');
+   Route::post('/return-book', [LoanUserController::class, 'returnBook'])->name('user.return_book');
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
@@ -50,8 +52,10 @@ Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
    Route::put('/update-book', [LibrarianBookController::class, 'updateBook'])->name('librarian.update_book');
    Route::delete('/remove-book', [LibrarianBookController::class, 'removeBook'])->name('librarian.remove_book');
 
-   Route::get('/transactions', [LibrarianController::class, 'transactions'])->name('librarian.transactions');
-   Route::get('/reservations', [LibrarianController::class, 'reservations'])->name('librarian.reservations');
+   Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('librarian.returns');
+   Route::post('/return-confirmation', [LibrarianLoanController::class, 'returnConfirmation'])->name('librarian.return_confirmation');
+
+   Route::get('/loans', [LibrarianController::class, 'loans'])->name('librarian.loans');
    Route::get('/users', [LibrarianController::class, 'users'])->name('librarian.users');
    Route::get('/settings', [LibrarianController::class, 'settings'])->name('librarian.settings');
    Route::get('/supports', [LibrarianController::class, 'supports'])->name('librarian.supports');

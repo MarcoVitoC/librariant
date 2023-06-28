@@ -50,4 +50,8 @@ class User extends Authenticatable
    public function loanHeaders() {
       return $this->hasMany(LoanHeader::class);
    }
+
+   public function queues() {
+      return $this->hasMany(Queue::class);
+   }
 }
