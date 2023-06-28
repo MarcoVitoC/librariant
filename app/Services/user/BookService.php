@@ -23,7 +23,7 @@ class BookService {
       $queue = Queue::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       if ($queue != null) {
          $bookStatus = 'queued';
-      }else if ($loan->returned_date != null && $loan->status_id === 0) {
+      }else if ($loan != null && $loan->returned_date != null && $loan->status_id === 0) {
          $bookStatus = 'pending';
       }
 
