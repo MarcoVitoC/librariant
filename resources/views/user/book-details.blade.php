@@ -19,7 +19,7 @@
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
             <div class="d-flex">
                <button class="btn btn-dark btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
-               <button type="submit" class="btn btn-dark btn-sm ms-2"><i class="bi bi-bookmark-plus-fill"></i></button>
+               <button type="submit" class="btn btn-outline-dark btn-sm ms-2"><i class="bi bi-bookmark-plus-fill"></i></button>
             </div>
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
