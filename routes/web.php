@@ -38,6 +38,10 @@ Route::middleware(['auth'])->group(function() {
 Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('user.home');
    Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('user.book_details');
+
+   Route::post('/add-bookmark', [UserBookController::class, 'bookmark'])->name('user.add_bookmark');
+   Route::delete('/remove-bookmark', [UserBookController::class, 'removeBookmark'])->name('user.remove_bookmark');
+   
    Route::post('/make-loan', [LoanUserController::class, 'makeLoan'])->name('user.make_loan');
    Route::post('/enqueue', [LoanUserController::class, 'enqueue'])->name('user.enqueue');
    Route::post('/return-book', [LoanUserController::class, 'returnBook'])->name('user.return_book');

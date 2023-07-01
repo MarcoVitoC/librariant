@@ -23,7 +23,22 @@ class BookController extends Controller
       $bookDetails = $this->bookService->fetchBookDetails($id);
       return view('user.book-details', [
          'bookDetails' => $bookDetails['book'], 
-         'bookStatus' => $bookDetails['bookStatus']
+         'bookStatus' => $bookDetails['bookStatus'],
+         'isBookmarked' => $bookDetails['isBookmarked']
       ]);
+   }
+
+   public function bookmark(Request $request) {
+      $this->bookService->addToBookmark($request);
+      return response()->json(['message' => 'Added to bookmark!'], 200);
+   }
+
+   public function removeBookmark(Request $request) {
+      $this->bookService->removeBookmark($request);
+      return response()->json(['message' => 'Removed from bookmark!'], 200);
+   }
+
+   public function bookmarks() {
+      $bookmarks = $this->bookService->fetchBookmarks();
    }
 }

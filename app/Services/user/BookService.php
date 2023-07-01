@@ -4,6 +4,7 @@ namespace App\Services\user;
 
 use App\Models\Book;
 use App\Models\Queue;
+use App\Models\Bookmark;
 use App\Models\LoanDetail;
 use App\Models\LoanHeader;
 
@@ -26,7 +27,23 @@ class BookService {
          $bookStatus = 'pending';
       }
 
-      $bookDetails = ['book' => $book, 'bookStatus' => $bookStatus];
+      $bookmark = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->first();
+      $isBookmarked = ($bookmark != null) ? true : false;
+
+      $bookDetails = ['book' => $book, 'bookStatus' => $bookStatus, 'isBookmarked' => $isBookmarked];
       return $bookDetails;
+   }
+
+   public function addToBookmark($request) {
+      Bookmark::create(['user_id' => auth()->id(), 'book_id' => $request->book_id]);
+   }
+
+   public function removeBookmark($request) {
+      $selectedBook = Bookmark::where('user_id', auth()->id())->where('book_id', $request->book_id)->first();
+      $selectedBook->delete();
+   }
+
+   public function fetchBookmarks() {
+      return Bookmark::all()->where('user_id', auth()->id());
    }
 }

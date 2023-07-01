@@ -19,7 +19,11 @@
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
             <div class="d-flex">
                <button class="btn btn-dark btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
-               <button type="submit" class="btn btn-outline-dark btn-sm ms-2"><i class="bi bi-bookmark-plus-fill"></i></button>
+               @if ($isBookmarked)
+                  <button type="submit" class="btn btn-dark btn-sm ms-2 removeBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Added to bookmark</button>
+               @else
+                  <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
+               @endif
             </div>
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
@@ -167,6 +171,50 @@
                         console.log(response.message);
                      }
                   });
+               }
+            });
+         });
+
+         $('.addToBookmarkBtn').click(function() {
+            let bookId = $(this).data('book-id');
+
+            $.ajax({
+               type: 'POST',
+               url: "{{ route('user.add_bookmark') }}",
+               data: {book_id: bookId},
+               dataType: 'json',
+               success: function(response) {
+                  Swal.fire({
+                     position: 'center',
+                     title: response.message,
+                     background: '#FFBF9B',
+                     showConfirmButton: false,
+                     timer: 1200
+                  }).then(function() {
+                     location.reload();
+                  });
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
+               }
+            });
+         });
+
+         $('.removeBookmarkBtn').click(function() {
+            let bookId = $(this).data('book-id');
+
+            $.ajax({
+               type: 'DELETE',
+               url: "{{ route('user.remove_bookmark') }}",
+               data: {book_id: bookId},
+               dataType: 'json',
+               success: function() {
+                  location.reload();
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
                }
             });
          });
