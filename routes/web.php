@@ -39,6 +39,7 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('user.home');
    Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('user.book_details');
 
+   Route::get('/bookmarks', [UserBookController::class, 'bookmarks'])->name('user.bookmarks');
    Route::post('/add-bookmark', [UserBookController::class, 'bookmark'])->name('user.add_bookmark');
    Route::delete('/remove-bookmark', [UserBookController::class, 'removeBookmark'])->name('user.remove_bookmark');
    

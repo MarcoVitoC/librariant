@@ -28,6 +28,11 @@ class BookController extends Controller
       ]);
    }
 
+   public function bookmarks() {
+      $bookmarks = $this->bookService->fetchBookmarks();
+      return view('user.bookmarks', ['bookmarks' => $bookmarks]);
+   }
+
    public function bookmark(Request $request) {
       $this->bookService->addToBookmark($request);
       return response()->json(['message' => 'Added to bookmark!'], 200);
@@ -36,9 +41,5 @@ class BookController extends Controller
    public function removeBookmark(Request $request) {
       $this->bookService->removeBookmark($request);
       return response()->json(['message' => 'Removed from bookmark!'], 200);
-   }
-
-   public function bookmarks() {
-      $bookmarks = $this->bookService->fetchBookmarks();
    }
 }

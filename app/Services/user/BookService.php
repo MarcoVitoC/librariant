@@ -34,6 +34,10 @@ class BookService {
       return $bookDetails;
    }
 
+   public function fetchBookmarks() {
+      return Bookmark::with('book')->where('user_id', auth()->id())->paginate(18);
+   }
+
    public function addToBookmark($request) {
       Bookmark::create(['user_id' => auth()->id(), 'book_id' => $request->book_id]);
    }
@@ -41,9 +45,5 @@ class BookService {
    public function removeBookmark($request) {
       $selectedBook = Bookmark::where('user_id', auth()->id())->where('book_id', $request->book_id)->first();
       $selectedBook->delete();
-   }
-
-   public function fetchBookmarks() {
-      return Bookmark::all()->where('user_id', auth()->id());
    }
 }

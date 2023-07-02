@@ -39,7 +39,7 @@
                <a class="dropdown-item py-2" href="">
                   <i class="bi bi-person me-2"></i>My Profile
                </a>
-               <a class="dropdown-item py-2" href="">
+               <a class="dropdown-item py-2" href="{{ route('user.bookmarks') }}">
                   <i class="bi bi-bookmarks me-2"></i>Bookmarks
                </a>
                <a class="dropdown-item py-2" href="">
