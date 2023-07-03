@@ -42,7 +42,7 @@
                <a class="dropdown-item py-2" href="{{ route('user.bookmarks') }}">
                   <i class="bi bi-bookmarks me-2"></i>Bookmarks
                </a>
-               <a class="dropdown-item py-2" href="">
+               <a class="dropdown-item py-2" href="{{ route('user.loans') }}">
                   <i class="bi bi-book me-2"></i>Loans
                </a>
                <a class="dropdown-item py-2" href="">

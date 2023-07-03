@@ -10,6 +10,19 @@ use App\Models\LoanHeader;
 use Illuminate\Support\Carbon;
 
 class LoanService {
+   public function fetchLoans() {
+      $loanedBooks = LoanDetail::with(['book', 'loanHeader'])
+                     ->whereNull('returned_date')
+                     ->whereHas('loanHeader', function($query) {
+                        $query->where('user_id', auth()->id());
+                     })->oldest()->get();
+      $unconfirmedReturns = LoanDetail::with('book')->whereNotNull('returned_date')->where('status_id', 0)->oldest()->get();
+      $queues = Queue::with('book')->where('user_id', auth()->id())->oldest()->get();
+
+      $loans = ['loanedBooks' => $loanedBooks, 'unconfirmedReturns' => $unconfirmedReturns, 'queues' => $queues];
+      return $loans;
+   }
+
    public function makeLoan($request) {
       $book = Book::find($request->book_id);
 
@@ -31,16 +44,18 @@ class LoanService {
    }
 
    public function enqueue($request) {
-      $book = Book::find($request->book_id);
-      Queue::create(['user_id' => auth()->id(), 'book_id' => $book->id]);
+      Queue::create(['user_id' => auth()->id(), 'book_id' => $request->book_id]);
+   }
+
+   public function cancelQueue($request) {
+      $queue = Queue::find($request->queue_id);
+      $queue->delete();
    }
 
    public function returnBook($request) {
-      $book = Book::find($request->book_id);
-
       $loan = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
-               })->where('book_id', $book->id)->first();
+               })->where('book_id', $request->book_id)->first();
       $loan->returned_date = Carbon::now();
       $loan->save();
    }

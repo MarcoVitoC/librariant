@@ -5,7 +5,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\user\BookController as UserBookController;
-use App\Http\Controllers\user\LoanController as LoanUserController;
+use App\Http\Controllers\user\LoanController as UserLoanController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
 use App\Http\Controllers\librarian\LoanController as LibrarianLoanController;
 use App\Http\Controllers\librarian\UserController;
@@ -43,9 +43,11 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::post('/add-bookmark', [UserBookController::class, 'bookmark'])->name('user.add_bookmark');
    Route::delete('/remove-bookmark', [UserBookController::class, 'removeBookmark'])->name('user.remove_bookmark');
    
-   Route::post('/make-loan', [LoanUserController::class, 'makeLoan'])->name('user.make_loan');
-   Route::post('/enqueue', [LoanUserController::class, 'enqueue'])->name('user.enqueue');
-   Route::post('/return-book', [LoanUserController::class, 'returnBook'])->name('user.return_book');
+   Route::get('/loans', [UserLoanController::class, 'loans'])->name('user.loans');
+   Route::post('/make-loan', [UserLoanController::class, 'makeLoan'])->name('user.make_loan');
+   Route::post('/enqueue', [UserLoanController::class, 'enqueue'])->name('user.enqueue');
+   Route::delete('/cancel-queue', [UserLoanController::class, 'dequeue'])->name('user.cancel_queue');
+   Route::post('/return-book', [UserLoanController::class, 'returnBook'])->name('user.return_book');
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
