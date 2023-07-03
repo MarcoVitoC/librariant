@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\librarian\UserController;
+use App\Http\Controllers\user\ProfileController;
 use App\Http\Controllers\user\BookController as UserBookController;
 use App\Http\Controllers\user\LoanController as UserLoanController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
 use App\Http\Controllers\librarian\LoanController as LibrarianLoanController;
-use App\Http\Controllers\librarian\UserController;
 
 Route::middleware(['visitor'])->group(function() {
    Route::get('/about-us', function() {
@@ -38,6 +39,8 @@ Route::middleware(['auth'])->group(function() {
 Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('user.home');
    Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('user.book_details');
+
+   Route::get('/profile', [ProfileController::class, 'profile'])->name('user.profile');
 
    Route::get('/bookmarks', [UserBookController::class, 'bookmarks'])->name('user.bookmarks');
    Route::post('/add-bookmark', [UserBookController::class, 'bookmark'])->name('user.add_bookmark');

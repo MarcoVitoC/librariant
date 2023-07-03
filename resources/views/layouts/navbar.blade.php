@@ -36,7 +36,7 @@
                <i class="bi bi-person-circle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-               <a class="dropdown-item py-2" href="">
+               <a class="dropdown-item py-2" href="{{ route('user.profile') }}">
                   <i class="bi bi-person me-2"></i>My Profile
                </a>
                <a class="dropdown-item py-2" href="{{ route('user.bookmarks') }}">
@@ -44,9 +44,6 @@
                </a>
                <a class="dropdown-item py-2" href="{{ route('user.loans') }}">
                   <i class="bi bi-book me-2"></i>Loans
-               </a>
-               <a class="dropdown-item py-2" href="">
-                  <i class="bi bi-gear me-2"></i>Settings
                </a>
                <a class="dropdown-item py-2 text-danger" href="{{ route('logout') }}">
                   <i class="bi bi-box-arrow-right me-2 text-danger"></i>Log out
