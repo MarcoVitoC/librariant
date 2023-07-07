@@ -51,6 +51,8 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::post('/enqueue', [UserLoanController::class, 'enqueue'])->name('user.enqueue');
    Route::delete('/cancel-queue', [UserLoanController::class, 'dequeue'])->name('user.cancel_queue');
    Route::post('/return-book', [UserLoanController::class, 'returnBook'])->name('user.return_book');
+
+   Route::get('/setting', [ProfileController::class, 'setting'])->name('user.setting');
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {

@@ -55,7 +55,7 @@ class LoanService {
    public function returnBook($request) {
       $loan = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
-               })->where('book_id', $request->book_id)->first();
+               })->where('book_id', $request->book_id)->where('status_id', 0)->first();
       $loan->returned_date = Carbon::now();
       $loan->save();
    }

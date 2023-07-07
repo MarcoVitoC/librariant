@@ -45,6 +45,9 @@
                <a class="dropdown-item py-2" href="{{ route('user.loans') }}">
                   <i class="bi bi-book me-2"></i>Loans
                </a>
+               <a class="dropdown-item py-2" href="">
+                  <i class="bi bi-gear me-2"></i>Settings
+               </a>
                <a class="dropdown-item py-2 text-danger" href="{{ route('logout') }}">
                   <i class="bi bi-box-arrow-right me-2 text-danger"></i>Log out
                </a>

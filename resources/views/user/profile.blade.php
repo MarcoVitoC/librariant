@@ -12,13 +12,9 @@
                   <p class="fw-normal text-secondary fs-4">{{ Auth::user()->username }}</p>
                </div>
                <div class="d-flex">
-                  <p class="fw-normal fs-6 me-4"><i class="bi bi-envelope-fill"></i> {{ Auth::user()->email }}</p>
-                  <p class="fw-normal fs-6 me-4"><i class="bi bi-telephone-fill"></i> {{ Auth::user()->phone_number }}</p>
-                  <p class="fw-normal fs-6 me-4"><i class="bi bi-geo-alt-fill"></i> {{ Auth::user()->address }}</p>
-               </div>
-               <div class="d-flex">
-                  <button class="btn btn-dark btn-sm me-2"><i class="bi bi-pencil-fill me-2"></i>Edit Profile</button>
-                  <button class="btn btn-dark btn-sm me-2"><i class="bi bi-key-fill me-2"></i>Change Password</button>
+                  <p class="fw-normal fs-6 me-3"><i class="bi bi-envelope-fill"></i> {{ Auth::user()->email }}</p>
+                  <p class="fw-normal fs-6 me-3"><i class="bi bi-clock-fill"></i> Joined since {{ Auth::user()->created_at }}</p>
+                  <p class="fw-normal fs-6 me-3"><i class="bi bi-geo-alt-fill"></i> {{ Auth::user()->address }}</p>
                </div>
             </div>
          </div>
