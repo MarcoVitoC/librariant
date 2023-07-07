@@ -1,25 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\user\ProfileController;
-use App\Http\Controllers\user\SettingController;
 use App\Http\Controllers\librarian\UserController;
 use App\Http\Controllers\user\BookController as UserBookController;
 use App\Http\Controllers\user\LoanController as UserLoanController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
 use App\Http\Controllers\librarian\LoanController as LibrarianLoanController;
+use App\Http\Controllers\librarian\FAQController as LibrarianFAQController;
 
 Route::middleware(['visitor'])->group(function() {
    Route::get('/about-us', function() {
       return view('visitor.about-us');
    })->name('visitor.about_us');
 
-   Route::get('/faq', function() {
-      return view('visitor.faq');
-   })->name('visitor.faq');
+   Route::get('/faq', [FAQController::class, 'faq'])->name('visitor.faq');
 });
 
 Route::middleware(['guest'])->group(function() {
@@ -71,11 +70,5 @@ Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
 
    Route::get('/users', [UserController::class, 'users'])->name('librarian.users');
 
-   Route::get('/settings', function() {
-      return view('librarian.settings');
-   })->name('librarian.settings');
-
-   Route::get('/supports', function() {
-      return view('librarian.supports');
-   })->name('librarian.supports');
+   Route::get('/supports', [LibrarianFAQController::class, 'faq'])->name('librarian.supports');
 });

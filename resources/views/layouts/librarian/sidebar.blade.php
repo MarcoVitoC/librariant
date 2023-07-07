@@ -19,9 +19,6 @@
       <a href="{{ route('librarian.users') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.users') ? 'active' : '' }}">
          <i class="bi bi-people me-3"></i>Users
       </a>
-      <a href="{{ route('librarian.settings') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.settings') ? 'active' : '' }}">
-         <i class="bi bi-gear me-3"></i>Settings
-      </a>
       <a href="{{ route('librarian.supports') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.supports') ? 'active' : '' }}">
          <i class="bi bi-question-circle me-3"></i>Supports
       </a>
