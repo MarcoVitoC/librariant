@@ -6,11 +6,11 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\user\ProfileController;
-use App\Http\Controllers\librarian\UserController;
 use App\Http\Controllers\user\BookController as UserBookController;
 use App\Http\Controllers\user\LoanController as UserLoanController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
 use App\Http\Controllers\librarian\LoanController as LibrarianLoanController;
+use App\Http\Controllers\librarian\UserController;
 use App\Http\Controllers\librarian\FAQController as LibrarianFAQController;
 
 Route::middleware(['visitor'])->group(function() {
@@ -70,5 +70,8 @@ Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
 
    Route::get('/users', [UserController::class, 'users'])->name('librarian.users');
 
-   Route::get('/supports', [LibrarianFAQController::class, 'faq'])->name('librarian.supports');
+   Route::resource('faq', LibrarianFAQController::class)->names([
+      'index' => 'librarian.faq',
+      'store' => 'librarian.add_faq'
+   ]);
 });
