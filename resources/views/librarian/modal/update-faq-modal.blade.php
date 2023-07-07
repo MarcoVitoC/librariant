@@ -1,11 +1,12 @@
-<div class="modal fade" id="addFAQModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateFAQModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Add FAQ</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="addFAQBtn-close1"></button>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Update FAQ</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="updateFAQBtn-close1"></button>
          </div>
-         <form action="{{ route('librarian.add_faq') }}" method="POST" enctype="multipart/form-data" id="addFAQForm">
+         <form action="{{ route('librarian.update_faq', $faq->id) }}" method="POST" enctype="multipart/form-data" id="updateFAQForm">
+            @method('put')
             @csrf
             <div class="modal-body d-flex align-items-center justify-content-center">
                <div class="col-10">
@@ -20,8 +21,8 @@
                </div>
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="addFAQBtn-close2">Close</button>
-               <button type="submit" class="btn btn-primary" id="addFAQBtn">Add FAQ</button>
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updateFAQBtn-close2">Close</button>
+               <button type="submit" class="btn btn-primary" id="updateFAQBtn">Save Changes</button>
             </div>
          </form>
       </div>

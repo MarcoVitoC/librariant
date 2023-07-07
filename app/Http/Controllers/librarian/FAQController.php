@@ -5,6 +5,7 @@ namespace App\Http\Controllers\librarian;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 use App\Http\Requests\librarian\AddFAQRequest;
+use App\Http\Requests\UpdateFAQRequest;
 use App\Http\Controllers\Controller;
 use App\Services\librarian\FAQService;
 
@@ -38,7 +39,7 @@ class FAQController extends Controller
       //...
    }
 
-   public function update(Request $request, Faq $faq) {
+   public function update(UpdateFAQRequest $request, Faq $faq) {
       //...
    }
 

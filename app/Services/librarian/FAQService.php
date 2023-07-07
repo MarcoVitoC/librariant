@@ -6,7 +6,7 @@ use App\Models\Faq;
 
 class FAQService {
    public function fetchFAQs() {
-      return Faq::all();
+      return Faq::paginate(5)->withQueryString();
    }
 
    public function addFAQ($request) {

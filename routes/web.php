@@ -36,42 +36,43 @@ Route::middleware(['auth'])->group(function() {
    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware(['user'])->prefix('/user')->group(function() {
-   Route::get('/', [UserBookController::class, 'index'])->name('user.home');
-   Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('user.book_details');
+Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
+   Route::get('/', [UserBookController::class, 'index'])->name('home');
+   Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
 
-   Route::get('/profile', [ProfileController::class, 'profile'])->name('user.profile');
+   Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
-   Route::get('/bookmarks', [UserBookController::class, 'bookmarks'])->name('user.bookmarks');
-   Route::post('/add-bookmark', [UserBookController::class, 'bookmark'])->name('user.add_bookmark');
-   Route::delete('/remove-bookmark', [UserBookController::class, 'removeBookmark'])->name('user.remove_bookmark');
+   Route::get('/bookmarks', [UserBookController::class, 'bookmarks'])->name('bookmarks');
+   Route::post('/add-bookmark', [UserBookController::class, 'bookmark'])->name('add_bookmark');
+   Route::delete('/remove-bookmark', [UserBookController::class, 'removeBookmark'])->name('remove_bookmark');
    
-   Route::get('/loans', [UserLoanController::class, 'loans'])->name('user.loans');
-   Route::post('/make-loan', [UserLoanController::class, 'makeLoan'])->name('user.make_loan');
-   Route::post('/enqueue', [UserLoanController::class, 'enqueue'])->name('user.enqueue');
-   Route::delete('/cancel-queue', [UserLoanController::class, 'dequeue'])->name('user.cancel_queue');
-   Route::post('/return-book', [UserLoanController::class, 'returnBook'])->name('user.return_book');
+   Route::get('/loans', [UserLoanController::class, 'loans'])->name('loans');
+   Route::post('/make-loan', [UserLoanController::class, 'makeLoan'])->name('make_loan');
+   Route::post('/enqueue', [UserLoanController::class, 'enqueue'])->name('enqueue');
+   Route::delete('/cancel-queue', [UserLoanController::class, 'dequeue'])->name('cancel_queue');
+   Route::post('/return-book', [UserLoanController::class, 'returnBook'])->name('return_book');
 });
 
-Route::middleware(['librarian'])->prefix('/librarian')->group(function() {
+Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->group(function() {
    Route::get('/', function() {
       return view('librarian.dashboard');
-   })->name('librarian.dashboard');
+   })->name('dashboard');
    
-   Route::get('/books', [LibrarianBookController::class, 'showBooks'])->name('librarian.books');
-   Route::get('/book-details', [LibrarianBookController::class, 'showBookDetails'])->name('librarian.book_details');
-   Route::post('/add-book', [LibrarianBookController::class, 'addBook'])->name('librarian.add_book');
-   Route::put('/update-book', [LibrarianBookController::class, 'updateBook'])->name('librarian.update_book');
-   Route::delete('/remove-book', [LibrarianBookController::class, 'removeBook'])->name('librarian.remove_book');
+   Route::get('/books', [LibrarianBookController::class, 'showBooks'])->name('books');
+   Route::get('/book-details', [LibrarianBookController::class, 'showBookDetails'])->name('book_details');
+   Route::post('/add-book', [LibrarianBookController::class, 'addBook'])->name('add_book');
+   Route::put('/update-book', [LibrarianBookController::class, 'updateBook'])->name('update_book');
+   Route::delete('/remove-book', [LibrarianBookController::class, 'removeBook'])->name('remove_book');
 
-   Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('librarian.returns');
-   Route::post('/return-confirmation', [LibrarianLoanController::class, 'returnConfirmation'])->name('librarian.return_confirmation');
-   Route::get('/loans', [LibrarianLoanController::class, 'loans'])->name('librarian.loans');
+   Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('returns');
+   Route::post('/return-confirmation', [LibrarianLoanController::class, 'returnConfirmation'])->name('return_confirmation');
+   Route::get('/loans', [LibrarianLoanController::class, 'loans'])->name('loans');
 
-   Route::get('/users', [UserController::class, 'users'])->name('librarian.users');
+   Route::get('/users', [UserController::class, 'users'])->name('users');
 
    Route::resource('faq', LibrarianFAQController::class)->names([
-      'index' => 'librarian.faq',
-      'store' => 'librarian.add_faq'
+      'index' => 'faq',
+      'store' => 'add_faq',
+      'update' => 'update_faq'
    ]);
 });
