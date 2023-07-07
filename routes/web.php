@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\librarian\UserController;
 use App\Http\Controllers\user\ProfileController;
+use App\Http\Controllers\user\SettingController;
+use App\Http\Controllers\librarian\UserController;
 use App\Http\Controllers\user\BookController as UserBookController;
 use App\Http\Controllers\user\LoanController as UserLoanController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
@@ -51,8 +52,6 @@ Route::middleware(['user'])->prefix('/user')->group(function() {
    Route::post('/enqueue', [UserLoanController::class, 'enqueue'])->name('user.enqueue');
    Route::delete('/cancel-queue', [UserLoanController::class, 'dequeue'])->name('user.cancel_queue');
    Route::post('/return-book', [UserLoanController::class, 'returnBook'])->name('user.return_book');
-
-   Route::get('/setting', [ProfileController::class, 'setting'])->name('user.setting');
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->group(function() {

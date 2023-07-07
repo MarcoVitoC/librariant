@@ -13,7 +13,7 @@
                </div>
                <div class="d-flex">
                   <p class="fw-normal fs-6 me-3"><i class="bi bi-envelope-fill"></i> {{ Auth::user()->email }}</p>
-                  <p class="fw-normal fs-6 me-3"><i class="bi bi-clock-fill"></i> Joined since {{ Auth::user()->created_at }}</p>
+                  <p class="fw-normal fs-6 me-3"><i class="bi bi-calendar2-week-fill"></i> Joined since {{ date('M d, Y', strtotime(Auth::user()->created_at)) }}</p>
                   <p class="fw-normal fs-6 me-3"><i class="bi bi-geo-alt-fill"></i> {{ Auth::user()->address }}</p>
                </div>
             </div>
