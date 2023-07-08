@@ -9,8 +9,13 @@ use App\Models\LoanDetail;
 use App\Models\LoanHeader;
 
 class BookService {
-   public function fetchBooks() {
-      return Book::paginate(18)->withQueryString();
+   public function fetchIndexDatas() {
+      $loans = LoanDetail::whereHas('loanHeader', function($query) {
+                  $query->where('user_id', auth()->id());
+               })->where('status_id', 0)->get();
+      $books = Book::paginate(18)->withQueryString();
+
+      return ['loans' => $loans, 'books' => $books];
    }
 
    public function fetchBookDetails($id) {
@@ -20,11 +25,18 @@ class BookService {
                })->where('book_id', $book->id)->latest()->first();
 
       $bookStatus = ($loan != null && $loan->status_id === 0) ? 'loaned' : 'available';
+
       $queue = Queue::where('user_id', auth()->id())->where('book_id', $book->id)->first();
+      $borrowAmount = LoanDetail::whereHas('loanHeader', function($query) {
+                        $query->where('user_id', auth()->id());
+                     })->where('status_id', 0)->get();
+
       if ($queue != null) {
          $bookStatus = 'queued';
       }else if ($loan != null && $loan->returned_date != null && $loan->status_id === 0) {
          $bookStatus = 'pending';
+      }else if ($borrowAmount->count() === 8) {
+         $bookStatus = 'limited';
       }
 
       $bookmark = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->first();

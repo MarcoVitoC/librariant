@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
       ]);
       Faq::create([
          'question' => 'How many books can I borrow at a time?',
-         'answer' => 'As a member, you can borrow 8 books at a time. However, certain materials like reference books or special collections may have different borrowing limits.'
+         'answer' => 'As a member, you can borrow 8 books at a time.'
       ]);
       Faq::create([
          'question' => 'How long can I keep borrowed books?',

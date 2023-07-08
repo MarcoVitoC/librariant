@@ -44,25 +44,32 @@
             let bookId = $(this).data('book-id');
             let bookQuantity = $(this).data('book-quantity');
             let bookStatus = $(this).data('book-status');
-
-            if (bookStatus === 'queued') {
-               Swal.fire({
+            const bookStatuses = {
+               queued: {
                   icon: 'info',
                   title: 'Oops...',
                   text: 'You are on the queue list, please wait!'
-               });
-            }else if (bookStatus === 'pending') {
-               Swal.fire({
+               },
+               pending: {
                   icon: 'info',
                   title: 'Please wait!',
                   text: 'You borrowed this book earlier, and the book return is still in the verification process.'
-               });
-            }else if (bookStatus === 'loaned') {
-               Swal.fire({
+               },
+               loaned: {
                   icon: 'error',
-                  title: 'Oops...',
+                  title: 'Sorry!',
                   text: 'Please return the borrowed book first!'
-               });
+               },
+               limited: {
+                  icon: 'error',
+                  title: 'Book limit reached!',
+                  text: 'Sorry, you cannot borrow any more books at the moment. Please return some books before borrowing new ones.'
+               }
+            };
+            const statusMessage = bookStatuses[bookStatus];
+
+            if (statusMessage) {
+               Swal.fire(statusMessage);
             }else {
                Swal.fire({
                   icon: 'question',
