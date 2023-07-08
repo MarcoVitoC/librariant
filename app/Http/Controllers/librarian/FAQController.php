@@ -22,17 +22,9 @@ class FAQController extends Controller
       return view('librarian.faq', ['faqs' => $faqs]);
    }
 
-   public function create() {
-      //...
-   }
-
    public function store(AddFAQRequest $request) {
       $this->faqService->addFAQ($request);
       return response()->json(['message' => 'New FAQ added successfully!'], 200);
-   }
-
-   public function show(Faq $faq) {
-      //...
    }
 
    public function edit(Faq $faq) {
@@ -45,6 +37,7 @@ class FAQController extends Controller
    }
 
    public function destroy(Faq $faq) {
-      //...
+      $this->faqService->deleteFAQ($faq);
+      return response()->json(['message' => 'FAQ deleted successfully!'], 200);
    }
 }

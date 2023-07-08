@@ -70,5 +70,5 @@ Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->grou
 
    Route::get('/users', [UserController::class, 'users'])->name('users');
 
-   Route::resource('faq', LibrarianFAQController::class);
+   Route::resource('faq', LibrarianFAQController::class)->except(['create', 'show']);
 });

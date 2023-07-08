@@ -131,6 +131,12 @@
             });
          });
 
+         $('#updateFAQBtn-close1, #updateFAQBtn-close2').click(function() {
+            $('#updateFAQForm')[0].reset();
+            $('.update-input-field').removeClass('is-valid');
+            $('.update-input-field').removeClass('is-invalid');
+         });
+
          $('#updateFAQForm').submit(function(e) {
             e.preventDefault();
 
@@ -155,7 +161,6 @@
                },
                error: function(xhr, status, error) {
                   let response = JSON.parse(xhr.responseText);
-                  console.log(response);
                   let updateInputFields = $('.update-input-field').map(function() {
                      return this.id;
                   }).get();
@@ -176,6 +181,38 @@
                   }
 
                   $('#updateFAQModal').modal('show');
+               }
+            });
+         });
+
+         $('.removeFAQBtn').click(function() {
+            let faqId = $(this).data('faq-id');
+            let url = "{{ route('librarian.faq.destroy', ':faqId') }}".replace(':faqId', faqId);
+
+            Swal.fire({
+               icon: 'warning',
+               title: 'Are you sure want to remove this FAQ?',
+               showCancelButton: true,
+               cancelButtonColor: '#D33',
+               confirmButtonColor: '#3085D6',
+               confirmButtonText: 'Yes',
+               reverseButtons: true
+            }).then(function(result) {
+               if (result.isConfirmed) {
+                  $.ajax({
+                     type: 'DELETE',
+                     url: url,
+                     data: {},
+                     dataType: 'json',
+                     success: function(response) {
+                        Swal.fire({
+                           icon: 'success',
+                           title: response.message
+                        }).then(function() {
+                           location.reload();
+                        });
+                     }
+                  });
                }
             });
          });

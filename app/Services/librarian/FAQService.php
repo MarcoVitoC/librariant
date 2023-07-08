@@ -18,4 +18,8 @@ class FAQService {
       $updatedFAQ = $request->validated();
       $faq->update($updatedFAQ);
    }
+
+   public function deleteFAQ($faq) {
+      $faq->delete();
+   }
 }
