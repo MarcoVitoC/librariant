@@ -138,7 +138,7 @@
             let updateFAQUrl = "{{ route('librarian.faq.update', ':faqId') }}".replace(':faqId', faqId);
 
             $.ajax({
-               type: 'PUT',
+               type: 'POST',
                url: updateFAQUrl,
                data: new FormData(this),
                dataType: 'json',
