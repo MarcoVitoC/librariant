@@ -27,7 +27,7 @@
                   <td class="border text-center w-30 py-4">{{ $faq->question }}</td>
                   <td class="border text-center w-50">{{ $faq->answer }}</td>
                   <td class="border text-center">
-                     <button type="button" class="btn" data-faq-id="{{ $faq->id }}" data-bs-toggle="modal" data-bs-target="#updateFAQModal">
+                     <button type="button" class="btn updateFAQBtn" data-faq-id="{{ $faq->id }}" data-bs-toggle="modal" data-bs-target="#updateFAQModal">
                         <i class="bi bi-pencil-fill"></i>
                      </button>
                      <button type="button" class="btn removeFAQBtn" data-faq-id="{{ $faq->id }}">
@@ -65,13 +65,13 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         $('#addFAQBtn').click(function(e) {
+         $('#addFAQForm').submit(function(e) {
             e.preventDefault();
 
             $.ajax({
                type: 'POST',
-               url: "{{ route('librarian.add_faq') }}",
-               data: new FormData($('#addFAQForm')[0]),
+               url: "{{ route('librarian.faq.store') }}",
+               data: new FormData(this),
                dataType: 'json',
                processData: false,
                contentType: false,
@@ -116,8 +116,68 @@
             $('.input-field').removeClass('is-invalid');
          });
 
-         $('#updateFAQBtn').click(function() {
-            
+         $('.updateFAQBtn').click(function() {
+            let faqId = $(this).data('faq-id');
+            let url = "{{ route('librarian.faq.edit', ':faqId') }}".replace(':faqId', faqId);
+            let updateFAQModal = $('#updateFAQModal');
+            let updateFAQForm = updateFAQModal.find('form');
+
+            $.get(url, {}, function(data) {
+               updateFAQForm.find('input[name="faq_id"]').val(data.faq.id);
+               updateFAQForm.find('textarea[name="question"]').val(data.faq.question);
+               updateFAQForm.find('textarea[name="answer"]').val(data.faq.answer);
+
+               updateFAQModal.modal('show');
+            });
+         });
+
+         $('#updateFAQForm').submit(function(e) {
+            e.preventDefault();
+
+            let faqId = $(this).find('input[name="faq_id"]').val();
+            let updateFAQUrl = "{{ route('librarian.faq.update', ':faqId') }}".replace(':faqId', faqId);
+
+            $.ajax({
+               type: 'PUT',
+               url: updateFAQUrl,
+               data: new FormData(this),
+               dataType: 'json',
+               processData: false,
+               contentType: false,
+               success: function(response) {
+                  Swal.fire({
+                     icon: 'success',
+                     title: response.message,
+                  }).then(function() {
+                     $('#updateFAQModal').modal('hide');
+                     location.reload();
+                  });
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response);
+                  let updateInputFields = $('.update-input-field').map(function() {
+                     return this.id;
+                  }).get();
+
+                  for (let updateInputField of updateInputFields) {
+                     let inputField = updateInputField.split('-')[1];
+                     let errorMessage = response.errors[inputField];
+
+                     if (response.errors.hasOwnProperty(inputField)) {
+                        $('#update-' +inputField).removeClass('is-valid');
+                        $('#update-' +inputField).addClass('is-invalid');
+                        $('.' +inputField+ '-feedback').addClass('invalid-feedback').text(errorMessage);
+                     } else {
+                        $('#update-' +inputField).removeClass('is-invalid');
+                        $('.' +inputField+ '-feedback').removeClass('invalid-feedback').text('');
+                        $('#update-' +inputField).addClass('is-valid');
+                     }
+                  }
+
+                  $('#updateFAQModal').modal('show');
+               }
+            });
          });
       });
    </script>

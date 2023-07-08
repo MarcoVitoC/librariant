@@ -70,9 +70,5 @@ Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->grou
 
    Route::get('/users', [UserController::class, 'users'])->name('users');
 
-   Route::resource('faq', LibrarianFAQController::class)->names([
-      'index' => 'faq',
-      'store' => 'add_faq',
-      'update' => 'update_faq'
-   ]);
+   Route::resource('faq', LibrarianFAQController::class);
 });

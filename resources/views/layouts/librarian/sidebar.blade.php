@@ -19,7 +19,7 @@
       <a href="{{ route('librarian.users') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.users') ? 'active' : '' }}">
          <i class="bi bi-people me-3"></i>Users
       </a>
-      <a href="{{ route('librarian.faq') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.faq') ? 'active' : '' }}">
+      <a href="{{ route('librarian.faq.index') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.faq.index') ? 'active' : '' }}">
          <i class="bi bi-question-circle me-3"></i>FAQs
       </a>
    </div>
