@@ -6,6 +6,10 @@ use App\Models\Book;
 use Illuminate\Support\Facades\Storage;
 
 class BookService {
+   public function showBooks() {
+      return Book::paginate(10)->withQueryString();
+   }
+   
    public function addBook($request) {
       $newBook = $request->validated();
 
@@ -15,16 +19,7 @@ class BookService {
       return $book;
    }
 
-   public function showBooks() {
-      return Book::paginate(10)->withQueryString();
-   }
-
-   public function showBookDetails($request) {
-      return Book::find($request->id);
-   }
-
-   public function updateBook($request) {
-      $book = Book::find($request->book_id);
+   public function updateBook($request, $book) {
       $updatedBook = $request->validated();
       
       if ($request->file('book_photo')) {
@@ -35,9 +30,7 @@ class BookService {
       $book->update($updatedBook);
    }
 
-   public function removeBook($request) {
-      $book = Book::find($request->id);
-
+   public function removeBook($book) {
       Storage::delete($book->book_photo);
       $book->delete();
    }

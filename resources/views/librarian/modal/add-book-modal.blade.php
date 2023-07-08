@@ -5,7 +5,7 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add book</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="addBookBtn-close1"></button>
          </div>
-         <form action="{{ route('librarian.add_book') }}" method="POST" enctype="multipart/form-data" id="addBookForm">
+         <form action="" method="POST" enctype="multipart/form-data" id="addBookForm">
             @csrf
             <div class="modal-body d-flex align-items-center justify-content-center">
                <div class="">
@@ -81,7 +81,7 @@
             </div>
             <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="addBookBtn-close2">Close</button>
-               <button type="submit" class="btn btn-primary" id="addBookBtn">Add book</button>
+               <button type="submit" class="btn btn-primary">Add book</button>
             </div>
          </form>
       </div>

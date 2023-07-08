@@ -63,13 +63,13 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         $('#addBookBtn').click(function(e) {
+         $('#addBookForm').submit(function(e) {
             e.preventDefault();
 
             $.ajax({
                type: 'POST',
-               url: "{{ route('librarian.add_book') }}",
-               data: new FormData($('#addBookForm')[0]),
+               url: "{{ route('librarian.book.store') }}",
+               data: new FormData(this),
                dataType: 'json',
                processData: false,
                contentType: false,
@@ -125,11 +125,11 @@
 
          $('.updateBookBtn').click(function() {
             let bookId = $(this).data('book-id');
-            let url = "{{ route('librarian.book_details') }}";
+            let url = "{{ route('librarian.book.edit', ':bookId') }}".replace(':bookId', bookId);
             let updateBookModal = $('.updateBookModal');
             let updateBookForm = updateBookModal.find('form');
 
-            $.get(url, {id: bookId}, function(data) {
+            $.get(url, {}, function(data) {
                updateBookForm.find('input[name="book_id"]').val(data.book.id);
                $('.updatedBookPreview').attr('src', "{{ asset('storage/') }}" + '/' + data.book.book_photo);
                updateBookForm.find('input[name="oldBookPreview"]').val(data.book.book_photo);
@@ -158,10 +158,13 @@
 
          $('#updateBookForm').submit(function(e) {
             e.preventDefault();
+
+            let bookId = $(this).find('input[name="book_id"]').val();
+            let updateBookUrl = "{{ route('librarian.book.update', ':bookId') }}".replace(':bookId', bookId);
             
             $.ajax({
                type: 'POST',
-               url: "{{ route('librarian.update_book') }}",
+               url: updateBookUrl,
                data: new FormData(this),
                dataType: 'json',
                processData: false,
@@ -209,7 +212,7 @@
 
          $('.removeBookBtn').click(function() {
             let bookId = $(this).data('book-id');
-            let url = "{{ route('librarian.remove_book') }}";
+            let url = "{{ route('librarian.book.destroy', ':bookId') }}".replace(':bookId', bookId);
 
             Swal.fire({
                icon: 'warning',
@@ -224,7 +227,7 @@
                   $.ajax({
                      type: 'DELETE',
                      url: url,
-                     data: {id: bookId},
+                     data: {},
                      dataType: 'json',
                      success: function(response) {
                         Swal.fire({

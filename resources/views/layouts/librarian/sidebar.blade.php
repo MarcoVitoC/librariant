@@ -7,7 +7,7 @@
       <a href="{{ route('librarian.dashboard') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.dashboard') ? 'active' : '' }}">
          <i class="bi bi-speedometer2 me-3"></i>Dashboard
       </a>
-      <a href="{{ route('librarian.books') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.books') ? 'active' : '' }}">
+      <a href="{{ route('librarian.book.index') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.book.index') ? 'active' : '' }}">
          <i class="bi bi-book me-3"></i>Books
       </a>
       <a href="{{ route('librarian.returns') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.returns') ? 'active' : '' }}">

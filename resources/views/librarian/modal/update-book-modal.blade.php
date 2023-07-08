@@ -5,7 +5,7 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit book</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="updateBookBtn-close1"></button>
          </div>
-         <form action="{{ route('librarian.update_book') }}" method="POST" enctype="multipart/form-data" id="updateBookForm">
+         <form action="" method="POST" enctype="multipart/form-data" id="updateBookForm">
             @method('put')
             @csrf
             <input type="hidden" name="book_id">

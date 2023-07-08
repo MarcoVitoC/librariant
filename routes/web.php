@@ -57,12 +57,8 @@ Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->grou
    Route::get('/', function() {
       return view('librarian.dashboard');
    })->name('dashboard');
-   
-   Route::get('/books', [LibrarianBookController::class, 'showBooks'])->name('books');
-   Route::get('/book-details', [LibrarianBookController::class, 'showBookDetails'])->name('book_details');
-   Route::post('/add-book', [LibrarianBookController::class, 'addBook'])->name('add_book');
-   Route::put('/update-book', [LibrarianBookController::class, 'updateBook'])->name('update_book');
-   Route::delete('/remove-book', [LibrarianBookController::class, 'removeBook'])->name('remove_book');
+
+   Route::resource('book', LibrarianBookController::class)->except(['create', 'show']);
 
    Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('returns');
    Route::post('/return-confirmation', [LibrarianLoanController::class, 'returnConfirmation'])->name('return_confirmation');
