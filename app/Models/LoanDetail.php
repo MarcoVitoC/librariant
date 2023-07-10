@@ -18,4 +18,8 @@ class LoanDetail extends Model
    public function book() {
       return $this->belongsTo(Book::class);
    }
+
+   public function renewal() {
+      return $this->hasOne(Renewal::class);
+   }
 }

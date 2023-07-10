@@ -19,7 +19,8 @@ class LoanController extends Controller
       return view('user.loans', [
          'loanedBooks' => $loans['loanedBooks'],
          'unconfirmedReturns' => $loans['unconfirmedReturns'],
-         'queues' => $loans['queues']
+         'queues' => $loans['queues'],
+         'renewableLoans' => $loans['renewableLoans']
       ]);
    }
 
@@ -41,5 +42,10 @@ class LoanController extends Controller
    public function returnBook(Request $request) {
       $this->loanService->returnBook($request);
       return response()->json(['message' => 'Your book return has been forwarded to the librarian!'], 200);
+   }
+
+   public function loanRenewal(Request $request) {
+      $this->loanService->renewLoan($request);
+      return response()->json(['message' => 'Your loan renewal request has been forwarded to the librarian!'], 200);
    }
 }

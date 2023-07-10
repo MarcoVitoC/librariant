@@ -51,6 +51,7 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::post('/enqueue', [UserLoanController::class, 'enqueue'])->name('enqueue');
    Route::delete('/cancel-queue', [UserLoanController::class, 'dequeue'])->name('cancel_queue');
    Route::post('/return-book', [UserLoanController::class, 'returnBook'])->name('return_book');
+   Route::post('/renew-loan', [UserLoanController::class, 'loanRenewal'])->name('renew_loan');
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->group(function() {

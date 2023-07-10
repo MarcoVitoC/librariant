@@ -7,6 +7,36 @@
          <h1 class="text-secondary">🚫 No loans available at the moment.</h1>
       </div>
    @else
+      @if ($renewableLoans->isNotEmpty())
+         <div class="bg-cornsilk py-5">
+            <div class="mx-6">
+               <div class="px-4">
+                  <h2 class="">Loan Renewal</h2>
+                  <p class="fw-normal lh-sm my-3">Need a little extra reading time? Remember, you can make a request to extend your borrowed books within <b>5 days</b> after the loan date.</p>
+                  <div class="bg-white rounded px-5 py-3 ">
+                     <form action="" method="POST" enctype="multipart/form-data" id="loanRenewalForm" class="d-flex align-items-end justify-content-between">
+                        @csrf
+                        <div class="w-75">
+                           <label for="selected_loan" class="col-form-label">Select loaned book to renew:</label>
+                           <select class="form-select text-center" aria-label="Default select example" name="selected_loan">
+                              {{-- <option selected disabled></option> --}}
+                              @foreach ($renewableLoans as $renewableLoan)
+                                 <option value="{{ $renewableLoan->id }}">{{ $renewableLoan->book->book_title }}</option>
+                              @endforeach
+                           </select>
+                        </div>
+                        <div class="ms-3 w-30">
+                           <label for="renewed_due_date" class="col-form-label">Renewed due date:</label>
+                           <input type="date" class="form-control input-field" id="renewed_due_date" name="renewed_due_date" value="{{ old('renewed_due_date') }}">
+                           <div class="renewed_due_date-feedback"></div>
+                        </div>
+                        <button type="submit" class="btn btn-dark ms-3">Request</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      @endif
       @if ($loanedBooks->isNotEmpty())
          <div class="mx-6 my-5">
             <div class="mx-4">
@@ -29,7 +59,7 @@
                            <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->loanHeader->loan_date)) }}</td>
                            <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->due_date)) }}</td>
                            <td class="border text-center">
-                              <button type="submit" class="btn btn-outline-dark col-8 mt-1 returnBookBtn" data-book-id="{{ $loanedBook->book->id }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
+                              <button type="submit" class="btn btn-outline-dark col-7 mt-1 returnBookBtn" data-book-id="{{ $loanedBook->book->id }}"><i class="bi bi-reply-fill"></i> Return book</button>
                            </td>
                         </tr>
                      @endforeach
@@ -164,6 +194,61 @@
                      error: function(xhr, status, error) {
                         let response = JSON.parse(xhr.responseText);
                         console.log(response.message);
+                     }
+                  });
+               }
+            });
+         });
+
+         $('#loanRenewalForm').submit(function(e) {
+            e.preventDefault();
+
+            let loanRenewalRequest = this;
+
+            Swal.fire({
+               icon: 'question',
+               title: 'Are you sure want to renew this loan?',
+               showCancelButton: true,
+               cancelButtonColor: '#D33',
+               confirmButtonColor: '#3085D6',
+               confirmButtonText: 'Yes',
+               reverseButtons: true
+            }).then(function(result) {
+               if (result.isConfirmed) {
+                  $.ajax({
+                     type: 'POST',
+                     url: "{{ route('user.renew_loan') }}",
+                     data: new FormData(loanRenewalRequest),
+                     dataType: 'json',
+                     processData: false,
+                     contentType: false,
+                     success: function(response) {
+                        Swal.fire({
+                           icon: 'success',
+                           title: '📩 Request Forwaded!',
+                           text: response.message
+                        }).then(function() {
+                           $('#loanRenewalForm')[0].reset();
+                           location.reload();
+                        });
+                     },
+                     error: function(xhr, status, error) {
+                        let response = JSON.parse(xhr.responseText);
+                        console.log(response);
+                        let inputFields = $('.input-field').map(function() {
+                           return this.id;
+                        }).get();
+
+                        for (let inputField of inputFields) {
+                           let errorMessage = response.errors[inputField];
+                           if (response.errors.hasOwnProperty(inputField)) {
+                              Swal.fire({
+                                 icon: 'error',
+                                 title: 'Wrong Input!',
+                                 text: 'Please ensure that you have filled in the renewed due date field and that the date selected is within a maximum of one week from the current due date.'
+                              });
+                           }
+                        }
                      }
                   });
                }

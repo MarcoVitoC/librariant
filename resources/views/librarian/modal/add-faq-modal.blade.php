@@ -5,7 +5,7 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add FAQ</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="addFAQBtn-close1"></button>
          </div>
-         <form action="{{ route('librarian.faq.store') }}" method="POST" enctype="multipart/form-data" id="addFAQForm">
+         <form action="" method="POST" enctype="multipart/form-data" id="addFAQForm">
             @csrf
             <div class="modal-body d-flex align-items-center justify-content-center">
                <div class="col-10">

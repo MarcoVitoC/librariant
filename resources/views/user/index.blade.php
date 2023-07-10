@@ -11,7 +11,7 @@
                @if ($loans->isEmpty())
                   <h6 class="text-center"><i class="bi bi-inbox me-2"></i>You have no books to return at the moment.</h6>
                @else
-                  <h6 class="text-center"><i class="bi bi-inbox me-2"></i>You have {{ $loans->count() }} books to return at the moment.</h6>
+                  <h6 class="text-center"><i class="bi bi-inbox me-2"></i>You have {{ $loans->count() }} books to return.</h6>
                @endif
             </div>
          </div>
