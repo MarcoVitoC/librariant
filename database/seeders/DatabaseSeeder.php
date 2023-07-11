@@ -50,11 +50,31 @@ class DatabaseSeeder extends Seeder
 
       Status::create([
          'id' => 0,
-         'status_name' => 'loaned'
+         'status_name' => 'Loaned'
       ]);
       Status::create([
          'id' => 1,
-         'status_name' => 'returned'
+         'status_name' => 'Returned'
+      ]);
+      Status::create([
+         'id' => 2,
+         'status_name' => 'Returned Pending'
+      ]);
+      Status::create([
+         'id' => 3,
+         'status_name' => 'Returned Confirmed'
+      ]);
+      Status::create([
+         'id' => 4,
+         'status_name' => 'Renewal Requested'
+      ]);
+      Status::create([
+         'id' => 5,
+         'status_name' => 'Renewal Pending'
+      ]);
+      Status::create([
+         'id' => 6,
+         'status_name' => 'Renewed'
       ]);
 
       Faq::create([
