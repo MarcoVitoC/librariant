@@ -18,8 +18,7 @@
                         @csrf
                         <div class="w-75">
                            <label for="selected_loan" class="col-form-label">Select loaned book to renew:</label>
-                           <select class="form-select text-center" aria-label="Default select example" name="selected_loan">
-                              {{-- <option selected disabled></option> --}}
+                           <select class="form-select text-center" aria-label="Default select example" id="selected_loan" name="selected_loan">
                               @foreach ($renewableLoans as $renewableLoan)
                                  <option value="{{ $renewableLoan->id }}">{{ $renewableLoan->book->book_title }}</option>
                               @endforeach
@@ -244,7 +243,7 @@
                            if (response.errors.hasOwnProperty(inputField)) {
                               Swal.fire({
                                  icon: 'error',
-                                 title: 'Wrong Input!',
+                                 title: 'Invalid Input!',
                                  text: 'Please ensure that you have filled in the renewed due date field and that the date selected is within a maximum of one week from the current due date.'
                               });
                            }

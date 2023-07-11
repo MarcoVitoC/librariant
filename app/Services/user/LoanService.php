@@ -69,23 +69,13 @@ class LoanService {
    }
 
    public function renewLoan($request) {
-      $renewableLoan = LoanDetail::find($request->selected_loan);
-      $request->validate([
-         'renewed_due_date' => [
-            'required',
-            'date',
-            'after:'.Carbon::parse($renewableLoan->due_date)->toDateString(),
-            'before_or_equal:'.Carbon::parse($renewableLoan->due_date)->addWeek()->toDateString()
-         ]
-      ]);
-
-      // $loanRenewal = $request->validated();
+      $loanRenewal = $request->validated();
 
       Renewal::create([
          'user_id' => auth()->id(),
-         'loan_detail_id' => $request->selected_loan,
+         'loan_detail_id' => $loanRenewal['selected_loan'],
          'renewal_date' => Carbon::now(),
-         'renewed_due_date' => $request->renewed_due_date
+         'renewed_due_date' => $loanRenewal['renewed_due_date']
       ]);
    }
 }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\user;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Services\user\LoanService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\LoanRenewalRequest;
 
 class LoanController extends Controller
 {
@@ -44,7 +45,7 @@ class LoanController extends Controller
       return response()->json(['message' => 'Your book return has been forwarded to the librarian!'], 200);
    }
 
-   public function loanRenewal(Request $request) {
+   public function loanRenewal(LoanRenewalRequest $request) {
       $this->loanService->renewLoan($request);
       return response()->json(['message' => 'Your loan renewal request has been forwarded to the librarian!'], 200);
    }
