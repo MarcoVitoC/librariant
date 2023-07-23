@@ -13,7 +13,7 @@ class LoanService {
    public function fetchReturnedBooks() {
       $returnedBooks = LoanDetail::with(['book', 'loanHeader.user'])
                         ->whereNotNull('returned_date')
-                        ->where('status_id', 0)
+                        ->where('status_id', 2)
                         ->get();
       return $returnedBooks;
    }

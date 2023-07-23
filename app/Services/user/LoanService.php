@@ -17,12 +17,18 @@ class LoanService {
                      ->whereHas('loanHeader', function($query) {
                         $query->where('user_id', auth()->id());
                      })->oldest()->get();
-      $unconfirmedReturns = LoanDetail::with('book')->whereNotNull('returned_date')->where('status_id', 0)->oldest()->get();
+      $unconfirmedReturns = LoanDetail::with('book')
+                           ->whereNotNull('returned_date')
+                           ->where('status_id', 2)
+                           ->oldest()
+                           ->get();
       $queues = Queue::with('book')->where('user_id', auth()->id())->oldest()->get();
       $renewableLoans = LoanDetail::with(['book', 'loanHeader'])
                         ->whereNull('returned_date')
                         ->whereHas('loanHeader', function($query) {
-                           $query->where('user_id', auth()->id())->whereDate('loan_date', '<=', now()->subDays(5));
+                           $query->where('user_id', auth()->id())->whereDate('loan_date', '<=', now()->subDays(10));
+                        })->whereDoesntHave('renewal', function($query) {
+                           $query->whereColumn('loan_detail_id', 'id');
                         })->get();
 
       return [
@@ -65,6 +71,7 @@ class LoanService {
                   $query->where('user_id', auth()->id());
                })->where('book_id', $request->book_id)->where('status_id', 0)->first();
       $loan->returned_date = Carbon::now();
+      $loan->status_id = 2;
       $loan->save();
    }
 
@@ -73,7 +80,7 @@ class LoanService {
 
       Renewal::create([
          'user_id' => auth()->id(),
-         'loan_detail_id' => $loanRenewal['selected_loan'],
+         'loan_detail_id' => $request->selected_loan,
          'renewal_date' => Carbon::now(),
          'renewed_due_date' => $loanRenewal['renewed_due_date']
       ]);

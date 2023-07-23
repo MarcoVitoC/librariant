@@ -29,13 +29,13 @@ class BookService {
       $queue = Queue::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $borrowAmount = LoanDetail::whereHas('loanHeader', function($query) {
                         $query->where('user_id', auth()->id());
-                     })->where('status_id', 0)->get();
+                     })->where('status_id', 0)->count();
 
       if ($queue != null) {
          $bookStatus = 'queued';
-      }else if ($loan != null && $loan->returned_date != null && $loan->status_id === 0) {
+      }else if ($loan != null && $loan->returned_date != null && $loan->status_id === 2) {
          $bookStatus = 'pending';
-      }else if ($borrowAmount->count() === 8) {
+      }else if ($borrowAmount === 8) {
          $bookStatus = 'limited';
       }
 

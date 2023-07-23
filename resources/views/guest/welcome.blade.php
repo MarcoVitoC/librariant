@@ -49,7 +49,7 @@
                   <div class="card-body">
                      <h5 class="card-title">{{ $book->book_title }}</h5>
                      <p class="card-text">by: {{ $book->author }}</p>
-                     <a href="{{ route('register') }}" class="btn btn-dark">Borrow</a>
+                     <a href="{{ route('login') }}" class="btn btn-dark">Borrow</a>
                   </div>
                </div>
                @php

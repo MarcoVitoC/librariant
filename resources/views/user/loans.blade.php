@@ -12,7 +12,7 @@
             <div class="mx-6">
                <div class="px-4">
                   <h2 class="">Loan Renewal</h2>
-                  <p class="fw-normal lh-sm my-3">Need a little extra reading time? Remember, you can make a request to extend your borrowed books within <b>5 days</b> after the loan date.</p>
+                  <p class="fw-normal lh-sm my-3">Need a little extra reading time? Remember, you can make a request to extend your borrowed books within <b>10 days</b> after the loan date.</p>
                   <div class="bg-white rounded px-5 py-3 ">
                      <form action="" method="POST" enctype="multipart/form-data" id="loanRenewalForm" class="d-flex align-items-end justify-content-between">
                         @csrf
