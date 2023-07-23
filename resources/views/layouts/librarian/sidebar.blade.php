@@ -16,6 +16,9 @@
       <a href="{{ route('librarian.loans') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.loans') ? 'active' : '' }}">
          <i class="bi bi-table me-3"></i>Loans
       </a>
+      <a href="{{ route('librarian.renewals') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.loans') ? 'active' : '' }}">
+         <i class="bi bi-arrow-clockwise me-3"></i>Renewals
+      </a>
       <a href="{{ route('librarian.users') }}" class="nav-link text-white mb-1 {{ Route::currentRouteNamed('librarian.users') ? 'active' : '' }}">
          <i class="bi bi-people me-3"></i>Users
       </a>

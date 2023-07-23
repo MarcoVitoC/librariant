@@ -28,4 +28,9 @@ class LoanController extends Controller
       $loanedBooks = $this->loanService->showLoans();
       return view('librarian.loans', ['loanedBooks' => $loanedBooks]);
    }
+
+   public function renewals() {
+      $renewals = $this->loanService->fetchRenewalRequests();
+      return view('librarian.renewals', ['renewals' => $renewals]);
+   }
 }

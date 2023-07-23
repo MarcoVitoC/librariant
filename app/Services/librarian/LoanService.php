@@ -5,6 +5,7 @@ namespace App\Services\librarian;
 use App\Models\Book;
 use App\Models\User;
 use App\Models\Queue;
+use App\Models\Renewal;
 use App\Models\LoanDetail;
 use App\Models\LoanHeader;
 use Illuminate\Support\Carbon;
@@ -54,5 +55,9 @@ class LoanService {
                      ->where('status_id', 0)
                      ->get();
       return $loanedBooks;
+   }
+
+   public function fetchRenewalRequests() {
+      return Renewal::with(['user', 'loanDetail.loanHeader', 'loanDetail.book'])->get();
    }
 }

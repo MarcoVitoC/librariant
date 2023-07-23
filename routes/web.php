@@ -64,6 +64,7 @@ Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->grou
    Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('returns');
    Route::post('/return-confirmation', [LibrarianLoanController::class, 'returnConfirmation'])->name('return_confirmation');
    Route::get('/loans', [LibrarianLoanController::class, 'loans'])->name('loans');
+   Route::get('/renewals', [LibrarianLoanController::class, 'renewals'])->name('renewals');
 
    Route::get('/users', [UserController::class, 'users'])->name('users');
 
