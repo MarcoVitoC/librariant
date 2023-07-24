@@ -12,7 +12,7 @@ class BookService {
    public function fetchIndexDatas() {
       $loans = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
-               })->where('status_id', 0)->get();
+               })->whereIn('status_id', [0, 3])->get();
       $books = Book::paginate(18)->withQueryString();
 
       return ['loans' => $loans, 'books' => $books];
@@ -24,12 +24,12 @@ class BookService {
                   $query->where('user_id', auth()->id());
                })->where('book_id', $book->id)->latest()->first();
 
-      $bookStatus = ($loan != null && $loan->status_id === 0) ? 'loaned' : 'available';
+      $bookStatus = ($loan != null && ($loan->status_id === 0 || $loan->status_id === 3)) ? 'loaned' : 'available';
 
       $queue = Queue::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $borrowAmount = LoanDetail::whereHas('loanHeader', function($query) {
                         $query->where('user_id', auth()->id());
-                     })->where('status_id', 0)->count();
+                     })->whereIn('status_id', [0, 3])->count();
 
       if ($queue != null) {
          $bookStatus = 'queued';

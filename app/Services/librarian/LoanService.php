@@ -52,12 +52,24 @@ class LoanService {
    public function showLoans() {
       $loanedBooks = LoanDetail::with(['book', 'loanHeader.user'])
                      ->whereNull('returned_date')
-                     ->where('status_id', 0)
+                     ->whereIn('status_id', [0, 3])
+                     ->oldest('due_date')
                      ->get();
       return $loanedBooks;
    }
 
    public function fetchRenewalRequests() {
       return Renewal::with(['user', 'loanDetail.loanHeader', 'loanDetail.book'])->get();
+   }
+ 
+   public function confirmRenewal($request) {
+      $renewedLoan = LoanDetail::where('id', $request->loan_detail_id)->first();
+      $renewal = Renewal::find($request->renewal_id);
+
+      $renewedLoan->status_id = 3;
+      $renewedLoan->due_date = $renewal->renewed_due_date;
+      $renewedLoan->save();
+
+      $renewal->delete();
    }
 }

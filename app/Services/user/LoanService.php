@@ -16,11 +16,11 @@ class LoanService {
                      ->whereNull('returned_date')
                      ->whereHas('loanHeader', function($query) {
                         $query->where('user_id', auth()->id());
-                     })->oldest()->get();
+                     })->oldest('due_date')->get();
       $unconfirmedReturns = LoanDetail::with('book')
                            ->whereNotNull('returned_date')
                            ->where('status_id', 2)
-                           ->oldest()
+                           ->oldest('returned_date')
                            ->get();
       $queues = Queue::with('book')->where('user_id', auth()->id())->oldest()->get();
       $renewableLoans = LoanDetail::with(['book', 'loanHeader'])
@@ -69,7 +69,7 @@ class LoanService {
    public function returnBook($request) {
       $loan = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
-               })->where('book_id', $request->book_id)->where('status_id', 0)->first();
+               })->where('book_id', $request->book_id)->whereIn('status_id', [0, 3])->first();
       $loan->returned_date = Carbon::now();
       $loan->status_id = 2;
       $loan->save();

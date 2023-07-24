@@ -12,6 +12,7 @@ class ProfileService {
                         })
                         ->whereNotNull('returned_date')
                         ->where('status_id', 1)
+                        ->latest('returned_date')
                         ->get();
       return $borrowHistories;
    }

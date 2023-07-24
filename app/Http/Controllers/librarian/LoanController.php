@@ -33,4 +33,9 @@ class LoanController extends Controller
       $renewals = $this->loanService->fetchRenewalRequests();
       return view('librarian.renewals', ['renewals' => $renewals]);
    }
+
+   public function renewalConfirmation(Request $request) {
+      $this->loanService->confirmRenewal($request);
+      return response()->json(['message' => 'Loan renewed successfully!'], 200);
+   }
 }
