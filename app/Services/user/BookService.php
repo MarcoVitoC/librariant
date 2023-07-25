@@ -13,7 +13,7 @@ class BookService {
       $loans = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
                })->whereIn('status_id', [0, 3])->get();
-      $books = Book::paginate(18)->withQueryString();
+      $books = Book::paginate(12)->withQueryString();
 
       return ['loans' => $loans, 'books' => $books];
    }

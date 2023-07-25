@@ -10,6 +10,6 @@ class GuestService {
    }
 
    public function fetchAllBooks() {
-      return Book::paginate(18)->withQueryString();
+      return Book::paginate(12)->withQueryString();
    }
 }
