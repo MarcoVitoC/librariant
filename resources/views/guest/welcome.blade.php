@@ -39,25 +39,14 @@
          <a href="{{ route('guest.books') }}" class="fw-medium cursor-pointer link-dark link-offset-1 link-underline-opacity-0 link-underline-opacity-100-hover">See all</a>
       </div>
       <div class="d-flex justify-content-between px-4">
-         @php
-            $counter = 0;
-         @endphp
          @foreach ($books as $book)
-            @if ($counter < 4)
-               <div class="card" style="width: 18rem;">
-                  <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="" height="300px">
-                  <div class="card-body">
-                     <h5 class="card-title">{{ $book->book_title }}</h5>
-                     <p class="card-text">by: {{ $book->author }}</p>
-                     <a href="{{ route('login') }}" class="btn btn-dark">Borrow</a>
-                  </div>
+            <a href="{{ route('guest.book_details', $book->id) }}" class="card text-decoration-none" style="width: 18rem;">
+               <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="" height="350px">
+               <div class="card-body">
+                  <h5 class="card-title">{{ $book->book_title }}</h5>
+                  <p class="card-text">by: {{ $book->author }}</p>
                </div>
-               @php
-                  $counter++;
-               @endphp
-            @else
-               @break
-            @endif
+            </a>
          @endforeach
       </div>
    </div>
