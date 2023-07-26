@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BookService {
    public function showBooks() {
-      return Book::paginate(10)->withQueryString();
+      return Book::all();
    }
    
    public function addBook($request) {
