@@ -5,8 +5,8 @@
    <div class="container mt-4">
       <form class="d-flex justify-content-center" role="search">
          <div class="input-group w-50">
-            <input class="form-control" id="search_book" type="text" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
-            <button class="btn btn-dark" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+            <input class="form-control" id="search_input" type="text" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
+            <button class="btn btn-dark" id="button-addon2"><i class="bi bi-search"></i></button>
          </div>
          {{-- <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
          <button class="btn btn-dark mx-1" type="button"><i class="bi bi-arrow-down-up me-2"></i>Sort by</button> --}}
@@ -60,11 +60,11 @@
    <script>
       $(document).ready(function() {
          let books = {!! json_encode($books->toArray()) !!}
-         $('#search_book').keyup(function(e) {
+         $('#search_input').keyup(function(e) {
             e.preventDefault();
             
             $('#book_list').html('');
-            let searchInput = $('#search_book').val().toLowerCase();
+            let searchInput = $('#search_input').val().toLowerCase();
             let filteredBooks = books.filter(book => book.book_title.toLowerCase().includes(searchInput));
             filteredBooks.forEach(function(book) {
                $('#book_list').append(

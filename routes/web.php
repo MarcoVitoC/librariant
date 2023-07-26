@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function() {
 
 Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('home');
-   Route::get('/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
+   Route::get('/books/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
 
    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
