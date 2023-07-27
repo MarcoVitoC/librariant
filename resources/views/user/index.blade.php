@@ -78,30 +78,27 @@
             e.preventDefault();
             
             let searchInput = $('#search_input').val().toLowerCase();
-            $.ajax({
-               type: 'GET',
-               url: "{{ route('user.search_book') }}",
-               data: {search_input: searchInput},
-               success: function(response) {
-                  let searchResults = response.searchedBook.data;
+            let url = "{{ route('user.search_book') }}";
 
-                  $('#book_list').html('');
-                  searchResults.forEach(function(book) {
-                     $('#book_list').append(
-                        `
-                        <div class="d-flex justify-content-center">
-                           <a href="/user/books/book-details/${book.id}" class="card w-85 h-100 text-decoration-none">
-                              <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
-                              <div class="card-body text-decoration">
-                                 <h5 class="card-title">${book.book_title}</h5>
-                                 <p class="card-text text-secondary">By: ${book.author}</p>
-                              </div>
-                           </a>
-                        </div>
-                        `
-                     );
-                  });
-               }
+            $.get(url, {search_input: searchInput}, function(response) {
+               let searchResults = response.searchedBook.data;
+
+               $('#book_list').html('');
+               searchResults.forEach(function(book) {
+                  $('#book_list').append(
+                     `
+                     <div class="d-flex justify-content-center">
+                        <a href="/user/books/book-details/${book.id}" class="card w-85 h-100 text-decoration-none">
+                           <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
+                           <div class="card-body text-decoration">
+                              <h5 class="card-title">${book.book_title}</h5>
+                              <p class="card-text text-secondary">By: ${book.author}</p>
+                           </div>
+                        </a>
+                     </div>
+                     `
+                  );
+               });
             });
          });
       });
