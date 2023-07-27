@@ -3,7 +3,7 @@
 
 @section('content')
    <div class="container mt-4">
-      <form class="d-flex justify-content-center" role="search">
+      <div class="d-flex justify-content-center">
          <div class="input-group w-50">
             <input class="form-control" id="search_input" type="text" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
             <button class="btn btn-dark" id="button-addon2"><i class="bi bi-search"></i></button>
@@ -11,7 +11,7 @@
          {{-- <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
          <button class="btn btn-dark mx-1" type="button"><i class="bi bi-arrow-down-up me-2"></i>Sort by</button> --}}
          <button class="btn btn-dark ms-2" type="button" data-bs-toggle="modal" data-bs-target="#addBookModal"><i class="bi bi-journal-plus me-2"></i>Add book</button>
-      </form>
+      </div>
    </div>
    @include('librarian.modal.add-book-modal')
    @if ($books->isEmpty())
@@ -85,7 +85,7 @@
                      </td>
                   </tr>
                   `
-               )
+               );
             });
          });
 

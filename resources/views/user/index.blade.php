@@ -24,14 +24,14 @@
    @else
       <div class="mx-6">
          <div class="container pt-4">
-            <form class="d-flex justify-content-center" role="search">
+            <div class="d-flex justify-content-center">
                <div class="input-group w-50">
-                  <input class="form-control" id="search_input" type="text" placeholder="Search..." aria-label="Search">
+                  <input class="form-control" id="search_input" name="search" type="text" placeholder="Search..." aria-label="Search">
                   <button class="btn btn-dark"><i class="bi bi-search"></i></button>
                </div>
                {{-- <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
                <button class="btn btn-dark mx-1" type="button"><i class="bi bi-arrow-down-up me-2"></i>Sort by</button> --}}
-            </form>
+            </div>
          </div>
          <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 mt-4 mx-1 pb-4" id="book_list">
             @foreach ($books as $book)
@@ -74,27 +74,34 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         let books = {!! json_encode($books->toArray()) !!}
          $('#search_input').keyup(function(e) {
             e.preventDefault();
             
-            $('#book_list').html('');
             let searchInput = $('#search_input').val().toLowerCase();
-            let filteredBooks = books.data.filter(book => book.book_title.toLowerCase().includes(searchInput));
-            filteredBooks.forEach(function(book) {
-               $('#book_list').append(
-                  `
-                  <div class="d-flex justify-content-center">
-                     <a href="/user/books/book-details/${book.id}" class="card w-85 h-100 text-decoration-none">
-                        <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
-                        <div class="card-body text-decoration">
-                           <h5 class="card-title">${book.book_title}</h5>
-                           <p class="card-text text-secondary">By: ${book.author}</p>
+            $.ajax({
+               type: 'GET',
+               url: "{{ route('user.search_book') }}",
+               data: {search_input: searchInput},
+               success: function(response) {
+                  let searchResults = response.searchedBook.data;
+
+                  $('#book_list').html('');
+                  searchResults.forEach(function(book) {
+                     $('#book_list').append(
+                        `
+                        <div class="d-flex justify-content-center">
+                           <a href="/user/books/book-details/${book.id}" class="card w-85 h-100 text-decoration-none">
+                              <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
+                              <div class="card-body text-decoration">
+                                 <h5 class="card-title">${book.book_title}</h5>
+                                 <p class="card-text text-secondary">By: ${book.author}</p>
+                              </div>
+                           </a>
                         </div>
-                     </a>
-                  </div>
-                  `
-               )
+                        `
+                     );
+                  });
+               }
             });
          });
       });

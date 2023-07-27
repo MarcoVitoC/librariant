@@ -58,4 +58,8 @@ class BookService {
       $selectedBook = Bookmark::where('user_id', auth()->id())->where('book_id', $request->book_id)->first();
       $selectedBook->delete();
    }
+
+   public function searchBook($request) {
+      return Book::where('book_title', 'like', '%'.$request->search_input.'%')->paginate(12);
+   }
 }

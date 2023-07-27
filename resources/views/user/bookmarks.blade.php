@@ -10,14 +10,6 @@
       <div class="mx-6">
          <div class="container pt-4">
             <h2 class="text-center pb-3">My Bookmarks</h2>
-            <form class="d-flex justify-content-center" role="search">
-               <div class="input-group w-50">
-                  <input class="form-control" id="search_input" type="text" placeholder="Search..." aria-label="Search">
-                  <button class="btn btn-dark"><i class="bi bi-search"></i></button>
-               </div>
-               {{-- <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
-               <button class="btn btn-dark mx-1" type="button"><i class="bi bi-arrow-down-up me-2"></i>Sort by</button> --}}
-            </form>
          </div>
          <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 mt-4 mx-1 pb-4">
             @foreach ($bookmarks as $bookmark)
