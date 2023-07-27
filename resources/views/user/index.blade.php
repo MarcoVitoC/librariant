@@ -26,7 +26,7 @@
          <div class="container pt-4">
             <div class="d-flex justify-content-center">
                <div class="input-group w-50">
-                  <input class="form-control" id="search_input" name="search" type="text" placeholder="Search..." aria-label="Search">
+                  <input class="form-control" id="search_book" type="text" placeholder="Search..." aria-label="Search">
                   <button class="btn btn-dark"><i class="bi bi-search"></i></button>
                </div>
                {{-- <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
@@ -74,13 +74,13 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         $('#search_input').keyup(function(e) {
+         $('#search_book').keyup(function(e) {
             e.preventDefault();
             
-            let searchInput = $('#search_input').val().toLowerCase();
+            let searchBook = $('#search_book').val().toLowerCase();
             let url = "{{ route('user.search_book') }}";
 
-            $.get(url, {search_input: searchInput}, function(response) {
+            $.get(url, {search_book: searchBook}, function(response) {
                let searchResults = response.searchedBook.data;
 
                $('#book_list').html('');

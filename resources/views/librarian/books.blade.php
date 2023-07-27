@@ -5,7 +5,7 @@
    <div class="container mt-4">
       <div class="d-flex justify-content-center">
          <div class="input-group w-50">
-            <input class="form-control" id="search_input" type="text" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
+            <input class="form-control" id="search_book" type="text" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2">
             <button class="btn btn-dark" id="button-addon2"><i class="bi bi-search"></i></button>
          </div>
          {{-- <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
@@ -65,13 +65,13 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         $('#search_input').keyup(function(e) {
+         $('#search_book').keyup(function(e) {
             e.preventDefault();
 
-            let searchInput = $('#search_input').val().toLowerCase();
+            let searchBook = $('#search_book').val().toLowerCase();
             let url = "{{ route('librarian.search_book') }}";
 
-            $.get(url, {search_input: searchInput}, function(response) {
+            $.get(url, {search_book: searchBook}, function(response) {
                let searchResults = response.searchedBook.data;
 
                $('#book_list').html('');

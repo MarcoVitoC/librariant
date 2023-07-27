@@ -60,6 +60,6 @@ class BookService {
    }
 
    public function searchBook($request) {
-      return Book::where('book_title', 'like', '%'.$request->search_input.'%')->paginate(12);
+      return Book::where('book_title', 'like', '%'.$request->search_book.'%')->paginate(12);
    }
 }

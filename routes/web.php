@@ -24,6 +24,7 @@ Route::middleware(['visitor'])->group(function() {
 Route::middleware(['guest'])->group(function() {
    Route::get('/', [GuestController::class, 'welcome'])->name('guest.welcome');
    Route::get('/books', [GuestController::class, 'books'])->name('guest.books');
+   Route::get('/search-book', [GuestController::class, 'search'])->name('guest.search_book');
    Route::get('/book-details/{id}', [GuestController::class, 'bookDetails'])->name('guest.book_details');
 
    Route::get('/login', [LoginController::class, 'login'])->name('login');

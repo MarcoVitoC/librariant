@@ -27,4 +27,9 @@ class GuestController extends Controller
       $bookDetails = $this->guestService->fetchBookDetails($id);
       return view('guest.book-details', ['bookDetails' => $bookDetails]);
    }
+
+   public function search(Request $request) {
+      $searchedBook = $this->guestService->searchBook($request);
+      return response()->json(['searchedBook' => $searchedBook]);
+   }
 }

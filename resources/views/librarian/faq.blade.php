@@ -3,11 +3,13 @@
 
 @section('content')
    <div class="container mt-4">
-      <form class="d-flex justify-content-center" role="search">
-         <input class="form-control w-50 me-2" type="search" placeholder="Search..." aria-label="Search">
-         <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
+      <div class="d-flex justify-content-center">
+         <div class="input-group w-50">
+            <input class="form-control" id="search_faq" type="search" placeholder="Search..." aria-label="Search">
+            <button class="btn btn-dark"><i class="bi bi-search"></i></button>
+         </div>
          <button class="btn btn-dark mx-1" type="button" data-bs-toggle="modal" data-bs-target="#addFAQModal"><i class="bi bi-plus-circle me-2"></i>Add FAQ</button>
-      </form>
+      </div>
    </div>
    @include('librarian.modal.add-faq-modal')
    <div class="m-4">

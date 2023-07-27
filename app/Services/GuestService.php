@@ -16,4 +16,8 @@ class GuestService {
    public function fetchBookDetails($id) {
       return Book::find($id);
    }
+
+   public function searchBook($request) {
+      return Book::where('book_title', 'like', '%'.$request->search_book.'%')->paginate(10);
+   }
 }
