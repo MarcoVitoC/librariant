@@ -40,4 +40,9 @@ class BookController extends Controller
       $this->bookService->removeBook($book);
       return response()->json(['message' => 'Book removed successfully!'], 200);
    }
+
+   public function search(Request $request) {
+      $searchedBook = $this->bookService->searchBook($request);
+      return response()->json(['searchedBook' => $searchedBook]);
+   }
 }

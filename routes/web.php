@@ -61,6 +61,7 @@ Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->grou
       return view('librarian.dashboard');
    })->name('dashboard');
 
+   Route::get('/book/search-book', [LibrarianBookController::class, 'search'])->name('search_book');
    Route::resource('book', LibrarianBookController::class)->except(['create', 'show']);
 
    Route::get('/returns', [LibrarianLoanController::class, 'showReturnedBooks'])->name('returns');

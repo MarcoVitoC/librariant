@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BookService {
    public function showBooks() {
-      return Book::all();
+      return Book::paginate(10)->withQueryString();
    }
    
    public function addBook($request) {
@@ -33,5 +33,9 @@ class BookService {
    public function removeBook($book) {
       Storage::delete($book->book_photo);
       $book->delete();
+   }
+
+   public function searchBook($request) {
+      return Book::where('book_title', 'like', '%'.$request->search_input.'%')->paginate(10);
    }
 }

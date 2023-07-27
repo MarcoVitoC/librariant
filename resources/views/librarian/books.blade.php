@@ -52,6 +52,12 @@
             </tbody>
          </table>
       </div>
+      <div class="d-flex justify-content-between align-items-center mx-5">
+         <p class="text-secondary fw-normal fs-7">
+            Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
+         </p>
+         {{ $books->links() }}
+      </div>
    @endif
    @include('librarian.modal.update-book-modal')
 @endsection
@@ -59,33 +65,37 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         let books = {!! json_encode($books->toArray()) !!}
          $('#search_input').keyup(function(e) {
             e.preventDefault();
-            
-            $('#book_list').html('');
+
             let searchInput = $('#search_input').val().toLowerCase();
-            let filteredBooks = books.filter(book => book.book_title.toLowerCase().includes(searchInput));
-            filteredBooks.forEach(function(book) {
-               $('#book_list').append(
-                  `
-                  <tr class="align-middle">
-                     <td class="border text-center">${book.isbn}</td>
-                     <td class="border text-center"><img src="{{ asset('storage/') }}${'/'}${book.book_photo}" alt="Book Preview" width="60px" height="70px" id="displayBookPhoto"></td>
-                     <td class="border text-center">${book.book_title}</td>
-                     <td class="border text-center">${book.author}</td>
-                     <td class="border text-center">${book.quantity}</td>
-                     <td class="border text-center">
-                        <button type="button" class="btn updateBookBtn" data-book-id="${book.id}">
-                           <i class="bi bi-pencil-fill"></i>
-                        </button>
-                        <button type="button" class="btn removeBookBtn" data-book-id="${book.id}">
-                           <i class="bi bi-trash-fill"></i>
-                        </button>
-                     </td>
-                  </tr>
-                  `
-               );
+            let url = "{{ route('librarian.search_book') }}";
+
+            $.get(url, {search_input: searchInput}, function(response) {
+               let searchResults = response.searchedBook.data;
+
+               $('#book_list').html('');
+               searchResults.forEach(function(book) {
+                  $('#book_list').append(
+                     `
+                     <tr class="align-middle">
+                        <td class="border text-center">${book.isbn}</td>
+                        <td class="border text-center"><img src="{{ asset('storage/') }}${'/'}${book.book_photo}" alt="Book Preview" width="60px" height="70px" id="displayBookPhoto"></td>
+                        <td class="border text-center">${book.book_title}</td>
+                        <td class="border text-center">${book.author}</td>
+                        <td class="border text-center">${book.quantity}</td>
+                        <td class="border text-center">
+                           <button type="button" class="btn updateBookBtn" data-book-id="${book.id}">
+                              <i class="bi bi-pencil-fill"></i>
+                           </button>
+                           <button type="button" class="btn removeBookBtn" data-book-id="${book.id}">
+                              <i class="bi bi-trash-fill"></i>
+                           </button>
+                        </td>
+                     </tr>
+                     `
+                  );
+               });
             });
          });
 
