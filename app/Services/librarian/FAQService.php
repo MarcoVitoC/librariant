@@ -22,4 +22,8 @@ class FAQService {
    public function deleteFAQ($faq) {
       $faq->delete();
    }
+
+   public function searchFAQ($request) {
+      return Faq::where('question', 'like', '%'.$request->search_faq.'%')->paginate(10);
+   }
 }

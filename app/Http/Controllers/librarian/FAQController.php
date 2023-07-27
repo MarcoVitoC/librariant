@@ -40,4 +40,9 @@ class FAQController extends Controller
       $this->faqService->deleteFAQ($faq);
       return response()->json(['message' => 'FAQ deleted successfully!'], 200);
    }
+
+   public function search(Request $request) {
+      $searchedFAQ = $this->faqService->searchFAQ($request);
+      return response()->json(['searchedFAQ' => $searchedFAQ]);
+   }
 }

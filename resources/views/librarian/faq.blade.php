@@ -5,7 +5,7 @@
    <div class="container mt-4">
       <div class="d-flex justify-content-center">
          <div class="input-group w-50">
-            <input class="form-control" id="search_faq" type="search" placeholder="Search..." aria-label="Search">
+            <input class="form-control" id="search_faq" type="text" placeholder="Search..." aria-label="Search">
             <button class="btn btn-dark"><i class="bi bi-search"></i></button>
          </div>
          <button class="btn btn-dark mx-1" type="button" data-bs-toggle="modal" data-bs-target="#addFAQModal"><i class="bi bi-plus-circle me-2"></i>Add FAQ</button>
@@ -16,16 +16,14 @@
       <table class="table table-hover border">
          <thead class="align-middle">
             <tr>
-               <th scope="col" class="border text-center">No.</th>
                <th scope="col" class="border text-center">Question</th>
                <th scope="col" class="border text-center">Answer</th>
                <th scope="col" class="border text-center">Action</th>
             </tr>
          </thead>
-         <tbody>
+         <tbody id="faq_list">
             @foreach ($faqs as $faq)
                <tr class="align-middle">
-                  <td class="border text-center">{{ $loop->iteration }}</td>
                   <td class="border text-center w-30 py-4">{{ $faq->question }}</td>
                   <td class="border text-center w-50">{{ $faq->answer }}</td>
                   <td class="border text-center">
@@ -67,6 +65,37 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
+         $('#search_faq').keyup(function(e) {
+            e.preventDefault();
+
+            let searchFAQ = $('#search_faq').val().toLowerCase();
+            let url = "{{ route('librarian.search_faq') }}";
+
+            $.get(url, {search_faq: searchFAQ}, function(response) {
+               let searchResults = response.searchedFAQ.data;
+
+               $('#faq_list').html('');
+               searchResults.forEach(function(faq) {
+                  $('#faq_list').append(
+                     `
+                     <tr class="align-middle">
+                        <td class="border text-center w-30 py-4">${faq.question}</td>
+                        <td class="border text-center w-50">${faq.answer}</td>
+                        <td class="border text-center">
+                           <button type="button" class="btn updateFAQBtn" data-faq-id="${faq.id}" data-bs-toggle="modal" data-bs-target="#updateFAQModal">
+                              <i class="bi bi-pencil-fill"></i>
+                           </button>
+                           <button type="button" class="btn removeFAQBtn" data-faq-id="${faq.id}">
+                              <i class="bi bi-trash-fill"></i>
+                           </button>
+                        </td>
+                     </tr>
+                     `
+                  );
+               });
+            });
+         });
+
          $('#addFAQForm').submit(function(e) {
             e.preventDefault();
 
@@ -118,7 +147,7 @@
             $('.input-field').removeClass('is-invalid');
          });
 
-         $('.updateFAQBtn').click(function() {
+         $('#faq_list').on('click', '.updateFAQBtn', function() {
             let faqId = $(this).data('faq-id');
             let url = "{{ route('librarian.faq.edit', ':faqId') }}".replace(':faqId', faqId);
             let updateFAQModal = $('#updateFAQModal');
@@ -187,7 +216,7 @@
             });
          });
 
-         $('.removeFAQBtn').click(function() {
+         $('#faq_list').on('click', '.removeFAQBtn', function() {
             let faqId = $(this).data('faq-id');
             let url = "{{ route('librarian.faq.destroy', ':faqId') }}".replace(':faqId', faqId);
 
