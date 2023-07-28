@@ -12,6 +12,21 @@
                @if ($bookStatus === 'loaned' || $bookStatus === 'limited')
                   <button type="submit" class="btn btn-outline-dark col-12 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
                @endif
+               <div class="my-3">
+                  <div class="d-flex">
+                     <h2><i id="star1-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
+                     <h2><i id="star2-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
+                     <h2><i id="star3-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
+                     <h2><i id="star4-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
+                     <h2><i id="star5-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
+                     <h2 class="cursor-pointer"><i id="star1" class="bi bi-star mx-2 text-warning"></i></h2>
+                     <h2 class="cursor-pointer"><i id="star2" class="bi bi-star mx-2 text-warning"></i></h2>
+                     <h2 class="cursor-pointer"><i id="star3" class="bi bi-star mx-2 text-warning"></i></h2>
+                     <h2 class="cursor-pointer"><i id="star4" class="bi bi-star mx-2 text-warning"></i></h2>
+                     <h2 class="cursor-pointer"><i id="star5" class="bi bi-star mx-2 text-warning"></i></h2>
+                  </div>
+                  <h5 class="text-center">Rate this book</h5>
+               </div>
             </div>
          </div>
          <div>
@@ -40,6 +55,53 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
+         $('#star1-fill').hide();
+         $('#star2-fill').hide();
+         $('#star3-fill').hide();
+         $('#star4-fill').hide();
+         $('#star5-fill').hide();
+
+         $('#star1').hover(function() {
+            $('#star1-fill').toggle();
+            $('#star1').toggle();
+         });
+         $('#star2').hover(function() {
+            $('#star1-fill').toggle();
+            $('#star2-fill').toggle();
+            $('#star1').toggle();
+            $('#star2').toggle();
+         });
+         $('#star3').hover(function() {
+            $('#star1-fill').toggle();
+            $('#star2-fill').toggle();
+            $('#star3-fill').toggle();
+            $('#star1').toggle();
+            $('#star2').toggle();
+            $('#star3').toggle();
+         });
+         $('#star4').hover(function() {
+            $('#star1-fill').toggle();
+            $('#star2-fill').toggle();
+            $('#star3-fill').toggle();
+            $('#star4-fill').toggle();
+            $('#star1').toggle();
+            $('#star2').toggle();
+            $('#star3').toggle();
+            $('#star4').toggle();
+         });
+         $('#star5').hover(function() {
+            $('#star1-fill').toggle();
+            $('#star2-fill').toggle();
+            $('#star3-fill').toggle();
+            $('#star4-fill').toggle();
+            $('#star5-fill').toggle();
+            $('#star1').toggle();
+            $('#star2').toggle();
+            $('#star3').toggle();
+            $('#star4').toggle();
+            $('#star5').toggle();
+         });
+
          $('.borrowBtn').click(function() {
             let bookId = $(this).data('book-id');
             let bookQuantity = $(this).data('book-quantity');
