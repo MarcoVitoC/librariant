@@ -12,40 +12,29 @@
                @if ($bookStatus === 'loaned' || $bookStatus === 'limited')
                   <button type="submit" class="btn btn-outline-dark col-12 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
                @endif
-               <div class="my-3">
-                  <div class="d-flex">
-                     <h2><i id="star1-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
-                     <h2><i id="star2-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
-                     <h2><i id="star3-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
-                     <h2><i id="star4-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
-                     <h2><i id="star5-fill" class="bi bi-star-fill mx-2 text-warning"></i></h2>
-                     <h2 class="cursor-pointer"><i id="star1" class="bi bi-star mx-2 text-warning"></i></h2>
-                     <h2 class="cursor-pointer"><i id="star2" class="bi bi-star mx-2 text-warning"></i></h2>
-                     <h2 class="cursor-pointer"><i id="star3" class="bi bi-star mx-2 text-warning"></i></h2>
-                     <h2 class="cursor-pointer"><i id="star4" class="bi bi-star mx-2 text-warning"></i></h2>
-                     <h2 class="cursor-pointer"><i id="star5" class="bi bi-star mx-2 text-warning"></i></h2>
-                  </div>
-                  <h5 class="text-center">Rate this book</h5>
-               </div>
             </div>
          </div>
          <div>
             <h2 class="fw-semibold">{{ $bookDetails->book_title }}</h2>
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
             <div class="d-flex">
-               <button class="btn btn-dark btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
+               <button class="btn btn-secondary btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
                @if ($isBookmarked)
                   <button type="submit" class="btn btn-dark btn-sm ms-2 removeBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Added to bookmark</button>
                @else
                   <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
                @endif
+               <button type="submit" class="btn btn-outline-dark btn-sm ms-2 reviewBookBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
             </div>
+            @include('user.modal.add-review-modal')
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
-            <h6 class="fw-normal">Language: {{ $bookDetails->language }}</h6>
-            <h6 class="fw-normal">Genre: {{ $bookDetails->genre }}</h6>
-            <h6 class="fw-normal">Pages: {{ $bookDetails->pages }} pages</h6>
-            <h6 class="fw-normal">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</h6>
+            <div class="d-flex">
+               <button class="btn btn-secondary btn-sm disabled me-2">Language: {{ $bookDetails->language }}</button>
+               <button class="btn btn-secondary btn-sm disabled me-2">Genre: {{ $bookDetails->genre }}</button>
+               <button class="btn btn-secondary btn-sm disabled me-2">Pages: {{ $bookDetails->pages }} pages</button>
+               <button class="btn btn-secondary btn-sm disabled">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</button>
+            </div>
          </div>
       </div>
    </div>
@@ -55,51 +44,26 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         $('#star1-fill').hide();
-         $('#star2-fill').hide();
-         $('#star3-fill').hide();
-         $('#star4-fill').hide();
-         $('#star5-fill').hide();
+         $('.reviewBookBtn').click(function() {
+            $('#addReviewModal').show();
+         });
 
-         $('#star1').hover(function() {
-            $('#star1-fill').toggle();
-            $('#star1').toggle();
+         $('.star').mouseover(function() {
+            let currentIndex = $(this).data('index');
+            
+            for (let i=0; i<=currentIndex; i++) {
+               $('.star:eq('+i+')').removeClass('bi-star');
+               $('.star:eq('+i+')').addClass('bi-star-fill');
+            }
          });
-         $('#star2').hover(function() {
-            $('#star1-fill').toggle();
-            $('#star2-fill').toggle();
-            $('#star1').toggle();
-            $('#star2').toggle();
-         });
-         $('#star3').hover(function() {
-            $('#star1-fill').toggle();
-            $('#star2-fill').toggle();
-            $('#star3-fill').toggle();
-            $('#star1').toggle();
-            $('#star2').toggle();
-            $('#star3').toggle();
-         });
-         $('#star4').hover(function() {
-            $('#star1-fill').toggle();
-            $('#star2-fill').toggle();
-            $('#star3-fill').toggle();
-            $('#star4-fill').toggle();
-            $('#star1').toggle();
-            $('#star2').toggle();
-            $('#star3').toggle();
-            $('#star4').toggle();
-         });
-         $('#star5').hover(function() {
-            $('#star1-fill').toggle();
-            $('#star2-fill').toggle();
-            $('#star3-fill').toggle();
-            $('#star4-fill').toggle();
-            $('#star5-fill').toggle();
-            $('#star1').toggle();
-            $('#star2').toggle();
-            $('#star3').toggle();
-            $('#star4').toggle();
-            $('#star5').toggle();
+
+         $('.star').mouseleave(function() {
+            let currentIndex = $(this).data('index');
+            
+            for (let i=0; i<=currentIndex; i++) {
+               $('.star:eq('+i+')').addClass('bi-star');
+               $('.star:eq('+i+')').removeClass('bi-star-fill');
+            }
          });
 
          $('.borrowBtn').click(function() {
