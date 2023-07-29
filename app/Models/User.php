@@ -41,4 +41,8 @@ class User extends Authenticatable
    public function renewals() {
       return $this->hasMany(Renewal::class);
    }
+
+   public function reviews() {
+      return $this->hasMany(Review::class);
+   }
 }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\user;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Services\user\BookService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\user\AddReviewRequest;
 
 class BookController extends Controller
 {
@@ -33,7 +34,7 @@ class BookController extends Controller
       return view('user.bookmarks', ['bookmarks' => $bookmarks]);
    }
 
-   public function bookmark(Request $request) {
+   public function addBookmark(Request $request) {
       $this->bookService->addToBookmark($request);
       return response()->json(['message' => 'Added to bookmark!'], 200);
    }
@@ -46,5 +47,10 @@ class BookController extends Controller
    public function search(Request $request) {
       $searchedBook = $this->bookService->searchBook($request);
       return response()->json(['searchedBook' => $searchedBook]);
+   }
+
+   public function addReview(AddReviewRequest $request) {
+      $this->bookService->addReview($request);
+      return response()->json(['message' => 'Review added successfully!'], 200);
    }
 }

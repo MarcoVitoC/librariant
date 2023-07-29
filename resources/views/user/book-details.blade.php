@@ -24,7 +24,7 @@
                @else
                   <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
                @endif
-               <button type="submit" class="btn btn-outline-dark btn-sm ms-2 reviewBookBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
+               <button type="submit" class="btn btn-dark btn-sm ms-2 reviewBookBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
             </div>
             @include('user.modal.add-review-modal')
             <h5 class="fw-normal mt-4">Summary:</h5>
@@ -44,26 +44,48 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         $('.reviewBookBtn').click(function() {
-            $('#addReviewModal').show();
+         let rateIndex = -1;
+         $('.star').click(function() {
+            rateIndex = $(this).data('index');
+            $('.submitReviewBtn').removeClass('disabled');
          });
 
          $('.star').mouseover(function() {
             let currentIndex = $(this).data('index');
             
             for (let i=0; i<=currentIndex; i++) {
-               $('.star:eq('+i+')').removeClass('bi-star');
-               $('.star:eq('+i+')').addClass('bi-star-fill');
+               $('.star:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
             }
          });
 
          $('.star').mouseleave(function() {
-            let currentIndex = $(this).data('index');
+            $('.star').removeClass('bi-star-fill').addClass('bi-star');
             
-            for (let i=0; i<=currentIndex; i++) {
-               $('.star:eq('+i+')').addClass('bi-star');
-               $('.star:eq('+i+')').removeClass('bi-star-fill');
+            if (rateIndex != -1) {
+               for (let i=0; i<=rateIndex; i++) {
+                  $('.star:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+               }
             }
+         });
+
+         $('#addReviewBtn-close').click(function() {
+            $('.star').removeClass('bi-star-fill').addClass('bi-star');
+            $('.submitReviewBtn').addClass('disabled');
+            rateIndex = -1;
+         });
+
+         $('.modal').click(function(e) {
+            if ($(e.target).hasClass('modal')) {
+               $('.star').removeClass('bi-star-fill').addClass('bi-star');
+               $('.submitReviewBtn').addClass('disabled');
+               rateIndex = -1;
+            }
+         });
+
+         $('#addReviewForm').submit(function(e) {
+            e.preventDefault();
+
+            //TO DO
          });
 
          $('.borrowBtn').click(function() {

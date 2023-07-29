@@ -5,7 +5,7 @@ namespace App\Http\Controllers\user;
 use Illuminate\Http\Request;
 use App\Services\user\LoanService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoanRenewalRequest;
+use App\Http\Requests\user\LoanRenewalRequest;
 
 class LoanController extends Controller
 {

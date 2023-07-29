@@ -42,11 +42,12 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('home');
    Route::get('/search-book', [UserBookController::class, 'search'])->name('search_book');
    Route::get('/books/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
+   Route::post('/books/book-details/{id}/add-review', [UserBookController::class, 'addReview'])->name('add_review');
 
    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
    Route::get('/bookmarks', [UserBookController::class, 'bookmarks'])->name('bookmarks');
-   Route::post('/add-bookmark', [UserBookController::class, 'bookmark'])->name('add_bookmark');
+   Route::post('/add-bookmark', [UserBookController::class, 'addBookmark'])->name('add_bookmark');
    Route::delete('/remove-bookmark', [UserBookController::class, 'removeBookmark'])->name('remove_bookmark');
    
    Route::get('/loans', [UserLoanController::class, 'loans'])->name('loans');

@@ -22,4 +22,8 @@ class Book extends Model
    public function queues() {
       return $this->hasMany(Queue::class);
    }
+
+   public function reviews() {
+      return $this->hasMany(Review::class);
+   }
 }

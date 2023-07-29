@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\user;
 
 use App\Models\LoanDetail;
 use Illuminate\Support\Carbon;

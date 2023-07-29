@@ -62,4 +62,8 @@ class BookService {
    public function searchBook($request) {
       return Book::where('book_title', 'like', '%'.$request->search_book.'%')->paginate(12);
    }
+
+   public function addReview($request) {
+      //
+   }
 }
