@@ -25,13 +25,14 @@
                   <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
                @endif
                
-               @if ($isReviewed)
-                  <button class="btn btn-dark btn-sm ms-2" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
+               @if ($review != null)
+                  <button class="btn btn-dark btn-sm ms-2 editReviewBtn" data-bs-toggle="modal" data-bs-target="#editReviewModal"  data-review-id="{{ $review->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
                @else
-                  <button class="btn btn-outline-dark btn-sm ms-2 reviewBookBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
+                  <button class="btn btn-outline-dark btn-sm ms-2 addReviewBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
                @endif
             </div>
             @include('user.modal.add-review-modal')
+            @include('user.modal.update-review-modal')
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
             <div class="d-flex">
@@ -56,12 +57,23 @@
             rateValue = $(this).data('value');
             $('.submitReviewBtn').removeClass('disabled');
          });
+         $('.star-update').click(function() {
+            rateIndex = $(this).data('index');
+            rateValue = $(this).data('value');
+         });
 
          $('.star').mouseover(function() {
             let currentIndex = $(this).data('index');
             
             for (let i=0; i<=currentIndex; i++) {
                $('.star:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+            }
+         });
+         $('.star-update').mouseover(function() {
+            let currentIndex = $(this).data('index');
+            
+            for (let i=0; i<=currentIndex; i++) {
+               $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
             }
          });
 
@@ -72,6 +84,18 @@
                for (let i=0; i<=rateIndex; i++) {
                   $('.star:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
                }
+            }
+         });
+         $('.star-update').mouseleave(function() {
+            $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
+            
+            let updateRate = $('#rate_value').val();
+            if (rateIndex != -1) {
+               updateRate = rateIndex + 1;
+            }
+
+            for (let i=0; i<=updateRate-1; i++) {
+               $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
             }
          });
 
@@ -96,7 +120,7 @@
          $('#addReviewForm').submit(function(e) {
             e.preventDefault();
 
-            let bookId = $('.reviewBookBtn').data('book-id');
+            let bookId = $('.addReviewBtn').data('book-id');
             let addReviewModal = $('#addReviewModal');
             let addReviewForm = addReviewModal.find('form');
             addReviewForm.find('input[name="book_id"]').val(bookId);
@@ -122,6 +146,30 @@
                   console.log(response.message);
                }
             });
+         });
+
+         $('.editReviewBtn').click(function() {
+            let reviewId = $(this).data('review-id');
+            let url = "{{ route('user.edit_review', ':reviewId') }}".replace(':reviewId', reviewId);
+            let editReviewModal = $('#editReviewModal');
+            let editReviewForm = editReviewModal.find('form');
+
+            $.get(url, {}, function(data) {
+               editReviewForm.find('input[name="review_id"]').val(reviewId);
+               editReviewForm.find('input[name="rate_value"]').val(data.review.rating);
+               editReviewForm.find('textarea[name="review"]').val(data.review.review);
+
+               let rating = $('#rate_value').val();
+               for (let i=0; i<=rating-1; i++) {
+                  $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+               }
+            });
+         });
+
+         $('#editReviewForm').submit(function(e) {
+            e.preventDefault();
+
+            //
          });
 
          $('.borrowBtn').click(function() {

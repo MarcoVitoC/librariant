@@ -43,6 +43,7 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::get('/search-book', [UserBookController::class, 'search'])->name('search_book');
    Route::get('/books/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
    Route::post('/add-review', [UserBookController::class, 'addReview'])->name('add_review');
+   Route::get('/edit-review/{review}', [UserBookController::class, 'editReview'])->name('edit_review');
 
    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 

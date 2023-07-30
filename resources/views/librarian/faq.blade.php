@@ -157,8 +157,6 @@
                updateFAQForm.find('input[name="faq_id"]').val(data.faq.id);
                updateFAQForm.find('textarea[name="question"]').val(data.faq.question);
                updateFAQForm.find('textarea[name="answer"]').val(data.faq.answer);
-
-               updateFAQModal.modal('show');
             });
          });
 
