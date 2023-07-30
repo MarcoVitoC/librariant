@@ -4,6 +4,7 @@ namespace App\Services\user;
 
 use App\Models\Book;
 use App\Models\Queue;
+use App\Models\Review;
 use App\Models\Bookmark;
 use App\Models\LoanDetail;
 use App\Models\LoanHeader;
@@ -42,7 +43,16 @@ class BookService {
       $bookmark = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $isBookmarked = ($bookmark != null) ? true : false;
 
-      $bookDetails = ['book' => $book, 'bookStatus' => $bookStatus, 'isBookmarked' => $isBookmarked];
+      $review = Review::where('user_id', auth()->id())->where('book_id', $book->id)->first();
+      $isReviewed = ($review != null) ? true : false;
+
+      $bookDetails = [
+         'book' => $book, 
+         'bookStatus' => $bookStatus, 
+         'isBookmarked' => $isBookmarked, 
+         'isReviewed' => $isReviewed
+      ];
+      
       return $bookDetails;
    }
 
@@ -64,6 +74,11 @@ class BookService {
    }
 
    public function addReview($request) {
-      //
+      Review::create([
+         'user_id' => auth()->id(), 
+         'book_id' => $request->book_id, 
+         'rating' => $request->rate_value, 
+         'review' => $request->review
+      ]);
    }
 }

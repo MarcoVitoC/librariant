@@ -8,16 +8,18 @@
          <form action="" method="POST" enctype="multipart/form-data" id="addReviewForm">
             @csrf
             <div class="modal-body d-flex align-items-center justify-content-center">
+               <input type="hidden" name="book_id">
                <div class="w-100">
                   <div class="d-flex justify-content-center mb-3">
-                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="0" name="rating"></i>
-                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="1" name="rating"></i>
-                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="2" name="rating"></i>
-                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="3" name="rating"></i>
-                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="4" name="rating"></i>
+                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="0" data-value="1"></i>
+                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="1" data-value="2"></i>
+                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="2" data-value="3"></i>
+                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="3" data-value="4"></i>
+                     <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star" data-index="4" data-value="5"></i>
+                     <input type="hidden" name="rate_value">
                   </div>
                   <div class="col-12">
-                     <textarea type="text" class="form-control input-field" id="review" name="review" placeholder="Write your review"></textarea>
+                     <textarea type="text" class="form-control" name="review" placeholder="Write your review"></textarea>
                   </div>
                </div>
             </div>

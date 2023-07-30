@@ -24,7 +24,12 @@
                @else
                   <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
                @endif
-               <button type="submit" class="btn btn-dark btn-sm ms-2 reviewBookBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
+               
+               @if ($isReviewed)
+                  <button class="btn btn-dark btn-sm ms-2" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
+               @else
+                  <button class="btn btn-outline-dark btn-sm ms-2 reviewBookBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
+               @endif
             </div>
             @include('user.modal.add-review-modal')
             <h5 class="fw-normal mt-4">Summary:</h5>
@@ -45,8 +50,10 @@
    <script>
       $(document).ready(function() {
          let rateIndex = -1;
+         let rateValue = -1;
          $('.star').click(function() {
             rateIndex = $(this).data('index');
+            rateValue = $(this).data('value');
             $('.submitReviewBtn').removeClass('disabled');
          });
 
@@ -71,21 +78,50 @@
          $('#addReviewBtn-close').click(function() {
             $('.star').removeClass('bi-star-fill').addClass('bi-star');
             $('.submitReviewBtn').addClass('disabled');
+            $('#addReviewForm')[0].reset();
             rateIndex = -1;
+            rateValue = -1;
          });
 
          $('.modal').click(function(e) {
             if ($(e.target).hasClass('modal')) {
                $('.star').removeClass('bi-star-fill').addClass('bi-star');
                $('.submitReviewBtn').addClass('disabled');
+               $('#addReviewForm')[0].reset();
                rateIndex = -1;
+               rateValue = -1;
             }
          });
 
          $('#addReviewForm').submit(function(e) {
             e.preventDefault();
 
-            //TO DO
+            let bookId = $('.reviewBookBtn').data('book-id');
+            let addReviewModal = $('#addReviewModal');
+            let addReviewForm = addReviewModal.find('form');
+            addReviewForm.find('input[name="book_id"]').val(bookId);
+            addReviewForm.find('input[name="rate_value"]').val(rateValue);
+
+            $.ajax({
+               type: 'POST',
+               url: "{{ route('user.add_review') }}",
+               data: new FormData(this),
+               dataType: 'json',
+               processData: false,
+               contentType: false,
+               success: function(response) {
+                  Swal.fire({
+                     icon: 'success',
+                     title: response.message
+                  }).then(function() {
+                     location.reload();
+                  });
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
+               }
+            });
          });
 
          $('.borrowBtn').click(function() {

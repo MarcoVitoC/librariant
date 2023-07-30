@@ -5,7 +5,6 @@ namespace App\Http\Controllers\user;
 use Illuminate\Http\Request;
 use App\Services\user\BookService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\user\AddReviewRequest;
 
 class BookController extends Controller
 {
@@ -25,7 +24,8 @@ class BookController extends Controller
       return view('user.book-details', [
          'bookDetails' => $bookDetails['book'], 
          'bookStatus' => $bookDetails['bookStatus'],
-         'isBookmarked' => $bookDetails['isBookmarked']
+         'isBookmarked' => $bookDetails['isBookmarked'],
+         'isReviewed' => $bookDetails['isReviewed']
       ]);
    }
 
@@ -49,7 +49,7 @@ class BookController extends Controller
       return response()->json(['searchedBook' => $searchedBook]);
    }
 
-   public function addReview(AddReviewRequest $request) {
+   public function addReview(Request $request) {
       $this->bookService->addReview($request);
       return response()->json(['message' => 'Review added successfully!'], 200);
    }

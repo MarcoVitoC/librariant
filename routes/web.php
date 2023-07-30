@@ -42,7 +42,7 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('home');
    Route::get('/search-book', [UserBookController::class, 'search'])->name('search_book');
    Route::get('/books/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
-   Route::post('/books/book-details/{id}/add-review', [UserBookController::class, 'addReview'])->name('add_review');
+   Route::post('/add-review', [UserBookController::class, 'addReview'])->name('add_review');
 
    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
