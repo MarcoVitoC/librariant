@@ -58,11 +58,11 @@
                   </div>
                   <div class="d-flex align-items-baseline mt-2">
                      <div class="d-flex me-3">
-                        <i class="bi bi-star me-1 text-warning star-review" data-index="0" data-rating="{{ $review->rating }}"></i>
-                        <i class="bi bi-star me-1 text-warning star-review" data-index="1"></i>
-                        <i class="bi bi-star me-1 text-warning star-review" data-index="2"></i>
-                        <i class="bi bi-star me-1 text-warning star-review" data-index="3"></i>
-                        <i class="bi bi-star me-1 text-warning star-review" data-index="4"></i>
+                        <i class="bi bi-star me-1 text-warning review-rating star-review-{{ $review->id }}" data-review-id="{{ $review->id }}" data-index="0" data-rating="{{ $review->rating }}"></i>
+                        <i class="bi bi-star me-1 text-warning review-rating star-review-{{ $review->id }}" data-index="1"></i>
+                        <i class="bi bi-star me-1 text-warning review-rating star-review-{{ $review->id }}" data-index="2"></i>
+                        <i class="bi bi-star me-1 text-warning review-rating star-review-{{ $review->id }}" data-index="3"></i>
+                        <i class="bi bi-star me-1 text-warning review-rating star-review-{{ $review->id }}" data-index="4"></i>
                      </div>
                      <p>{{ date('M d, Y', strtotime($review->updated_at)) }}</p>
                   </div>
@@ -82,11 +82,14 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         let reviewRating = $('.star-review').data('rating');
-            
-         for (let i=0; i<=reviewRating-1; i++) {
-            $('.star-review').eq(i).removeClass('bi-star').addClass('bi-star-fill');
-         }
+         $('.review-rating').each(function() {
+            let reviewId = $(this).data('review-id');
+            let reviewRating = $(this).data('rating');
+               
+            for (let i=0; i<=reviewRating-1; i++) {
+               $('.star-review-'+reviewId+'').eq(i).removeClass('bi-star').addClass('bi-star-fill');
+            }
+         });
 
          let rateIndex = -1;
          let rateValue = -1;
