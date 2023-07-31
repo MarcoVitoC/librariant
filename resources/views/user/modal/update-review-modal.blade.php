@@ -6,6 +6,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="editReviewBtn-close"></button>
          </div>
          <form action="" method="POST" enctype="multipart/form-data" id="editReviewForm">
+            @method('put')
             @csrf
             <div class="modal-body d-flex align-items-center justify-content-center">
                <input type="hidden" name="review_id">
@@ -16,7 +17,7 @@
                      <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star-update" data-index="2" data-value="3"></i>
                      <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star-update" data-index="3" data-value="4"></i>
                      <i class="bi bi-star mx-2 fs-3 text-warning cursor-pointer star-update" data-index="4" data-value="5"></i>
-                     <input type="hidden" id="rate_value" name="rate_value">
+                     <input type="hidden" id="rating" name="rating">
                   </div>
                   <div class="col-12">
                      <textarea type="text" class="form-control" name="review"></textarea>

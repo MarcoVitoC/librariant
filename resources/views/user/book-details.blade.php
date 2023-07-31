@@ -89,7 +89,7 @@
          $('.star-update').mouseleave(function() {
             $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
             
-            let updateRate = $('#rate_value').val();
+            let updateRate = $('#rating').val();
             if (rateIndex != -1) {
                updateRate = rateIndex + 1;
             }
@@ -156,10 +156,10 @@
 
             $.get(url, {}, function(data) {
                editReviewForm.find('input[name="review_id"]').val(reviewId);
-               editReviewForm.find('input[name="rate_value"]').val(data.review.rating);
+               editReviewForm.find('input[name="rating"]').val(data.review.rating);
                editReviewForm.find('textarea[name="review"]').val(data.review.review);
 
-               let rating = $('#rate_value').val();
+               let rating = $('#rating').val();
                for (let i=0; i<=rating-1; i++) {
                   $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
                }
@@ -169,7 +169,30 @@
          $('#editReviewForm').submit(function(e) {
             e.preventDefault();
 
-            //
+            let reviewId = $(this).find('input[name="review_id"]').val();
+            let updateReviewUrl = "{{ route('user.update_review', ':reviewId') }}".replace(':reviewId', reviewId);
+            $(this).find('input[name="rating"]').val(rateValue);
+
+            $.ajax({
+               type: 'POST',
+               url: updateReviewUrl,
+               data: new FormData(this),
+               dataType: 'json',
+               processData: false,
+               contentType: false,
+               success: function(response) {
+                  Swal.fire({
+                     icon: 'success',
+                     title: response.message
+                  }).then(function() {
+                     location.reload();
+                  });
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
+               }
+            });
          });
 
          $('.borrowBtn').click(function() {

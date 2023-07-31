@@ -5,13 +5,14 @@ use App\Http\Controllers\FAQController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\user\ReviewController;
 use App\Http\Controllers\user\ProfileController;
+use App\Http\Controllers\librarian\UserController;
 use App\Http\Controllers\user\BookController as UserBookController;
 use App\Http\Controllers\user\LoanController as UserLoanController;
+use App\Http\Controllers\librarian\FAQController as LibrarianFAQController;
 use App\Http\Controllers\librarian\BookController as LibrarianBookController;
 use App\Http\Controllers\librarian\LoanController as LibrarianLoanController;
-use App\Http\Controllers\librarian\UserController;
-use App\Http\Controllers\librarian\FAQController as LibrarianFAQController;
 
 Route::middleware(['visitor'])->group(function() {
    Route::get('/about-us', function() {
@@ -42,8 +43,10 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::get('/', [UserBookController::class, 'index'])->name('home');
    Route::get('/search-book', [UserBookController::class, 'search'])->name('search_book');
    Route::get('/books/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
-   Route::post('/add-review', [UserBookController::class, 'addReview'])->name('add_review');
-   Route::get('/edit-review/{review}', [UserBookController::class, 'editReview'])->name('edit_review');
+   
+   Route::post('/add-review', [ReviewController::class, 'addReview'])->name('add_review');
+   Route::get('/edit-review/{review}', [ReviewController::class, 'editReview'])->name('edit_review');
+   Route::put('/update-review/{review}', [ReviewController::class, 'updateReview'])->name('update_review');
 
    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
