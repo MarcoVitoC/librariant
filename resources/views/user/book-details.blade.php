@@ -85,7 +85,7 @@
          let reviewRating = $('.star-review').data('rating');
             
          for (let i=0; i<=reviewRating-1; i++) {
-            $('.star-review:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+            $('.star-review').eq(i).removeClass('bi-star').addClass('bi-star-fill');
          }
 
          let rateIndex = -1;
@@ -104,14 +104,14 @@
             let currentIndex = $(this).data('index');
             
             for (let i=0; i<=currentIndex; i++) {
-               $('.star:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+               $('.star').eq(i).removeClass('bi-star').addClass('bi-star-fill');
             }
          });
          $('.star-update').mouseover(function() {
             let currentIndex = $(this).data('index');
             
             for (let i=0; i<=currentIndex; i++) {
-               $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+               $('.star-update').eq(i).removeClass('bi-star').addClass('bi-star-fill');
             }
          });
 
@@ -120,7 +120,7 @@
             
             if (rateIndex != -1) {
                for (let i=0; i<=rateIndex; i++) {
-                  $('.star:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+                  $('.star').eq(i).removeClass('bi-star').addClass('bi-star-fill');
                }
             }
          });
@@ -133,11 +133,11 @@
             }
 
             for (let i=0; i<=updateRate-1; i++) {
-               $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+               $('.star-update').eq(i).removeClass('bi-star').addClass('bi-star-fill');
             }
          });
 
-         $('#addReviewBtn-close').click(function() {
+         $('#addReviewBtn-close, #editReviewBtn-close').click(function() {
             $('.star').removeClass('bi-star-fill').addClass('bi-star');
             $('.submitReviewBtn').addClass('disabled');
             $('#addReviewForm')[0].reset();
@@ -197,6 +197,7 @@
                editReviewForm.find('input[name="rating"]').val(data.review.rating);
                editReviewForm.find('textarea[name="review"]').val(data.review.review);
 
+               $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
                let rating = $('#rating').val();
                for (let i=0; i<=rating-1; i++) {
                   $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
