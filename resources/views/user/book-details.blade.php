@@ -137,16 +137,8 @@
             }
          });
 
-         $('#addReviewBtn-close, #editReviewBtn-close').click(function() {
-            $('.star').removeClass('bi-star-fill').addClass('bi-star');
-            $('.submitReviewBtn').addClass('disabled');
-            $('#addReviewForm')[0].reset();
-            rateIndex = -1;
-            rateValue = -1;
-         });
-
-         $('.modal').click(function(e) {
-            if ($(e.target).hasClass('modal')) {
+         $('.modal, #reviewBtn-close').click(function(e) {
+            if ($(e.target).hasClass('modal') || $(e.target).hasClass('btn-close')) {
                $('.star').removeClass('bi-star-fill').addClass('bi-star');
                $('.submitReviewBtn').addClass('disabled');
                $('#addReviewForm')[0].reset();

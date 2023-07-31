@@ -3,7 +3,7 @@
       <div class="modal-content">
          <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Review</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="editReviewBtn-close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="reviewBtn-close"></button>
          </div>
          <form action="" method="POST" enctype="multipart/form-data" id="editReviewForm">
             @method('put')
