@@ -18,10 +18,12 @@
             <button class="btn btn-dark btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
-            <h6 class="fw-normal">Language: {{ $bookDetails->language }}</h6>
-            <h6 class="fw-normal">Genre: {{ $bookDetails->genre }}</h6>
-            <h6 class="fw-normal">Pages: {{ $bookDetails->pages }} pages</h6>
-            <h6 class="fw-normal">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</h6>
+            <div class="d-flex">
+               <button class="btn btn-secondary btn-sm disabled me-2">Language: {{ $bookDetails->language }}</button>
+               <button class="btn btn-secondary btn-sm disabled me-2">Genre: {{ $bookDetails->genre }}</button>
+               <button class="btn btn-secondary btn-sm disabled me-2">Pages: {{ $bookDetails->pages }} pages</button>
+               <button class="btn btn-secondary btn-sm disabled">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</button>
+            </div>
          </div>
       </div>
    </div>
