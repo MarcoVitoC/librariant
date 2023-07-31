@@ -8,7 +8,9 @@
             <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" alt="Book Photo" width="240px" height="310px" class="rounded">
             <div class="my-3">
                {{-- <button type="submit" class="btn btn-dark col-12 mb-1"><i class="bi bi-bag-plus-fill me-2"></i>Add to cart</button> --}}
-               <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
+               @if ($bookStatus !== 'loaned')
+                  <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
+               @endif
                @if ($bookStatus === 'loaned' || $bookStatus === 'limited')
                   <button type="submit" class="btn btn-outline-dark col-12 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
                @endif
@@ -209,11 +211,6 @@
                   icon: 'info',
                   title: 'Please wait!',
                   text: 'You borrowed this book earlier, and the book return is still in the verification process.'
-               },
-               loaned: {
-                  icon: 'error',
-                  title: 'Sorry!',
-                  text: 'Please return the borrowed book first!'
                },
                limited: {
                   icon: 'error',
