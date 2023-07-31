@@ -7,7 +7,6 @@
          <div class="px-4">
             <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" alt="Book Photo" width="240px" height="310px" class="rounded">
             <div class="my-3">
-               {{-- <button type="submit" class="btn btn-dark col-12 mb-1"><i class="bi bi-bag-plus-fill me-2"></i>Add to cart</button> --}}
                @if ($bookStatus !== 'loaned')
                   <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
                @endif
@@ -67,6 +66,11 @@
                      <p>{{ date('M d, Y', strtotime($review->updated_at)) }}</p>
                   </div>
                   <p>{{ $review->review }}</p>
+                  <div class="d-flex align-items-center">
+                     <button class="btn-review bg-transparent" id="likeBtn"><i class="bi bi-hand-thumbs-up text-secondary"></i></button>
+                     <button class="btn-review bg-transparent" id="dislikeBtn"><i class="bi bi-hand-thumbs-down text-secondary"></i></button>
+                     <button class="btn-review bg-transparent" id="commentBtn"><i class="bi bi-chat-dots text-secondary"></i></button>
+                  </div>
                </div>
             @endforeach
          </div>
@@ -378,7 +382,7 @@
                   Swal.fire({
                      position: 'center',
                      title: response.message,
-                     background: '#FFBF9B',
+                     background: '#F5F5F5',
                      showConfirmButton: false,
                      timer: 1200
                   }).then(function() {

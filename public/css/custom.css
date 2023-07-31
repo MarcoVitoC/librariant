@@ -78,3 +78,13 @@
 .lh-0 {
    line-height: 10px;
 }
+
+.btn-review {
+   padding: 6.8px 12.8px;
+   border: none;
+   border-radius: 5px;
+}
+
+.btn-review:hover {
+   background-color: #E0E0E0 !important;
+}
