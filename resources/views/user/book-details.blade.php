@@ -27,8 +27,8 @@
                   <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
                @endif
                
-               @if ($review != null)
-                  <button class="btn btn-dark btn-sm ms-2 editReviewBtn" data-bs-toggle="modal" data-bs-target="#editReviewModal"  data-review-id="{{ $review->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
+               @if ($isReviewed != null)
+                  <button class="btn btn-dark btn-sm ms-2 editReviewBtn" data-bs-toggle="modal" data-bs-target="#editReviewModal"  data-review-id="{{ $isReviewed->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
                @else
                   <button class="btn btn-outline-dark btn-sm ms-2 addReviewBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
                @endif
@@ -46,12 +46,48 @@
          </div>
       </div>
    </div>
+   @if ($reviews->isNotEmpty())
+      <div class="mx-6 my-4">
+         <div class="mx-4">
+            <h2 class="pb-4">Reviews</h2>
+            @foreach ($reviews as $review)
+               <div class="bg-body-secondary rounded mb-3 px-3 py-2">
+                  <div class="d-flex align-items-center">
+                     <i class="bi bi-person-circle text-secondary fs-2 me-3"></i>
+                     <h4>{{ $review->user->username }}</h4>
+                  </div>
+                  <div class="d-flex align-items-baseline mt-2">
+                     <div class="d-flex me-3">
+                        <i class="bi bi-star me-1 text-warning star-review" data-index="0" data-rating="{{ $review->rating }}"></i>
+                        <i class="bi bi-star me-1 text-warning star-review" data-index="1"></i>
+                        <i class="bi bi-star me-1 text-warning star-review" data-index="2"></i>
+                        <i class="bi bi-star me-1 text-warning star-review" data-index="3"></i>
+                        <i class="bi bi-star me-1 text-warning star-review" data-index="4"></i>
+                     </div>
+                     <p>{{ date('M d, Y', strtotime($review->updated_at)) }}</p>
+                  </div>
+                  <p>{{ $review->review }}</p>
+               </div>
+            @endforeach
+         </div>
+      </div>
+   @else
+      <div class="d-flex justify-content-center align-items-center m-6">
+         <h1 class="text-secondary pt-1">📑 No reviews available.</h1>
+      </div>
+   @endif
    @include('layouts.footer')
 @endsection
 
 @section('js-extra')
    <script>
       $(document).ready(function() {
+         let reviewRating = $('.star-review').data('rating');
+            
+         for (let i=0; i<=reviewRating-1; i++) {
+            $('.star-review:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+         }
+
          let rateIndex = -1;
          let rateValue = -1;
          $('.star').click(function() {

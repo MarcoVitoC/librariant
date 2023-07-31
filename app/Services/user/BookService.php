@@ -43,13 +43,15 @@ class BookService {
       $bookmark = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $isBookmarked = ($bookmark != null) ? true : false;
 
-      $review = Review::where('user_id', auth()->id())->where('book_id', $book->id)->first();
+      $isReviewed = Review::where('user_id', auth()->id())->where('book_id', $book->id)->first();
+      $reviews = Review::where('book_id', $book->id)->get();
 
       $bookDetails = [
          'book' => $book, 
          'bookStatus' => $bookStatus, 
          'isBookmarked' => $isBookmarked, 
-         'review' => $review
+         'isReviewed' => $isReviewed,
+         'reviews' => $reviews
       ];
       
       return $bookDetails;

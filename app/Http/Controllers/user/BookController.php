@@ -25,7 +25,8 @@ class BookController extends Controller
          'bookDetails' => $bookDetails['book'], 
          'bookStatus' => $bookDetails['bookStatus'],
          'isBookmarked' => $bookDetails['isBookmarked'],
-         'review' => $bookDetails['review']
+         'isReviewed' => $bookDetails['isReviewed'],
+         'reviews' => $bookDetails['reviews']
       ]);
    }
 
