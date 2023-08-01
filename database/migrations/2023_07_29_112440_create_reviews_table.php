@@ -18,6 +18,8 @@ return new class extends Migration
          $table->foreignUuid('user_id');
          $table->foreignId('book_id');
          $table->integer('rating');
+         $table->integer('like_count')->default(0);
+         $table->integer('dislike_count')->default(0);
          $table->text('review')->nullable();
          $table->timestamps();
       });
