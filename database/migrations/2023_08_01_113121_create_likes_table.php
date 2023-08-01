@@ -13,13 +13,10 @@ return new class extends Migration
     */
    public function up()
    {
-      Schema::create('reviews', function (Blueprint $table) {
+      Schema::create('likes', function (Blueprint $table) {
          $table->id();
          $table->foreignUuid('user_id');
-         $table->foreignId('book_id');
-         $table->integer('rating');
-         $table->text('review')->nullable();
-         $table->integer('like_count')->default(0);
+         $table->foreignId('review_id');
          $table->timestamps();
       });
    }
@@ -31,6 +28,6 @@ return new class extends Migration
     */
    public function down()
    {
-      Schema::dropIfExists('reviews');
+      Schema::dropIfExists('likes');
    }
 };

@@ -3,6 +3,7 @@
 namespace App\Services\user;
 
 use App\Models\Book;
+use App\Models\Like;
 use App\Models\Queue;
 use App\Models\Review;
 use App\Models\Bookmark;
@@ -45,13 +46,15 @@ class BookService {
 
       $isReviewed = Review::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $reviews = Review::where('book_id', $book->id)->get();
+      $reviewIsLiked = Like::where('user_id', auth()->id())->first();
 
       $bookDetails = [
          'book' => $book, 
          'bookStatus' => $bookStatus, 
          'isBookmarked' => $isBookmarked, 
          'isReviewed' => $isReviewed,
-         'reviews' => $reviews
+         'reviews' => $reviews,
+         'reviewIsLiked' => $reviewIsLiked
       ];
       
       return $bookDetails;

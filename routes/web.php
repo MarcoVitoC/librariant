@@ -47,6 +47,7 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::post('/add-review', [ReviewController::class, 'addReview'])->name('add_review');
    Route::get('/edit-review/{review}', [ReviewController::class, 'editReview'])->name('edit_review');
    Route::put('/update-review/{review}', [ReviewController::class, 'updateReview'])->name('update_review');
+   Route::post('/like-review', [ReviewController::class, 'like'])->name('like_review');
 
    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 

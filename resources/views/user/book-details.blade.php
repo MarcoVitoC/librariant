@@ -67,8 +67,12 @@
                   </div>
                   <p>{{ $review->review }}</p>
                   <div class="d-flex align-items-center">
-                     <button class="btn-review bg-transparent" id="likeBtn"><i class="bi bi-hand-thumbs-up text-secondary"></i></button>
-                     <button class="btn-review bg-transparent" id="dislikeBtn"><i class="bi bi-hand-thumbs-down text-secondary"></i></button>
+                     @if ($reviewIsLiked != null)
+                        <button class="btn-review bg-transparent" id="likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up-fill text-secondary"></i></button>
+                     @else
+                        <button class="btn-review bg-transparent" id="likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up text-secondary"></i></button>
+                     @endif
+
                      <button class="btn-review bg-transparent" id="commentBtn"><i class="bi bi-chat-dots text-secondary"></i></button>
                   </div>
                </div>
@@ -86,153 +90,6 @@
 @section('js-extra')
    <script>
       $(document).ready(function() {
-         $('.review-rating').each(function() {
-            let reviewId = $(this).data('review-id');
-            let reviewRating = $(this).data('rating');
-               
-            for (let i=0; i<=reviewRating-1; i++) {
-               $('.star-review-'+reviewId+'').eq(i).removeClass('bi-star').addClass('bi-star-fill');
-            }
-         });
-
-         let rateIndex = -1;
-         let rateValue = -1;
-         $('.star').click(function() {
-            rateIndex = $(this).data('index');
-            rateValue = $(this).data('value');
-            $('.submitReviewBtn').removeClass('disabled');
-         });
-         $('.star-update').click(function() {
-            rateIndex = $(this).data('index');
-            rateValue = $(this).data('value');
-         });
-
-         $('.star').mouseover(function() {
-            let currentIndex = $(this).data('index');
-            
-            for (let i=0; i<=currentIndex; i++) {
-               $('.star').eq(i).removeClass('bi-star').addClass('bi-star-fill');
-            }
-         });
-         $('.star-update').mouseover(function() {
-            let currentIndex = $(this).data('index');
-            
-            for (let i=0; i<=currentIndex; i++) {
-               $('.star-update').eq(i).removeClass('bi-star').addClass('bi-star-fill');
-            }
-         });
-
-         $('.star').mouseleave(function() {
-            $('.star').removeClass('bi-star-fill').addClass('bi-star');
-            
-            if (rateIndex != -1) {
-               for (let i=0; i<=rateIndex; i++) {
-                  $('.star').eq(i).removeClass('bi-star').addClass('bi-star-fill');
-               }
-            }
-         });
-         $('.star-update').mouseleave(function() {
-            $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
-            
-            let updateRate = $('#rating').val();
-            if (rateIndex != -1) {
-               updateRate = rateIndex + 1;
-            }
-
-            for (let i=0; i<=updateRate-1; i++) {
-               $('.star-update').eq(i).removeClass('bi-star').addClass('bi-star-fill');
-            }
-         });
-
-         $('.modal, #reviewBtn-close').click(function(e) {
-            if ($(e.target).hasClass('modal') || $(e.target).hasClass('btn-close')) {
-               $('.star').removeClass('bi-star-fill').addClass('bi-star');
-               $('.submitReviewBtn').addClass('disabled');
-               $('#addReviewForm')[0].reset();
-               rateIndex = -1;
-               rateValue = -1;
-            }
-         });
-
-         $('#addReviewForm').submit(function(e) {
-            e.preventDefault();
-
-            let bookId = $('.addReviewBtn').data('book-id');
-            let addReviewModal = $('#addReviewModal');
-            let addReviewForm = addReviewModal.find('form');
-            addReviewForm.find('input[name="book_id"]').val(bookId);
-            addReviewForm.find('input[name="rate_value"]').val(rateValue);
-
-            $.ajax({
-               type: 'POST',
-               url: "{{ route('user.add_review') }}",
-               data: new FormData(this),
-               dataType: 'json',
-               processData: false,
-               contentType: false,
-               success: function(response) {
-                  Swal.fire({
-                     icon: 'success',
-                     title: response.message
-                  }).then(function() {
-                     location.reload();
-                  });
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
-               }
-            });
-         });
-
-         $('.editReviewBtn').click(function() {
-            let reviewId = $(this).data('review-id');
-            let url = "{{ route('user.edit_review', ':reviewId') }}".replace(':reviewId', reviewId);
-            let editReviewModal = $('#editReviewModal');
-            let editReviewForm = editReviewModal.find('form');
-
-            $.get(url, {}, function(data) {
-               editReviewForm.find('input[name="review_id"]').val(reviewId);
-               editReviewForm.find('input[name="rating"]').val(data.review.rating);
-               editReviewForm.find('textarea[name="review"]').val(data.review.review);
-
-               $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
-               let rating = $('#rating').val();
-               for (let i=0; i<=rating-1; i++) {
-                  $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
-               }
-            });
-         });
-
-         $('#editReviewForm').submit(function(e) {
-            e.preventDefault();
-
-            let reviewId = $(this).find('input[name="review_id"]').val();
-            let updateReviewUrl = "{{ route('user.update_review', ':reviewId') }}".replace(':reviewId', reviewId);
-            $(this).find('input[name="rating"]').val(rateValue);
-
-            $.ajax({
-               type: 'POST',
-               url: updateReviewUrl,
-               data: new FormData(this),
-               dataType: 'json',
-               processData: false,
-               contentType: false,
-               success: function(response) {
-                  Swal.fire({
-                     icon: 'success',
-                     title: response.message
-                  }).then(function() {
-                     location.reload();
-                  });
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
-               }
-            });
-         });
-
          $('.borrowBtn').click(function() {
             let bookId = $(this).data('book-id');
             let bookQuantity = $(this).data('book-quantity');
@@ -403,6 +260,172 @@
                type: 'DELETE',
                url: "{{ route('user.remove_bookmark') }}",
                data: {book_id: bookId},
+               dataType: 'json',
+               success: function() {
+                  location.reload();
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
+               }
+            });
+         });
+
+         $('.review-rating').each(function() {
+            let reviewId = $(this).data('review-id');
+            let reviewRating = $(this).data('rating');
+               
+            for (let i=0; i<=reviewRating-1; i++) {
+               $('.star-review-'+reviewId+'').eq(i).removeClass('bi-star').addClass('bi-star-fill');
+            }
+         });
+
+         let rateIndex = -1;
+         let rateValue = -1;
+         $('.star').click(function() {
+            rateIndex = $(this).data('index');
+            rateValue = $(this).data('value');
+            $('.submitReviewBtn').removeClass('disabled');
+         });
+         $('.star-update').click(function() {
+            rateIndex = $(this).data('index');
+            rateValue = $(this).data('value');
+         });
+
+         $('.star').mouseover(function() {
+            let currentIndex = $(this).data('index');
+            
+            for (let i=0; i<=currentIndex; i++) {
+               $('.star').eq(i).removeClass('bi-star').addClass('bi-star-fill');
+            }
+         });
+         $('.star-update').mouseover(function() {
+            let currentIndex = $(this).data('index');
+            
+            for (let i=0; i<=currentIndex; i++) {
+               $('.star-update').eq(i).removeClass('bi-star').addClass('bi-star-fill');
+            }
+         });
+
+         $('.star').mouseleave(function() {
+            $('.star').removeClass('bi-star-fill').addClass('bi-star');
+            
+            if (rateIndex != -1) {
+               for (let i=0; i<=rateIndex; i++) {
+                  $('.star').eq(i).removeClass('bi-star').addClass('bi-star-fill');
+               }
+            }
+         });
+         $('.star-update').mouseleave(function() {
+            $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
+            
+            let updateRate = $('#rating').val();
+            if (rateIndex != -1) {
+               updateRate = rateIndex + 1;
+            }
+
+            for (let i=0; i<=updateRate-1; i++) {
+               $('.star-update').eq(i).removeClass('bi-star').addClass('bi-star-fill');
+            }
+         });
+
+         $('.modal, #reviewBtn-close').click(function(e) {
+            if ($(e.target).hasClass('modal') || $(e.target).hasClass('btn-close')) {
+               $('.star').removeClass('bi-star-fill').addClass('bi-star');
+               $('.submitReviewBtn').addClass('disabled');
+               $('#addReviewForm')[0].reset();
+               rateIndex = -1;
+               rateValue = -1;
+            }
+         });
+
+         $('#addReviewForm').submit(function(e) {
+            e.preventDefault();
+
+            let bookId = $('.addReviewBtn').data('book-id');
+            let addReviewModal = $('#addReviewModal');
+            let addReviewForm = addReviewModal.find('form');
+            addReviewForm.find('input[name="book_id"]').val(bookId);
+            addReviewForm.find('input[name="rate_value"]').val(rateValue);
+
+            $.ajax({
+               type: 'POST',
+               url: "{{ route('user.add_review') }}",
+               data: new FormData(this),
+               dataType: 'json',
+               processData: false,
+               contentType: false,
+               success: function(response) {
+                  Swal.fire({
+                     icon: 'success',
+                     title: response.message
+                  }).then(function() {
+                     location.reload();
+                  });
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
+               }
+            });
+         });
+
+         $('.editReviewBtn').click(function() {
+            let reviewId = $(this).data('review-id');
+            let url = "{{ route('user.edit_review', ':reviewId') }}".replace(':reviewId', reviewId);
+            let editReviewModal = $('#editReviewModal');
+            let editReviewForm = editReviewModal.find('form');
+
+            $.get(url, {}, function(data) {
+               editReviewForm.find('input[name="review_id"]').val(reviewId);
+               editReviewForm.find('input[name="rating"]').val(data.review.rating);
+               editReviewForm.find('textarea[name="review"]').val(data.review.review);
+
+               $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
+               let rating = $('#rating').val();
+               for (let i=0; i<=rating-1; i++) {
+                  $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
+               }
+            });
+         });
+
+         $('#editReviewForm').submit(function(e) {
+            e.preventDefault();
+
+            let reviewId = $(this).find('input[name="review_id"]').val();
+            let updateReviewUrl = "{{ route('user.update_review', ':reviewId') }}".replace(':reviewId', reviewId);
+            $(this).find('input[name="rating"]').val(rateValue);
+
+            $.ajax({
+               type: 'POST',
+               url: updateReviewUrl,
+               data: new FormData(this),
+               dataType: 'json',
+               processData: false,
+               contentType: false,
+               success: function(response) {
+                  Swal.fire({
+                     icon: 'success',
+                     title: response.message
+                  }).then(function() {
+                     location.reload();
+                  });
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
+               }
+            });
+         });
+
+         $('#likeBtn').click(function(e) {
+            e.preventDefault();
+
+            let reviewId = $(this).data('review-id');
+            $.ajax({
+               type: 'POST',
+               url: "{{ route('user.like_review') }}",
+               data: {review_id: reviewId},
                dataType: 'json',
                success: function() {
                   location.reload();
