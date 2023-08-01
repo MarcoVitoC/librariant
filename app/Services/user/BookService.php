@@ -46,15 +46,15 @@ class BookService {
 
       $isReviewed = Review::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $reviews = Review::where('book_id', $book->id)->get();
-      $reviewIsLiked = Like::where('user_id', auth()->id())->first();
-
+      $likedReview = Like::where('user_id', auth()->id())->pluck('review_id')->toArray();
+      
       $bookDetails = [
          'book' => $book, 
          'bookStatus' => $bookStatus, 
          'isBookmarked' => $isBookmarked, 
-         'isReviewed' => $isReviewed,
-         'reviews' => $reviews,
-         'reviewIsLiked' => $reviewIsLiked
+         'isReviewed' => $isReviewed, 
+         'reviews' => $reviews, 
+         'likedReview' => $likedReview
       ];
       
       return $bookDetails;

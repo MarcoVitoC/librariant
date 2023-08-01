@@ -67,10 +67,10 @@
                   </div>
                   <p>{{ $review->review }}</p>
                   <div class="d-flex align-items-center">
-                     @if ($reviewIsLiked != null)
-                        <button class="btn-review bg-transparent" id="likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up-fill text-secondary"></i></button>
+                     @if (in_array($review->id, $likedReview))
+                        <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up-fill text-secondary me-1"></i>({{ $review->like_count }})</button>
                      @else
-                        <button class="btn-review bg-transparent" id="likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up text-secondary"></i></button>
+                        <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up text-secondary me-1"></i>({{ $review->like_count }})</button>
                      @endif
 
                      <button class="btn-review bg-transparent" id="commentBtn"><i class="bi bi-chat-dots text-secondary"></i></button>
@@ -418,7 +418,7 @@
             });
          });
 
-         $('#likeBtn').click(function(e) {
+         $('.likeBtn').click(function(e) {
             e.preventDefault();
 
             let reviewId = $(this).data('review-id');

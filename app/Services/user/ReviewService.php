@@ -20,7 +20,7 @@ class ReviewService {
    }
 
    public function likeReview($request) {
-      $like = Like::where('user_id', auth()->id())->first();
+      $like = Like::where('user_id', auth()->id())->where('review_id', $request->review_id)->first();
       $review = Review::find($request->review_id);
 
       if ($like == null) {
