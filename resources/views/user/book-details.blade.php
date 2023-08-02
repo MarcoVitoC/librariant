@@ -50,7 +50,7 @@
          <div class="mx-4">
             <h2 class="pb-4">Reviews</h2>
             @foreach ($reviews as $review)
-               <div class="bg-body-secondary rounded mb-3 px-3 py-2">
+               <div class="bg-body-secondary rounded mb-3 p-3">
                   <div class="d-flex align-items-center">
                      <i class="bi bi-person-circle text-secondary fs-2 me-3"></i>
                      <h4>{{ $review->user->username }}</h4>
@@ -73,7 +73,29 @@
                         <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up text-secondary me-1"></i>({{ $review->like_count }})</button>
                      @endif
 
-                     <button class="btn-review bg-transparent" id="commentBtn"><i class="bi bi-chat-dots text-secondary"></i></button>
+                     <button class="btn-review bg-transparent commentBtn" data-review-id="{{ $review->id }}"><i class="bi bi-chat-dots text-secondary"></i></button>
+                  </div>
+                  <div class="bg-body-tertiary mt-2 p-3 rounded comments comment-{{ $review->id }}">
+                     <div class="input-group mb-3">
+                        <input class="form-control" type="text" placeholder="Add a comment...">
+                        <button class="btn btn-dark"><i class="bi bi-send"></i></button>
+                     </div>
+                     <div class="d-flex align-items-center">
+                        <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
+                        <div class="d-flex align-items-baseline">
+                           <h6>archeooooo</h6>
+                           <p class="mx-3 fs-7 text-secondary">2 days ago</p>
+                        </div>
+                     </div>
+                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, vero officia. Cum aut modi illum fugit incidunt nulla quaerat consectetur qui fuga necessitatibus! Alias odit atque similique voluptatum qui harum.</p>
+                     <div class="d-flex align-items-center">
+                        <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
+                        <div class="d-flex align-items-baseline">
+                           <h6>archeooooo</h6>
+                           <p class="mx-3 fs-7 text-secondary">2 days ago</p>
+                        </div>
+                     </div>
+                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, vero officia. Cum aut modi illum fugit incidunt nulla quaerat consectetur qui fuga necessitatibus! Alias odit atque similique voluptatum qui harum.</p>
                   </div>
                </div>
             @endforeach
@@ -435,6 +457,14 @@
                   console.log(response.message);
                }
             });
+         });
+
+         $('.comments').hide();
+         $('.commentBtn').click(function(e) {
+            e.preventDefault();
+
+            let reviewId = $(this).data('review-id');
+            $('.comment-'+reviewId+'').slideToggle();
          });
       });
    </script>
