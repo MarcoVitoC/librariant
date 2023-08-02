@@ -18,6 +18,6 @@ class GuestService {
    }
 
    public function searchBook($request) {
-      return Book::where('book_title', 'like', '%'.$request->search_book.'%')->paginate(10);
+      return Book::where('book_title', 'like', '%'.$request->search_book.'%')->paginate(12);
    }
 }

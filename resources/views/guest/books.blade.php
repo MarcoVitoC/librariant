@@ -59,7 +59,7 @@
 
             $.get(url, {search_book: searchBook}, function(response) {
                let searchResults = response.searchedBook.data;
-
+               
                $('#book_list').html('');
                searchResults.forEach(function(book) {
                   $('#book_list').append(
