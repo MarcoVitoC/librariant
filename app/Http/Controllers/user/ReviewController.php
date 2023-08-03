@@ -33,4 +33,9 @@ class ReviewController extends Controller
       $this->reviewService->likeReview($request);
       return response()->json();
    }
+
+   public function comment(Request $request, Review $review) {
+      $this->reviewService->addComment($request, $review);
+      return response()->json();
+   }
 }

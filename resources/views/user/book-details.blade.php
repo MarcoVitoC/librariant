@@ -76,10 +76,11 @@
                      <button class="btn-review bg-transparent commentBtn" data-review-id="{{ $review->id }}"><i class="bi bi-chat-dots text-secondary"></i></button>
                   </div>
                   <div class="bg-body-tertiary mt-2 p-3 rounded comments comment-{{ $review->id }}">
-                     <div class="input-group mb-3">
-                        <input class="form-control" type="text" placeholder="Add a comment...">
-                        <button class="btn btn-dark"><i class="bi bi-send"></i></button>
-                     </div>
+                     <form class="input-group mb-3 addCommentForm" enctype="multipart/form-data" data-review-id="{{ $review->id }}">
+                        @csrf
+                        <textarea class="form-control comment-input rounded" type="text" name="comment" placeholder="Add a comment..."></textarea>
+                        <button class="btn btn-dark disabled addCommentBtn" type="submit"><i class="bi bi-send"></i></button>
+                     </form>
                      <div class="d-flex align-items-center">
                         <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
                         <div class="d-flex align-items-baseline">
@@ -465,6 +466,35 @@
 
             let reviewId = $(this).data('review-id');
             $('.comment-'+reviewId+'').slideToggle();
+         });
+
+         $('.comment-input').keyup(function(e) {
+            e.preventDefault();
+
+            $('.addCommentBtn').toggleClass('disabled', $(this).val().trim() === '');
+         });
+
+         $('.addCommentForm').submit(function(e) {
+            e.preventDefault();
+
+            let reviewId = $(this).data('review-id');
+            let addCommentUrl = "{{ route('user.add_comment', ':reviewId') }}".replace(':reviewId', reviewId);
+
+            $.ajax({
+               type: 'POST',
+               url: addCommentUrl,
+               data: new FormData(this),
+               dataType: 'json',
+               processData: false,
+               contentType: false,
+               success: function(response) {
+                  location.reload();
+               },
+               error: function(xhr, status, error) {
+                  let response = JSON.parse(xhr.responseText);
+                  console.log(response.message);
+               }
+            });
          });
       });
    </script>
