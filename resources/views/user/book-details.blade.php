@@ -68,12 +68,27 @@
                   <p>{{ $review->review }}</p>
                   <div class="d-flex align-items-center">
                      @if ($review->likes->where('review_id', $review->id)->where('user_id', auth()->id())->count())
-                        <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up-fill text-secondary me-1"></i>({{ $review->like_count }})</button>
+                        <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}">
+                           <i class="bi bi-hand-thumbs-up-fill text-secondary me-1"></i>
+                           @if ($review->like_count > 0)
+                              ({{ $review->like_count }})
+                           @endif
+                        </button>
                      @else
-                        <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up text-secondary me-1"></i>({{ $review->like_count }})</button>
+                        <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}">
+                           <i class="bi bi-hand-thumbs-up text-secondary me-1"></i>
+                           @if ($review->like_count > 0)
+                              ({{ $review->like_count }})
+                           @endif
+                        </button>
                      @endif
 
-                     <button class="btn-review bg-transparent commentBtn" data-review-id="{{ $review->id }}"><i class="bi bi-chat-dots text-secondary"></i></button>
+                     <button class="btn-review bg-transparent commentBtn" data-review-id="{{ $review->id }}">
+                        <i class="bi bi-chat-dots text-secondary me-1"></i>
+                        @if ($review->comments->where('review_id', $review->id)->count())
+                           ({{ $review->comments->where('review_id', $review->id)->count() }})
+                        @endif
+                     </button>
                   </div>
                   <div class="bg-body-tertiary mt-2 p-3 rounded comments comment-{{ $review->id }}">
                      <form class="input-group mb-3 addCommentForm" enctype="multipart/form-data" data-review-id="{{ $review->id }}">
