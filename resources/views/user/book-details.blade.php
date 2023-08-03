@@ -67,7 +67,7 @@
                   </div>
                   <p>{{ $review->review }}</p>
                   <div class="d-flex align-items-center">
-                     @if (in_array($review->id, $likedReview))
+                     @if ($review->likes->where('review_id', $review->id)->where('user_id', auth()->id())->count())
                         <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up-fill text-secondary me-1"></i>({{ $review->like_count }})</button>
                      @else
                         <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}"><i class="bi bi-hand-thumbs-up text-secondary me-1"></i>({{ $review->like_count }})</button>
@@ -81,22 +81,18 @@
                         <textarea class="form-control comment-input rounded" type="text" name="comment" placeholder="Add a comment..."></textarea>
                         <button class="btn btn-dark disabled addCommentBtn" type="submit"><i class="bi bi-send"></i></button>
                      </form>
-                     <div class="d-flex align-items-center">
-                        <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
-                        <div class="d-flex align-items-baseline">
-                           <h6>archeooooo</h6>
-                           <p class="mx-3 fs-7 text-secondary">2 days ago</p>
+                     @foreach ($review->comments as $comment)
+                        <div class="pb-2">
+                           <div class="d-flex align-items-center">
+                              <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
+                              <div class="d-flex align-items-baseline">
+                                 <h6>{{ $comment->user->username }}</h6>
+                                 <p class="mx-3 fs-7 text-secondary">{{ $comment->created_at->diffForHumans() }}</p>
+                              </div>
+                           </div>
+                           <p>{{ $comment->comment }}</p>
                         </div>
-                     </div>
-                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, vero officia. Cum aut modi illum fugit incidunt nulla quaerat consectetur qui fuga necessitatibus! Alias odit atque similique voluptatum qui harum.</p>
-                     <div class="d-flex align-items-center">
-                        <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
-                        <div class="d-flex align-items-baseline">
-                           <h6>archeooooo</h6>
-                           <p class="mx-3 fs-7 text-secondary">2 days ago</p>
-                        </div>
-                     </div>
-                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam, vero officia. Cum aut modi illum fugit incidunt nulla quaerat consectetur qui fuga necessitatibus! Alias odit atque similique voluptatum qui harum.</p>
+                     @endforeach
                   </div>
                </div>
             @endforeach

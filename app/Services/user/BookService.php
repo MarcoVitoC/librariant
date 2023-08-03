@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Like;
 use App\Models\Queue;
 use App\Models\Review;
+use App\Models\Comment;
 use App\Models\Bookmark;
 use App\Models\LoanDetail;
 use App\Models\LoanHeader;
@@ -46,15 +47,13 @@ class BookService {
 
       $isReviewed = Review::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $reviews = Review::where('book_id', $book->id)->get();
-      $likedReview = Like::where('user_id', auth()->id())->pluck('review_id')->toArray();
-      
+
       $bookDetails = [
          'book' => $book, 
          'bookStatus' => $bookStatus, 
          'isBookmarked' => $isBookmarked, 
          'isReviewed' => $isReviewed, 
-         'reviews' => $reviews, 
-         'likedReview' => $likedReview
+         'reviews' => $reviews
       ];
       
       return $bookDetails;
