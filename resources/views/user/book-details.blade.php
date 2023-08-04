@@ -83,31 +83,33 @@
                         </button>
                      @endif
 
-                     <button class="btn-review bg-transparent commentBtn" data-review-id="{{ $review->id }}">
+                     <button class="btn-review bg-transparent" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $review->id }}" aria-expanded="false" aria-controls="collapse-{{ $review->id }}">
                         <i class="bi bi-chat-dots text-secondary me-1"></i>
                         @if ($review->comments->where('review_id', $review->id)->count())
                            ({{ $review->comments->where('review_id', $review->id)->count() }})
                         @endif
                      </button>
                   </div>
-                  <div class="bg-body-tertiary mt-2 p-3 rounded comments comment-{{ $review->id }}">
-                     <form class="input-group mb-3 addCommentForm" enctype="multipart/form-data" data-review-id="{{ $review->id }}">
-                        @csrf
-                        <textarea class="form-control comment-input rounded" type="text" name="comment" placeholder="Add a comment..."></textarea>
-                        <button class="btn btn-dark disabled addCommentBtn" type="submit"><i class="bi bi-send"></i></button>
-                     </form>
-                     @foreach ($review->comments as $comment)
-                        <div class="pb-2">
-                           <div class="d-flex align-items-center">
-                              <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
-                              <div class="d-flex align-items-baseline">
-                                 <h6>{{ $comment->user->username }}</h6>
-                                 <p class="mx-3 fs-7 text-secondary">{{ $comment->created_at->diffForHumans() }}</p>
+                  <div class="mt-2 rounded collapse" id="collapse-{{ $review->id }}">
+                     <div class="bg-body-tertiary card card-body">
+                        <form class="input-group mb-3 addCommentForm" enctype="multipart/form-data" data-review-id="{{ $review->id }}">
+                           @csrf
+                           <textarea class="form-control comment-input rounded" type="text" name="comment" placeholder="Add a comment..."></textarea>
+                           <button class="btn btn-dark disabled addCommentBtn" type="submit"><i class="bi bi-send"></i></button>
+                        </form>
+                        @foreach ($review->comments as $comment)
+                           <div class="pb-2">
+                              <div class="d-flex align-items-center">
+                                 <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
+                                 <div class="d-flex align-items-baseline">
+                                    <h6>{{ $comment->user->username }}</h6>
+                                    <p class="mx-3 fs-7 text-secondary">{{ $comment->created_at->diffForHumans() }}</p>
+                                 </div>
                               </div>
+                              <p>{{ $comment->comment }}</p>
                            </div>
-                           <p>{{ $comment->comment }}</p>
-                        </div>
-                     @endforeach
+                        @endforeach
+                     </div>
                   </div>
                </div>
             @endforeach
@@ -469,14 +471,6 @@
                   console.log(response.message);
                }
             });
-         });
-
-         $('.comments').hide();
-         $('.commentBtn').click(function(e) {
-            e.preventDefault();
-
-            let reviewId = $(this).data('review-id');
-            $('.comment-'+reviewId+'').slideToggle();
          });
 
          $('.comment-input').keyup(function(e) {
