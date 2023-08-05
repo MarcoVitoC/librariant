@@ -27,7 +27,7 @@ class FAQSeeder extends Seeder
 
       Faq::create([
          'question' => 'How can I renew my borrowed books?',
-         'answer' => "You can renew your borrowed books ten days after the loan date by logging into your library account on our website and selecting the option to renew the books. Alternatively, you can call our library's circulation desk or visit in person to renew books."
+         'answer' => "You can renew your borrowed books 10 days after the loan date by logging into your library account on our website and selecting the option to renew the books. Alternatively, you can call our library's circulation desk or visit in person to renew books."
       ]);
 
       Faq::create([

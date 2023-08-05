@@ -15,7 +15,7 @@ return new class extends Migration
    {
       Schema::create('loan_headers', function (Blueprint $table) {
          $table->id();
-         $table->foreignUuid('user_id');
+         $table->foreignUuid('user_id')->constrained();
          $table->timestamp('loan_date')->useCurrent();
          $table->timestamps();
       });

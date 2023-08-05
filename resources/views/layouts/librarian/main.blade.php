@@ -7,7 +7,7 @@
             @include('layouts.librarian.sidebar')
          </div>
          <div class="w-100">
-            @include('layouts.librarian.topbar')
+            @include('layouts.librarian.navbar')
             @yield('content')
          </div>
       </div>

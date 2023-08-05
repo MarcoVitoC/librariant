@@ -55,6 +55,14 @@
    font-size: 15px;
 }
 
+.badge-size {
+   position: absolute;
+   transform: scale(0.58);
+   transform-origin: top right;
+   right: -.55rem;
+   margin-top: -.25rem;
+}
+
 .cursor-pointer {
    cursor: pointer;
 }

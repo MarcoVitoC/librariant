@@ -15,7 +15,7 @@ return new class extends Migration
    {
       Schema::create('notifications', function (Blueprint $table) {
          $table->id();
-         $table->foreignUuid('user_id');
+         $table->foreignUuid('user_id')->constrained();
          $table->text('content');
          $table->timestamps();
       });

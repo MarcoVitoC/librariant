@@ -15,8 +15,8 @@ return new class extends Migration
    {
       Schema::create('queues', function (Blueprint $table) {
          $table->id();
-         $table->foreignUuid('user_id');
-         $table->foreignId('book_id');
+         $table->foreignUuid('user_id')->constrained();
+         $table->foreignId('book_id')->constrained();
          $table->timestamps();
       });
    }

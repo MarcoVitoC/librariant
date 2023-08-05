@@ -21,14 +21,28 @@
       @else
       <div class="d-flex align-items-center">
          <div class="dropdown">
-            <a href="" class="nav-link text-secondary fs-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               <i class="bi bi-bell-fill"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-               <a class="dropdown-item py-2" href="">
-                  <i class="bi bi-bell-slash me-2"></i>You have no notifications at the moment.
-               </a>
-            </div>
+            @if ($notifications->isEmpty())
+               <button class="nav-link text-secondary fs-4 position-relative" data-bs-toggle="dropdown">
+                  <i class="bi bi-bell-fill"></i>
+               </button>
+               <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item py-2" href="">
+                     <i class="bi bi-bell-slash me-2"></i>You have no notifications at the moment.
+                  </a>
+               </div>
+            @else
+               <button class="nav-link text-secondary fs-4 position-relative" data-bs-toggle="dropdown">
+                  <i class="bi bi-bell-fill"></i>
+                  <span class="badge rounded-pill bg-danger badge-size">
+                     {{ $notifications->count() }}
+                  </span>
+               </button>
+               <div class="dropdown-menu dropdown-menu-end">
+                  @foreach ($notifications as $notification)
+                     <div class="dropdown-item py-2">{{ $notification->content }}</div>
+                  @endforeach
+               </div>
+            @endif
          </div>
          <div class="vr mx-3 text-secondary"></div>
          <div class="dropdown">
@@ -53,4 +67,4 @@
       </div>
       @endif
    </div>
- </nav>
+</nav>

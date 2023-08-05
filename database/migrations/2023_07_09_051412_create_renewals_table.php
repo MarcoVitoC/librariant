@@ -15,7 +15,7 @@ return new class extends Migration
    {
       Schema::create('renewals', function (Blueprint $table) {
          $table->id();
-         $table->foreignUuid('user_id');
+         $table->foreignUuid('user_id')->constrained();
          $table->foreignId('loan_detail_id')->constrained();
          $table->dateTime('renewal_date');
          $table->dateTime('renewed_due_date');

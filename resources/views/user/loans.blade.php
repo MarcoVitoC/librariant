@@ -54,7 +54,7 @@
                      @foreach ($loanedBooks as $loanedBook)
                         <tr class="align-middle">
                            <td class="border text-center"><img src="{{ asset('storage/' . $loanedBook->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
-                           <td class="border text-center">{{ $loanedBook->book->book_title }}</td>
+                           <td class="border text-center w-30">{{ $loanedBook->book->book_title }}</td>
                            <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->loanHeader->loan_date)) }}</td>
                            <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->due_date)) }}</td>
                            <td class="border text-center">
