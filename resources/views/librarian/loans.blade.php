@@ -16,7 +16,6 @@
                   <th scope="col" class="border text-center">Borrower</th>
                   <th scope="col" class="border text-center">Loan Date</th>
                   <th scope="col" class="border text-center">Due Date</th>
-                  <th scope="col" class="border text-center">Action</th>
                </tr>
             </thead>
             <tbody>
@@ -27,9 +26,6 @@
                      <td class="border text-center">{{ $loanedBook->loanHeader->user->username }}</td>
                      <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->loanHeader->loan_date)) }}</td>
                      <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->due_date)) }}</td>
-                     <td class="border text-center">
-                        <button class="btn btn-danger remindBtn" data-book-id="{{ $loanedBook->book->id }}" data-loan-id="{{ $loanedBook->id }}"><i class="bi bi-bell-fill me-2"></i>Remind</button>
-                     </td>
                   </tr>
                @endforeach
             </tbody>
