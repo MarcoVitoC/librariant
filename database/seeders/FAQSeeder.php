@@ -22,7 +22,7 @@ class FAQSeeder extends Seeder
 
       Faq::create([
          'question' => 'How long can I keep borrowed books?',
-         'answer' => 'The standard loan period for books is 2 weeks, but you may be able to renew items if there are no holds or requests from other members.'
+         'answer' => 'The standard loan period for books is 2 weeks, but you may be able to renew books if there are no holds or requests from other members.'
       ]);
 
       Faq::create([
@@ -32,7 +32,7 @@ class FAQSeeder extends Seeder
 
       Faq::create([
          'question' => 'What happens if I return books late?',
-         'answer' => 'Late return fees may apply if you exceed the due date for borrowed books. The specific fine amount and policies can be found on our website or by contacting the library staff.'
+         'answer' => 'Late return fees may apply if you exceed the due date for borrowed books. The fine amount is IDR 20000 multiplied by the number of days the borrower exceeded the due date.'
       ]);
 
       Faq::create([
