@@ -11,7 +11,7 @@ class Status extends Model
 
    protected $guarded = ['id'];
 
-   public function loanHeaders() {
-      return $this->hasMany(LoanHeader::class);
+   public function loanDetails() {
+      return $this->hasMany(LoanDetail::class);
    }
 }

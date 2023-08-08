@@ -17,6 +17,7 @@ return new class extends Migration
          $table->id();
          $table->foreignUuid('user_id')->constrained();
          $table->text('content');
+         $table->timestamp('read_at')->nullable();
          $table->timestamps();
       });
    }

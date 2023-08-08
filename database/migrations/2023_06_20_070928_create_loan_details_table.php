@@ -17,9 +17,10 @@ return new class extends Migration
          $table->id();
          $table->foreignId('loan_header_id')->constrained();
          $table->foreignId('book_id')->constrained();
-         $table->foreignId('status_id')->default('0')->constrained();
+         $table->foreignId('status_id')->default(0);
          $table->dateTime('due_date');
          $table->dateTime('returned_date')->nullable();
+         $table->boolean('is_notified')->default(false);
          $table->timestamps();
       });
    }
