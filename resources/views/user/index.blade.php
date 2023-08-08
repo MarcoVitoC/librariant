@@ -9,10 +9,22 @@
             <p class="fw-normal lh-sm my-3">We're glad to have you here. Explore our library collection and discover new reading adventures. Happy reading!</p>
             <div class="bg-white rounded p-3">
                @if ($loans->isEmpty())
-                  <h6 class="text-center"><i class="bi bi-inbox me-2"></i>You have no books to return at the moment.</h6>
+                  <h6 class="text-center pb-2"><i class="bi bi-inbox me-2"></i>You have no books to return at the moment.</h6>
                @else
-                  <h6 class="text-center"><i class="bi bi-inbox me-2"></i>You have {{ $loans->count() }} books to return.</h6>
+                  <h6 class="text-center pb-2"><i class="bi bi-inbox me-2"></i>You have {{ $loans->count() }} books to return.</h6>
                @endif
+               <div>
+                  <p class="text-danger fw-semibold">We regret to inform you that one or more of the books you borrowed from our library are now overdue. As per our policy, late fees have been incurred for these late returns. Please return the books and settle the late fees promptly. Thank you!</p>
+                  @foreach ($lateReturns as $lateReturn)
+                     <div class="border border-3 border-dark rounded mb-2 px-3 pt-2 d-flex align-items-center justify-content-between">
+                        <div class="lh-1">
+                           <h5>{{ $lateReturn->book->book_title }}</h5>
+                           <p class="text-secondary">Loan Date: {{ date('F d, Y', strtotime($lateReturn->loanHeader->loan_date)) }}</p>
+                        </div>
+                        <h5>IDR 20.000</h5>
+                     </div>
+                  @endforeach
+               </div>
             </div>
          </div>
       </div>

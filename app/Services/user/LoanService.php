@@ -13,19 +13,14 @@ use Illuminate\Support\Carbon;
 class LoanService {
    public function fetchLoans() {
       $loanedBooks = LoanDetail::with(['book', 'loanHeader'])
-                     ->whereNull('returned_date')
-                     ->whereHas('loanHeader', function($query) {
+                     ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
                         $query->where('user_id', auth()->id());
                      })->oldest('due_date')->get();
       $unconfirmedReturns = LoanDetail::with('book')
-                           ->whereNotNull('returned_date')
-                           ->where('status_id', 2)
-                           ->oldest('returned_date')
-                           ->get();
+                           ->whereNotNull('returned_date')->where('status_id', 2)->oldest('returned_date')->get();
       $queues = Queue::with('book')->where('user_id', auth()->id())->oldest()->get();
       $renewableLoans = LoanDetail::with(['book', 'loanHeader'])
-                        ->whereNull('returned_date')
-                        ->whereHas('loanHeader', function($query) {
+                        ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
                            $query->where('user_id', auth()->id())->whereDate('loan_date', '<=', now()->subDays(10));
                         })->whereDoesntHave('renewal', function($query) {
                            $query->whereColumn('loan_detail_id', 'id');

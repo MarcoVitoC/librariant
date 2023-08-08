@@ -17,8 +17,12 @@ class BookService {
                   $query->where('user_id', auth()->id());
                })->whereIn('status_id', [0, 3])->get();
       $books = Book::paginate(12)->withQueryString();
+      $lateReturns = LoanDetail::with(['book', 'loanHeader'])
+                     ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
+                        $query->where('user_id', auth()->id())->whereDate('due_date', '<', now());
+                     })->get();
 
-      return ['loans' => $loans, 'books' => $books];
+      return ['loans' => $loans, 'books' => $books, 'lateReturns' => $lateReturns];
    }
 
    public function fetchBookDetails($id) {

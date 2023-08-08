@@ -40,7 +40,7 @@
                <button class="btn btn-secondary btn-sm disabled me-2">Language: {{ $bookDetails->language }}</button>
                <button class="btn btn-secondary btn-sm disabled me-2">Genre: {{ $bookDetails->genre }}</button>
                <button class="btn btn-secondary btn-sm disabled me-2">Pages: {{ $bookDetails->pages }} pages</button>
-               <button class="btn btn-secondary btn-sm disabled">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</button>
+               <button class="btn btn-secondary btn-sm disabled">Published on {{ date('F d, Y', strtotime($bookDetails->publish_date)) }}</button>
             </div>
          </div>
       </div>

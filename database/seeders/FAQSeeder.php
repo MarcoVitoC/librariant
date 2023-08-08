@@ -40,9 +40,9 @@ class FAQSeeder extends Seeder
          'answer' => 'Yes, you can place a hold on a book that is currently checked out by another member. This can be done through our online catalog, by phone, or by visiting the library in person. You will be notified when the item becomes available.'
       ]);
 
-      Faq::create([
-         'question' => 'Can I suggest a book or resource for the library to acquire?',
-         'answer' => 'Absolutely! We welcome suggestions for new books, resources, or materials to enhance our collection. You can submit your suggestions through our website, or you can speak with a staff member during your visit.'
-      ]);
+      // Faq::create([
+      //    'question' => 'Can I suggest a book or resource for the library to acquire?',
+      //    'answer' => 'Absolutely! We welcome suggestions for new books, resources, or materials to enhance our collection. You can submit your suggestions through our website, or you can speak with a staff member during your visit.'
+      // ]);
    }
 }

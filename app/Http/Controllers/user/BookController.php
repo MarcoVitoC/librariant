@@ -16,7 +16,11 @@ class BookController extends Controller
 
    public function index() {
       $indexData = $this->bookService->fetchIndexDatas();
-      return view('user.index', ['loans' => $indexData['loans'], 'books' => $indexData['books']]);
+      return view('user.index', [
+         'loans' => $indexData['loans'], 
+         'books' => $indexData['books'], 
+         'lateReturns' => $indexData['lateReturns']
+      ]);
    }
 
    public function bookDetails($id) {
