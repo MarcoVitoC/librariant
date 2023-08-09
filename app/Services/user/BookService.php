@@ -31,19 +31,28 @@ class BookService {
                   $query->where('user_id', auth()->id());
                })->where('book_id', $book->id)->latest()->first();
 
-      $bookStatus = ($loan != null && ($loan->status_id === 0 || $loan->status_id === 3)) ? 'loaned' : 'available';
+      $isLoaned = ($loan != null && ($loan->status_id === 0 || $loan->status_id === 3)) ? true : false;
 
       $queue = Queue::where('user_id', auth()->id())->where('book_id', $book->id)->first();
       $borrowAmount = LoanDetail::whereHas('loanHeader', function($query) {
                         $query->where('user_id', auth()->id());
                      })->whereIn('status_id', [0, 3])->count();
-
+      $lateReturns = LoanDetail::with(['book', 'loanHeader'])
+                     ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
+                        $query->where('user_id', auth()->id())->whereDate('due_date', '<', now());
+                     })->count();
+      
+      $bookStatus = '';
       if ($queue != null) {
          $bookStatus = 'queued';
       }else if ($loan != null && $loan->returned_date != null && $loan->status_id === 2) {
          $bookStatus = 'pending';
       }else if ($borrowAmount === 8) {
          $bookStatus = 'limited';
+      }
+      
+      if ($lateReturns > 0) {
+         $bookStatus = 'denied';
       }
 
       $bookmark = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->first();
@@ -54,6 +63,7 @@ class BookService {
 
       $bookDetails = [
          'book' => $book, 
+         'isLoaned' => $isLoaned,
          'bookStatus' => $bookStatus, 
          'isBookmarked' => $isBookmarked, 
          'isReviewed' => $isReviewed, 

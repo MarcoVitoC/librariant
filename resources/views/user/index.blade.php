@@ -14,14 +14,16 @@
                   <h6 class="text-center pb-2"><i class="bi bi-inbox me-2"></i>You have {{ $loans->count() }} books to return.</h6>
                @endif
                <div>
-                  <p class="text-danger fw-semibold">We regret to inform you that one or more of the books you borrowed from our library are now overdue. As per our policy, late fees have been incurred for these late returns. Please return the books and settle the late fees promptly. Thank you!</p>
                   @foreach ($lateReturns as $lateReturn)
-                     <div class="border border-3 border-dark rounded mb-2 px-3 pt-2 d-flex align-items-center justify-content-between">
-                        <div class="lh-1">
+                     <div class="border border-3 border-dark rounded mb-2 px-3 pt-3 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-baseline">
+                           <span class="alert alert-danger text-danger me-3 px-4 py-1 fw-semibold"><i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2 text-danger"></i>Overdue</span>
                            <h5>{{ $lateReturn->book->book_title }}</h5>
-                           <p class="text-secondary">Loan Date: {{ date('F d, Y', strtotime($lateReturn->loanHeader->loan_date)) }}</p>
                         </div>
-                        <h5>IDR 20.000</h5>
+                        <div class="d-flex pb-3">
+                           <button class="btn btn-danger btn-sm disabled">Loan Date: {{ date('F d, Y', strtotime($lateReturn->loanHeader->loan_date)) }}</button>
+                           <button class="btn btn-danger btn-sm disabled ms-2">Due Date: {{ date('F d, Y', strtotime($lateReturn->due_date)) }}</button>
+                        </div>
                      </div>
                   @endforeach
                </div>

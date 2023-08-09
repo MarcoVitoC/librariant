@@ -31,8 +31,8 @@ class FAQSeeder extends Seeder
       ]);
 
       Faq::create([
-         'question' => 'What happens if I return books late?',
-         'answer' => 'Late return fees may apply if you exceed the due date for borrowed books. The fine amount is IDR 20000 multiplied by the number of days the borrower exceeded the due date.'
+         'question' => "What happens if I don't return the book by the due date?",
+         'answer' => "If you don't return the books by the due date, you can't borrow any books until you return the late one."
       ]);
 
       Faq::create([

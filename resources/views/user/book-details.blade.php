@@ -7,10 +7,9 @@
          <div class="px-4">
             <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" alt="Book Photo" width="240px" height="310px" class="rounded">
             <div class="my-3">
-               @if ($bookStatus !== 'loaned')
+               @if (!$isLoaned)
                   <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
-               @endif
-               @if ($bookStatus === 'loaned' || $bookStatus === 'limited')
+               @else
                   <button type="submit" class="btn btn-outline-dark col-12 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
                @endif
             </div>
@@ -145,6 +144,11 @@
                   icon: 'error',
                   title: 'Book limit reached!',
                   text: 'Sorry, you cannot borrow any more books at the moment. Please return some books before borrowing new ones.'
+               },
+               denied: {
+                  icon: 'error',
+                  title: 'Loan access denied!',
+                  text: "Sorry, you won't be able to borrow any books at this time. Please return all overdue books before proceeding with new borrowings."
                }
             };
             const statusMessage = bookStatuses[bookStatus];

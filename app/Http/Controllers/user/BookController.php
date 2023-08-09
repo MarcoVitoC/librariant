@@ -27,6 +27,7 @@ class BookController extends Controller
       $bookDetails = $this->bookService->fetchBookDetails($id);
       return view('user.book-details', [
          'bookDetails' => $bookDetails['book'], 
+         'isLoaned' => $bookDetails['isLoaned'], 
          'bookStatus' => $bookDetails['bookStatus'],
          'isBookmarked' => $bookDetails['isBookmarked'],
          'isReviewed' => $bookDetails['isReviewed'],
