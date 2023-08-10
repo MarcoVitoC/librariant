@@ -3,7 +3,7 @@
 
 @section('content')
    <div class="container">
-      <div class="welcome-guest">
+      <div class="welcome">
          <span></span>
          <span></span>
          <span></span>
@@ -14,16 +14,20 @@
          <span></span>
          <span></span>
          <span></span>
+      </div>
+      <div class="welcome-component">
          <span class="fs-3">📗</span>
-         <span class="fs-3">📕</span>
-         <span class="fs-3">📘</span>
-         <span class="fs-3">📙</span>
+         <span class="fs-1">📕</span>
+         <span class="fs-1">📘</span>
+         <span class="fs-2">📙</span>
+         <span class="fs-1">📔</span>
+         <span class="fs-3">📗</span>
       </div>
       <div class="row d-flex align-items-center justify-content-center flex-md-row">
          <div class="text-center col-md-9" style="margin: 9rem 0;">
-            <h1 class="title-lg fw-bold"><span class="text-underline-wavy">Unleash</span> Your Curiosity: Welcome to <strong>Librariant</strong>! 📚</h1>
+            <h1 class="title-lg fw-bold"><span class="text-underline-wavy">Unleash</span> Your Curiosity: Welcome to <span class="text-highlight">Librariant</span>! 📚</h1>
             <h5 class="fw-normal fs-header text-secondary lh-sm my-4" style="padding: 0px 100px;">Streamline library operations with our user-friendly platform for cataloging, lending, and returning books. Find books easily, place holds, and receive notifications. Explore our platform for an organized and accessible library environment!</h5>
-            <a class="btn btn-dark btn-lg" href="{{ route('guest.books') }}" role="button">Explore now</a>
+            <a class="btn btn-dark btn-lg exploreBtn" href="{{ route('guest.books') }}" role="button">Explore now</a>
          </div>
       </div>
    </div>
