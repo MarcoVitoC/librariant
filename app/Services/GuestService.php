@@ -6,7 +6,7 @@ use App\Models\Book;
 
 class GuestService {
    public function fetchSomeBooks() {
-      return Book::all()->take(4);
+      return Book::all()->take(5);
    }
 
    public function fetchAllBooks() {

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg bg-white sticky-top">
    <div class="container-fluid mx-6">
       <a class="navbar-brand" href="{{ route('guest.welcome') }}"><img src="{{ asset('images/Librariant Logo (Light).png') }}" alt="Librariant" width="160px" height="50px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
