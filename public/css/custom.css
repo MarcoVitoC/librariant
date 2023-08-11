@@ -374,3 +374,24 @@
 .btn-review:hover {
    background-color: #E0E0E0 !important;
 }
+
+.facebook:hover {
+   transition-duration: 0.2s;
+   background-color: #4267B3 !important;
+}
+
+.twitter:hover {
+   transition-duration: 0.2s;
+   background-color: #1D9BF0 !important;
+}
+
+.instagram:hover {
+   transition-duration: 0.2s;
+   background-color: #E1306C !important;
+}
+
+.facebook:hover i,
+.twitter:hover i,
+.instagram:hover i {
+   color: white !important;
+}
