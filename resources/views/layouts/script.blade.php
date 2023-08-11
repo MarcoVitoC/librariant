@@ -7,6 +7,14 @@
 {{-- Sweet Alert JS --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
 
+{{-- AOS Animation --}}
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+   AOS.init({
+      once: 'true'
+   });
+</script>
+
 {{-- jQuery Extra --}}
 <script>
    $(document).ready(function() {
