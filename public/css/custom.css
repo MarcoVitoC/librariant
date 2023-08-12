@@ -280,7 +280,8 @@
 }
 
 .get-started-background,
-.how-it-works-background {
+.how-it-works-background,
+.library-profile-background {
    position: relative;
    display: inline-block;
    overflow: hidden;
@@ -312,8 +313,25 @@
    z-index: -1;
 }
 
+.library-profile-background:before {
+   content: "";
+   position: absolute;
+   top: 50%;
+   left: 40%;
+   transform: translate(-40%, -50%);
+   width: 80%; 
+   height: 90%; 
+   background-color: #ffefd6; 
+   border-radius: 80% 40% 50% 50%;
+   z-index: -1;
+}
+
 .w-30 {
    width: 30%;
+}
+
+.w-70 {
+   width: 70%;
 }
 
 .w-85 {
@@ -376,16 +394,19 @@
 }
 
 .facebook:hover {
+   color: white !important;
    transition-duration: 0.2s;
    background-color: #4267B3 !important;
 }
 
 .twitter:hover {
+   color: white !important;
    transition-duration: 0.2s;
    background-color: #1D9BF0 !important;
 }
 
 .instagram:hover {
+   color: white !important;
    transition-duration: 0.2s;
    background-color: #E1306C !important;
 }

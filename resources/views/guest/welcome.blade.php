@@ -36,21 +36,21 @@
       <h2 class="text-center pt-5 pb-4" data-aos="fade-down" data-aos-duration="1000">✨ Our Features & Services</h2>
       <div class="row px-4">
          <div class="col-md-4 text-center" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
-            <div class="d-flex flex-column align-items-center h-100 bg-body-tertiary rounded p-3">
+            <div class="d-flex flex-column align-items-center h-100 bg-body-secondary rounded p-3">
                <img src="{{ asset('images/Extensive Collection.png') }}" alt="Extensive Collection" class="mw-100 h-auto" width="250px" height="250px">
                <h4>Extensive Collection</h4>
                <p>Our library boasts a vast and diverse collection of books, articles, and resources, catering to a wide range of interests and disciplines.</p>
             </div>
         </div>
-        <div class="col-md-4 text-center" data-aos="fade-down" data-aos-delay="200" data-aos-duration="1000">
-            <div class="d-flex flex-column align-items-center h-100 bg-body-tertiary rounded p-3">
+        <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+            <div class="d-flex flex-column align-items-center h-100 bg-body-secondary rounded p-3">
                <img src="{{ asset('images/Easy Accessibility.png') }}" alt="Easy Accessibility" class="mw-100 h-auto" width="250px" height="250px">
                <h4>Easy Accessibility</h4>
                <p>Our website provides convenient access to our library's resources from anywhere, at any time, with just a few clicks.</p>
             </div>
         </div>
         <div class="col-md-4 text-center" data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000">
-            <div class="d-flex flex-column align-items-center h-100 bg-body-tertiary rounded p-3">
+            <div class="d-flex flex-column align-items-center h-100 bg-body-secondary rounded p-3">
                <img src="{{ asset('images/User Friendly Interface.png') }}" alt="User Friendly Interface" class="mw-100 h-auto" width="250px" height="250px">
                <h4>User-Friendly Interface</h4>
                <p>Our intuitive interface and search functionality make it easy for users to navigate and find the materials they need quickly and efficiently.</p>
@@ -67,14 +67,14 @@
             <h2 class="fw-semibold">📝 How It Works?</h2>
             <hr class="text-secondary">
             <div class="d-flex">
-               <div class="col-6 d-flex bg-body-tertiary rounded my-2 me-2 p-3">
+               <div class="col-6 d-flex bg-body-secondary rounded my-2 me-2 p-3">
                   <h5>1️⃣</h5>
                   <div class="lh-sm ms-2">
                      <h5>Search and Explore</h5>
                      <p class="text-secondary">Explore the catalog to find and select your desired books.</p>
                   </div>
                </div>
-               <div class="col-6 d-flex bg-body-tertiary rounded my-2 p-3">
+               <div class="col-6 d-flex bg-body-secondary rounded my-2 p-3">
                   <h5>2️⃣</h5>
                   <div class="lh-sm ms-2">
                      <h5>Borrow or Queue</h5>
@@ -83,14 +83,14 @@
                </div>
             </div>
             <div class="d-flex">
-               <div class="col-6 d-flex bg-body-tertiary rounded my-2 me-2 p-3">
+               <div class="col-6 d-flex bg-body-secondary rounded my-2 me-2 p-3">
                   <h5>3️⃣</h5>
                   <div class="lh-sm ms-2">
                      <h5>Enjoy and Learn</h5>
                      <p class="text-secondary">Engage actively with borrowed book content for insights.</p>
                   </div>
                </div>
-               <div class="col-6 d-flex bg-body-tertiary rounded my-2 p-3">
+               <div class="col-6 d-flex bg-body-secondary rounded my-2 p-3">
                   <h5>4️⃣</h5>
                   <div class="lh-sm ms-2">
                      <h5>Renewal</h5>
@@ -99,14 +99,14 @@
                </div>
             </div>
             <div class="d-flex">
-               <div class="col-6 d-flex bg-body-tertiary rounded my-2 me-2 p-3">
+               <div class="col-6 d-flex bg-body-secondary rounded my-2 me-2 p-3">
                   <h5>5️⃣</h5>
                   <div class="lh-sm ms-2">
                      <h5>Return</h5>
                      <p class="text-secondary">Ensure books are returned either on or before the due date.</p>
                   </div>
                </div>
-               <div class="col-6 d-flex bg-body-tertiary rounded my-2 p-3">
+               <div class="col-6 d-flex bg-body-secondary rounded my-2 p-3">
                   <h5>6️⃣</h5>
                   <div class="lh-sm ms-2">
                      <h5>Rate and Review</h5>
