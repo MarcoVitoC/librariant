@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Book;
+use App\Models\Review;
 
 class GuestService {
    public function fetchSomeBooks() {
@@ -14,7 +15,10 @@ class GuestService {
    }
 
    public function fetchBookDetails($id) {
-      return Book::find($id);
+      $reviews = Review::where('book_id', $id)->get();
+      $book = Book::find($id);
+
+      return ['book' => $book, 'reviews' => $reviews];
    }
 
    public function searchBook($request) {
