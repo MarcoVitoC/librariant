@@ -3,26 +3,28 @@
 
 @section('content')
    <div class="bg-cornsilk py-5">
-      <div class="d-flex mx-6 mb-4">
-         <div class="px-4">
-            <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" alt="Book Photo" width="240px" height="310px" class="rounded">
-            <div class="my-3">
-               <a href="{{ route('login') }}" class="btn btn-dark col-12 mt-1">
-                  <i class="bi bi-book-fill me-2"></i>Borrow
-               </a>
-            </div>
+      <div class="row mx-6 mb-4">
+         <div class="col-lg-4 col-xl-3 px-4 d-flex justify-content-center">
+            <div class="d-flex flex-column align-items-center mw-100" style="width: 240px; height: auto;">
+               <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" class="mw-100 h-auto rounded" alt="Book Photo">
+               <div class="my-3 w-100">
+                   <a href="{{ route('login') }}" class="btn btn-dark w-100 mt-1">
+                       <i class="bi bi-book-fill me-2"></i>Borrow
+                   </a>
+               </div>
+           </div>
          </div>
-         <div>
+         <div class="col-lg-8 col-xl-9">
             <h2 class="fw-semibold">{{ $bookDetails->book_title }}</h2>
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
             <button class="btn btn-dark btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
-            <div class="d-flex">
-               <button class="btn btn-secondary btn-sm disabled me-2">Language: {{ $bookDetails->language }}</button>
-               <button class="btn btn-secondary btn-sm disabled me-2">Genre: {{ $bookDetails->genre }}</button>
-               <button class="btn btn-secondary btn-sm disabled me-2">Pages: {{ $bookDetails->pages }} pages</button>
-               <button class="btn btn-secondary btn-sm disabled">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</button>
+            <div class="row mx-1">
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled me-2 my-1">Language: {{ $bookDetails->language }}</button>
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled me-2 my-1">Genre: {{ $bookDetails->genre }}</button>
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled me-2 my-1">Pages: {{ $bookDetails->pages }} pages</button>
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled my-1">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</button>
             </div>
          </div>
       </div>

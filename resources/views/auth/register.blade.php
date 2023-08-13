@@ -2,8 +2,8 @@
 @section('title', 'Register')
 
 @section('content')
-   <div class="container d-flex justify-content-center my-5">
-      <div class="border p-4 w-75">
+   <div class="row d-flex justify-content-center my-5">
+      <div class="border p-4 col-sm-10 col-md-10 col-lg-10 col-xl-8">
          <div class="">
             <h1 class="text-center fs-3">Register</h1>
             <hr>

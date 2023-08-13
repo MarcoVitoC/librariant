@@ -11,10 +11,10 @@
             </div>
          </div>
       </div>
-      <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 mt-4 mx-4 pb-5" id="book_list">
+      <div class="row my-4 mx-4" id="book_list">
          @foreach ($books as $book)
-            <div class="d-flex justify-content-center">
-               <a href="{{ route('guest.book_details', $book->id) }}" class="card w-85 h-100 text-decoration-none">
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
+               <a href="{{ route('guest.book_details', $book->id) }}" class="card w-100 text-decoration-none">
                   <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
                   <div class="card-body text-decoration">
                      <h5 class="card-title">{{ $book->book_title }}</h5>
@@ -64,8 +64,8 @@
                searchResults.forEach(function(book) {
                   $('#book_list').append(
                      `
-                     <div class="d-flex justify-content-center">
-                        <a href="/user/books/book-details/${book.id}" class="card w-85 h-100 text-decoration-none">
+                     <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
+                        <a href="/user/books/book-details/${book.id}" class="card w-100 text-decoration-none">
                            <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
                            <div class="card-body text-decoration">
                               <h5 class="card-title">${book.book_title}</h5>
