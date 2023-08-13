@@ -14,7 +14,7 @@
       <div class="row my-4 mx-4" id="book_list">
          @foreach ($books as $book)
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
-               <a href="{{ route('guest.book_details', $book->id) }}" class="card w-100 text-decoration-none">
+               <a href="{{ route('guest.book_details', $book->id) }}" class="card w-100 text-decoration-none" data-aos="fade-up">
                   <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
                   <div class="card-body text-decoration">
                      <h5 class="card-title">{{ $book->book_title }}</h5>

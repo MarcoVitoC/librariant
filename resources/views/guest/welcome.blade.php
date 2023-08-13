@@ -145,7 +145,7 @@
             <h6>📖 Journey through words, <span class="text-highlight">curiosity's</span> spark.</h6>
             <h1 class="fw-bold"><span class="text-underline-wavy">Ready</span> to embark your journey through <span class="text-highlight">knowledge</span>?</h1>
             <p class="text-secondary py-3">Experience the joy of discovery by signing up for a library account today. Our treasure trove of resources awaits your exploration – from timeless classics to cutting-edge research. Don't miss out on the chance to expand your horizons and indulge your curiosity. Join us and start your journey into the world of endless possibilities.</p>
-            <a class="btn btn-dark getStartedBtn" href="{{ route('register') }}" role="button">Let's Get Started</a>
+            <a class="btn btn-dark getStartedBtn" href="{{ route('login') }}" role="button">Let's Get Started</a>
          </div>
       </div>
    </div>

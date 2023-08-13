@@ -7,7 +7,7 @@
          <div class="px-4">
             <h2 class="fw-bold">Welcome back, {{ Auth::user()->username }}! 😃</h2>
             <p class="fw-normal lh-sm my-3">We're glad to have you here. Explore our library collection and discover new reading adventures. Happy reading!</p>
-            <div class="bg-white rounded p-3">
+            <div class="bg-white rounded px-4 py-3">
                @if ($loans->isEmpty())
                   <h6 class="text-center pb-2"><i class="bi bi-inbox me-2"></i>You have no books to return at the moment.</h6>
                @else
@@ -15,15 +15,8 @@
                @endif
                <div>
                   @foreach ($lateReturns as $lateReturn)
-                     <div class="border border-3 border-dark rounded mb-2 px-3 pt-3 d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-baseline">
-                           <span class="alert alert-danger text-danger me-3 px-4 py-1 fw-semibold"><i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2 text-danger"></i>Overdue</span>
-                           <h5>{{ $lateReturn->book->book_title }}</h5>
-                        </div>
-                        <div class="d-flex pb-3">
-                           <button class="btn btn-danger btn-sm disabled">Loan Date: {{ date('F d, Y', strtotime($lateReturn->loanHeader->loan_date)) }}</button>
-                           <button class="btn btn-danger btn-sm disabled ms-2">Due Date: {{ date('F d, Y', strtotime($lateReturn->due_date)) }}</button>
-                        </div>
+                     <div class="py-2">
+                        <span class="alert alert-danger text-danger py-2 fw-semibold"><i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>Overdue --- {{ $lateReturn->book->book_title }} [Due date: {{ date('F d, Y', strtotime($lateReturn->due_date)) }}]</span>
                      </div>
                   @endforeach
                </div>
@@ -43,14 +36,12 @@
                   <input class="form-control" id="search_book" type="text" placeholder="Search..." aria-label="Search">
                   <button class="btn btn-dark"><i class="bi bi-search"></i></button>
                </div>
-               {{-- <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
-               <button class="btn btn-dark mx-1" type="button"><i class="bi bi-arrow-down-up me-2"></i>Sort by</button> --}}
             </div>
          </div>
-         <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 mt-4 mx-1 pb-4" id="book_list">
+         <div class="row my-4 mx-4" id="book_list">
             @foreach ($books as $book)
-               <div class="d-flex justify-content-center">
-                  <a href="{{ route('user.book_details', $book->id) }}" class="card w-85 h-100 text-decoration-none">
+               <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
+                  <a href="{{ route('guest.book_details', $book->id) }}" class="card w-100 text-decoration-none">
                      <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
                      <div class="card-body text-decoration">
                         <h5 class="card-title">{{ $book->book_title }}</h5>
@@ -61,25 +52,27 @@
             @endforeach
          </div>
       </div>
-      <div class="d-flex justify-content-between align-items-center mx-5">
-         <p class="text-secondary fw-normal fs-7">
-            Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
-         </p>
-         <nav>
-            <ul class="pagination">
-               <li class="page-item {{ $books->currentPage() === 1 ? 'disabled' : '' }}">
-                  <a class="page-link" href="{{ $books->previousPageUrl() }}" tabindex="-1" aria-disabled="true">&lsaquo;</a>
-               </li>
-               @for ($i = 1; $i <= $books->lastPage(); $i++)
-                  <li class="page-item {{ $books->currentPage() === $i ? 'active' : '' }}">
-                     <a class="page-link" href="{{ $books->url($i) }}">{{ $i }}</a>
+      <div class="mx-6">
+         <div class="d-flex justify-content-between align-items-center mx-5">
+            <p class="text-secondary fw-normal fs-7">
+               Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
+            </p>
+            <nav>
+               <ul class="pagination">
+                  <li class="page-item {{ $books->currentPage() === 1 ? 'disabled' : '' }}">
+                     <a class="page-link" href="{{ $books->previousPageUrl() }}" tabindex="-1" aria-disabled="true">&lsaquo;</a>
                   </li>
-               @endfor
-               <li class="page-item {{ $books->currentPage() === $books->lastPage() ? 'disabled' : '' }}">
-                  <a class="page-link" href="{{ $books->nextPageUrl() }}">&rsaquo;</a>
-               </li>
-            </ul>
-         </nav>
+                  @for ($i = 1; $i <= $books->lastPage(); $i++)
+                     <li class="page-item {{ $books->currentPage() === $i ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $books->url($i) }}">{{ $i }}</a>
+                     </li>
+                  @endfor
+                  <li class="page-item {{ $books->currentPage() === $books->lastPage() ? 'disabled' : '' }}">
+                     <a class="page-link" href="{{ $books->nextPageUrl() }}">&rsaquo;</a>
+                  </li>
+               </ul>
+            </nav>
+         </div>
       </div>
    @endif
    @include('layouts.footer')

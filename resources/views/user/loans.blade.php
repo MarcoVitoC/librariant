@@ -3,7 +3,7 @@
 
 @section('content')
    @if ($loanedBooks->isEmpty() && $unconfirmedReturns->isEmpty() && $queues->isEmpty())
-      <div class="d-flex justify-content-center align-items-center h-75 my-5">
+      <div class="d-flex justify-content-center align-items-center m-6" style="height: 54.2vh">
          <h1 class="text-secondary">🚫 No loans available at the moment.</h1>
       </div>
    @else

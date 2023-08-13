@@ -3,7 +3,7 @@
 
 @section('content')
    @if ($bookmarks->isEmpty())
-      <div class="d-flex justify-content-center align-items-center m-6">
+      <div class="d-flex justify-content-center align-items-center m-6" style="height: 54.2vh;">
          <h1 class="text-secondary pt-1">📑 No bookmarks available.</h1>
       </div>
    @else

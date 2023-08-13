@@ -21,8 +21,8 @@
       </div>
    </div>
    @if ($borrowHistories->isEmpty())
-      <div class="d-flex justify-content-center align-items-center m-6">
-         <h1 class="text-secondary pt-1">📚 You haven't borrowed any books yet.</h1>
+      <div class="d-flex justify-content-center align-items-center m-6" style="height: 54.2vh">
+         <h2 class="text-secondary pt-1">📚 You haven't borrowed any books yet.</h2>
       </div>
    @else
       <div class="mx-6 pt-5">

@@ -10,7 +10,7 @@
       <div class="d-flex justify-content-center">
          <div class="accordion mx-6 mt-4 w-75" id="accordionExample">
             @foreach ($faqs as $faq => $f)
-               <div class="accordion-item border rounded my-2">
+               <div class="accordion-item border rounded my-2" data-aos="fade-up" data-aos-delay="{{ 100 * $loop->iteration }}">
                   <h2 class="accordion-header">
                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $faq }}" aria-expanded="false" aria-controls="collapse{{ $faq }}">
                         {{ $f->question }}
