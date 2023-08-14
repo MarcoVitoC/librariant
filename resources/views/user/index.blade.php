@@ -13,13 +13,9 @@
                @else
                   <h6 class="text-center pb-2"><i class="bi bi-inbox me-2"></i>You have {{ $loans->count() }} books to return.</h6>
                @endif
-               <div>
-                  @foreach ($lateReturns as $lateReturn)
-                     <div class="py-2">
-                        <span class="alert alert-danger text-danger py-2 fw-semibold"><i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>Overdue --- {{ $lateReturn->book->book_title }} [Due date: {{ date('F d, Y', strtotime($lateReturn->due_date)) }}]</span>
-                     </div>
-                  @endforeach
-               </div>
+               @foreach ($lateReturns as $lateReturn)
+                  <h6 class="alert alert-danger text-danger py-2 fw-semibold"><i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>Overdue — {{ $lateReturn->book->book_title }} [Due date: {{ date('F d, Y', strtotime($lateReturn->due_date)) }}]</h6>
+               @endforeach
             </div>
          </div>
       </div>
@@ -41,7 +37,7 @@
          <div class="row my-4 mx-4" id="book_list">
             @foreach ($books as $book)
                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
-                  <a href="{{ route('guest.book_details', $book->id) }}" class="card w-100 text-decoration-none">
+                  <a href="{{ route('user.book_details', $book->id) }}" class="card w-100 text-decoration-none" data-aos="fade-up">
                      <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
                      <div class="card-body text-decoration">
                         <h5 class="card-title">{{ $book->book_title }}</h5>
@@ -53,10 +49,7 @@
          </div>
       </div>
       <div class="mx-6">
-         <div class="d-flex justify-content-between align-items-center mx-5">
-            <p class="text-secondary fw-normal fs-7">
-               Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
-            </p>
+         <div class="d-flex justify-content-center align-items-center mx-5">
             <nav>
                <ul class="pagination">
                   <li class="page-item {{ $books->currentPage() === 1 ? 'disabled' : '' }}">
@@ -94,8 +87,8 @@
                searchResults.forEach(function(book) {
                   $('#book_list').append(
                      `
-                     <div class="d-flex justify-content-center">
-                        <a href="/user/books/book-details/${book.id}" class="card w-85 h-100 text-decoration-none">
+                     <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center">
+                        <a href="/user/books/book-details/${book.id}" class="card w-100 text-decoration-none">
                            <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
                            <div class="card-body text-decoration">
                               <h5 class="card-title">${book.book_title}</h5>

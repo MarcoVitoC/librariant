@@ -3,43 +3,44 @@
 
 @section('content')
    <div class="bg-cornsilk py-5">
-      <div class="d-flex mx-6 mb-4">
-         <div class="px-4">
-            <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" alt="Book Photo" width="240px" height="310px" class="rounded">
-            <div class="my-3">
-               @if (!$isLoaned)
-                  <button type="submit" class="btn btn-dark col-12 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
-               @else
-                  <button type="submit" class="btn btn-outline-dark col-12 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
-               @endif
-            </div>
+      <div class="row mx-6 mb-4">
+         <div class="col-lg-4 col-xl-3 px-4 d-flex justify-content-center">
+            <div class="d-flex flex-column align-items-center mw-100" style="width: 240px; height: auto;">
+               <img src="{{ asset('storage/' . $bookDetails->book_photo) }}" class="mw-100 h-auto rounded" alt="Book Photo">
+               <div class="my-3 w-100">
+                   @if (!$isLoaned)
+                     <button type="submit" class="btn btn-dark w-100 mt-1 borrowBtn" data-book-id="{{ $bookDetails->id }}" data-book-quantity="{{ $bookDetails->quantity }}" data-book-status="{{ $bookStatus }}"><i class="bi bi-book-fill me-2"></i>Borrow</button>
+                  @else
+                     <button type="submit" class="btn btn-outline-dark w-100 mt-1 returnBookBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-reply-fill me-2"></i>Return book</button>
+                  @endif
+               </div>
+           </div>
          </div>
-         <div>
+         <div class="col-lg-8 col-xl-9">
             <h2 class="fw-semibold">{{ $bookDetails->book_title }}</h2>
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
-            <div class="d-flex">
-               <button class="btn btn-secondary btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
-               @if ($isBookmarked)
-                  <button type="submit" class="btn btn-dark btn-sm ms-2 removeBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Added to bookmark</button>
-               @else
-                  <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
-               @endif
-               
-               @if ($isReviewed != null)
-                  <button class="btn btn-dark btn-sm ms-2 editReviewBtn" data-bs-toggle="modal" data-bs-target="#editReviewModal"  data-review-id="{{ $isReviewed->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
-               @else
-                  <button class="btn btn-outline-dark btn-sm ms-2 addReviewBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
-               @endif
-            </div>
+            <button class="btn btn-dark btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
+            @if ($isBookmarked)
+               <button type="submit" class="btn btn-dark btn-sm ms-2 removeBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Added to bookmark</button>
+            @else
+               <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
+            @endif
+
+            @if ($isReviewed != null)
+               <button class="btn btn-dark btn-sm ms-2 editReviewBtn" data-bs-toggle="modal" data-bs-target="#editReviewModal"  data-review-id="{{ $isReviewed->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
+            @else
+               <button class="btn btn-outline-dark btn-sm ms-2 addReviewBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
+            @endif
+            
             @include('user.modal.add-review-modal')
             @include('user.modal.update-review-modal')
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
-            <div class="d-flex">
-               <button class="btn btn-secondary btn-sm disabled me-2">Language: {{ $bookDetails->language }}</button>
-               <button class="btn btn-secondary btn-sm disabled me-2">Genre: {{ $bookDetails->genre }}</button>
-               <button class="btn btn-secondary btn-sm disabled me-2">Pages: {{ $bookDetails->pages }} pages</button>
-               <button class="btn btn-secondary btn-sm disabled">Published on {{ date('F d, Y', strtotime($bookDetails->publish_date)) }}</button>
+            <div class="row mx-1">
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled me-2 my-1">Language: {{ $bookDetails->language }}</button>
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled me-2 my-1">Genre: {{ $bookDetails->genre }}</button>
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled me-2 my-1">Pages: {{ $bookDetails->pages }} pages</button>
+               <button class="col-xl-4 btn btn-secondary btn-sm disabled my-1">Published on {{ date('M d, Y', strtotime($bookDetails->publish_date)) }}</button>
             </div>
          </div>
       </div>

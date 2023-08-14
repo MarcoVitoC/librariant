@@ -11,10 +11,10 @@
          <div class="container pt-4">
             <h2 class="text-center pb-3">My Bookmarks</h2>
          </div>
-         <div class="row row-cols-1 row-cols-md-6 gx-1 gy-4 mt-4 mx-1 pb-4">
+         <div class="row my-4 mx-4" id="book_list">
             @foreach ($bookmarks as $bookmark)
-               <div class="d-flex justify-content-center">
-                  <a href="{{ route('user.book_details', $bookmark->book->id) }}" class="card w-85 h-100 text-decoration-none cursor-pointer">
+               <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
+                  <a href="{{ route('user.book_details', $bookmark->id) }}" class="card w-100 text-decoration-none">
                      <img src="{{ asset('storage/' . $bookmark->book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
                      <div class="card-body text-decoration">
                         <h5 class="card-title">{{ $bookmark->book->book_title }}</h5>

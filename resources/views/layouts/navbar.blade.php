@@ -32,15 +32,15 @@
                            </a>
                         </div>
                      @else
-                        <button class="nav-link text-secondary fs-4 position-relative" data-bs-toggle="dropdown">
+                        <button class="nav-link text-secondary fs-4 position-relative" data-bs-display="static" data-bs-toggle="dropdown">
                            <i class="bi bi-bell-fill"></i>
                            <span class="badge rounded-pill bg-danger badge-size">
                               {{ $notifications->count() }}
                            </span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-end">
+                        <div class="dropdown-menu dropdown-menu-end" style="width: 300px;">
                            @foreach ($notifications as $notification)
-                              <div class="dropdown-item py-2">{{ $notification->content }}</div>
+                              <div class="dropdown-item py-2 text-wrap">{{ $notification->content }}</div>
                            @endforeach
                         </div>
                      @endif

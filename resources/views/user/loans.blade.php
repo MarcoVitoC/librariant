@@ -40,30 +40,32 @@
          <div class="mx-6 my-5">
             <div class="mx-4">
                <h2 class="pb-3">My Loans</h2>
-               <table class="table table-hover border">
-                  <thead class="align-middle">
-                     <tr>
-                        <th scope="col" class="border text-center">Book Preview</th>
-                        <th scope="col" class="border text-center">Book Title</th>
-                        <th scope="col" class="border text-center">Loan Date</th>
-                        <th scope="col" class="border text-center">Due Date</th>
-                        <th scope="col" class="border text-center">Action</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach ($loanedBooks as $loanedBook)
-                        <tr class="align-middle">
-                           <td class="border text-center"><img src="{{ asset('storage/' . $loanedBook->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
-                           <td class="border text-center w-30">{{ $loanedBook->book->book_title }}</td>
-                           <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->loanHeader->loan_date)) }}</td>
-                           <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->due_date)) }}</td>
-                           <td class="border text-center">
-                              <button type="submit" class="btn btn-outline-dark col-7 mt-1 returnBookBtn" data-book-id="{{ $loanedBook->book->id }}"><i class="bi bi-reply-fill"></i> Return book</button>
-                           </td>
+               <div class="table-responsive">
+                  <table class="table table-hover border">
+                     <thead class="align-middle">
+                        <tr>
+                           <th scope="col" class="border text-center">Book Preview</th>
+                           <th scope="col" class="border text-center">Book Title</th>
+                           <th scope="col" class="border text-center">Loan Date</th>
+                           <th scope="col" class="border text-center">Due Date</th>
+                           <th scope="col" class="border text-center">Action</th>
                         </tr>
-                     @endforeach
-                  </tbody>
-               </table>
+                     </thead>
+                     <tbody>
+                        @foreach ($loanedBooks as $loanedBook)
+                           <tr class="align-middle">
+                              <td class="border text-center"><img src="{{ asset('storage/' . $loanedBook->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
+                              <td class="border text-center w-30">{{ $loanedBook->book->book_title }}</td>
+                              <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->loanHeader->loan_date)) }}</td>
+                              <td class="border text-center">{{ date('M d, Y', strtotime($loanedBook->due_date)) }}</td>
+                              <td class="border text-center">
+                                 <button type="submit" class="btn btn-outline-dark col-7 mt-1 returnBookBtn" data-book-id="{{ $loanedBook->book->id }}"><i class="bi bi-reply-fill"></i> Return book</button>
+                              </td>
+                           </tr>
+                        @endforeach
+                     </tbody>
+                  </table>
+               </div>
             </div>
          </div>
       @endif
@@ -71,24 +73,26 @@
          <div class="mx-6 my-5">
             <div class="mx-4">
                <h2 class="pb-3">Unconfirmed Returned Books</h2>
-               <table class="table table-hover border">
-                  <thead class="align-middle">
-                     <tr>
-                        <th scope="col" class="border text-center">Book Preview</th>
-                        <th scope="col" class="border text-center">Book Title</th>
-                        <th scope="col" class="border text-center">Returned Date</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach ($unconfirmedReturns as $unconfirmedReturn)
-                        <tr class="align-middle">
-                           <td class="border text-center"><img src="{{ asset('storage/' . $unconfirmedReturn->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
-                           <td class="border text-center">{{ $unconfirmedReturn->book->book_title }}</td>
-                           <td class="border text-center">{{ date('M d, Y', strtotime($unconfirmedReturn->due_date)) }}</td>
+               <div class="table-responsive">
+                  <table class="table table-hover border">
+                     <thead class="align-middle">
+                        <tr>
+                           <th scope="col" class="border text-center">Book Preview</th>
+                           <th scope="col" class="border text-center">Book Title</th>
+                           <th scope="col" class="border text-center">Returned Date</th>
                         </tr>
-                     @endforeach
-                  </tbody>
-               </table>
+                     </thead>
+                     <tbody>
+                        @foreach ($unconfirmedReturns as $unconfirmedReturn)
+                           <tr class="align-middle">
+                              <td class="border text-center"><img src="{{ asset('storage/' . $unconfirmedReturn->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
+                              <td class="border text-center">{{ $unconfirmedReturn->book->book_title }}</td>
+                              <td class="border text-center">{{ date('M d, Y', strtotime($unconfirmedReturn->due_date)) }}</td>
+                           </tr>
+                        @endforeach
+                     </tbody>
+                  </table>
+               </div>
             </div>
          </div>
       @endif
@@ -96,28 +100,30 @@
          <div class="mx-6 my-5">
             <div class="mx-4">
                <h2 class="pb-3">Queues</h2>
-               <table class="table table-hover border">
-                  <thead class="align-middle">
-                     <tr>
-                        <th scope="col" class="border text-center">Book Preview</th>
-                        <th scope="col" class="border text-center">Book Title</th>
-                        <th scope="col" class="border text-center">Author</th>
-                        <th scope="col" class="border text-center">Action</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @foreach ($queues as $queue)
-                        <tr class="align-middle">
-                           <td class="border text-center"><img src="{{ asset('storage/' . $queue->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
-                           <td class="border text-center">{{ $queue->book->book_title }}</td>
-                           <td class="border text-center">{{ $queue->book->author }}</td>
-                           <td class="border text-center">
-                              <button type="submit" class="btn btn-outline-dark col-6 mt-1 cancelQueueBtn" data-queue-id="{{ $queue->id }}" ><i class="bi bi-x-circle-fill me-2"></i>Cancel</button>
-                           </td>
+               <div class="table-responsive">
+                  <table class="table table-hover border">
+                     <thead class="align-middle">
+                        <tr>
+                           <th scope="col" class="border text-center">Book Preview</th>
+                           <th scope="col" class="border text-center">Book Title</th>
+                           <th scope="col" class="border text-center">Author</th>
+                           <th scope="col" class="border text-center">Action</th>
                         </tr>
-                     @endforeach
-                  </tbody>
-               </table>
+                     </thead>
+                     <tbody>
+                        @foreach ($queues as $queue)
+                           <tr class="align-middle">
+                              <td class="border text-center"><img src="{{ asset('storage/' . $queue->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
+                              <td class="border text-center">{{ $queue->book->book_title }}</td>
+                              <td class="border text-center">{{ $queue->book->author }}</td>
+                              <td class="border text-center">
+                                 <button type="submit" class="btn btn-outline-dark col-6 mt-1 cancelQueueBtn" data-queue-id="{{ $queue->id }}" ><i class="bi bi-x-circle-fill me-2"></i>Cancel</button>
+                              </td>
+                           </tr>
+                        @endforeach
+                     </tbody>
+                  </table>
+               </div>
             </div>
          </div>
       @endif
