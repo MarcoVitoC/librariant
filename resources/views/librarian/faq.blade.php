@@ -13,37 +13,36 @@
    </div>
    @include('librarian.modal.add-faq-modal')
    <div class="m-4">
-      <table class="table table-hover border">
-         <thead class="align-middle">
-            <tr>
-               <th scope="col" class="border text-center">Question</th>
-               <th scope="col" class="border text-center">Answer</th>
-               <th scope="col" class="border text-center">Action</th>
-            </tr>
-         </thead>
-         <tbody id="faq_list">
-            @foreach ($faqs as $faq)
-               <tr class="align-middle">
-                  <td class="border text-center w-30 py-4">{{ $faq->question }}</td>
-                  <td class="border text-center w-50">{{ $faq->answer }}</td>
-                  <td class="border text-center">
-                     <button type="button" class="btn updateFAQBtn" data-faq-id="{{ $faq->id }}" data-bs-toggle="modal" data-bs-target="#updateFAQModal">
-                        <i class="bi bi-pencil-fill"></i>
-                     </button>
-                     <button type="button" class="btn removeFAQBtn" data-faq-id="{{ $faq->id }}">
-                        <i class="bi bi-trash-fill"></i>
-                     </button>
-                  </td>
+      <div class="table-responsive">
+         <table class="table table-hover border">
+            <thead class="align-middle">
+               <tr>
+                  <th scope="col" class="border text-center">Question</th>
+                  <th scope="col" class="border text-center">Answer</th>
+                  <th scope="col" class="border text-center">Action</th>
                </tr>
-            @endforeach
-         </tbody>
-      </table>
+            </thead>
+            <tbody id="faq_list">
+               @foreach ($faqs as $faq)
+                  <tr class="align-middle">
+                     <td class="border text-center w-30 py-4">{{ $faq->question }}</td>
+                     <td class="border text-center w-50">{{ $faq->answer }}</td>
+                     <td class="border text-center">
+                        <button type="button" class="btn updateFAQBtn" data-faq-id="{{ $faq->id }}" data-bs-toggle="modal" data-bs-target="#updateFAQModal">
+                           <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button type="button" class="btn removeFAQBtn" data-faq-id="{{ $faq->id }}">
+                           <i class="bi bi-trash-fill"></i>
+                        </button>
+                     </td>
+                  </tr>
+               @endforeach
+            </tbody>
+         </table>
+      </div>
    </div>
    @include('librarian.modal.update-faq-modal')
-   <div class="d-flex justify-content-between align-items-center mx-5">
-      <p class="text-secondary fw-normal fs-7">
-         Showing <span class="fw-medium">{{ $faqs->firstItem() }}</span> to <span class="fw-medium">{{ $faqs->lastItem() }}</span> of <span class="fw-medium">{{ $faqs->total() }}</span> results
-      </p>
+   <div class="d-flex justify-content-center align-items-center mx-5">
       <nav>
          <ul class="pagination">
             <li class="page-item {{ $faqs->currentPage() === 1 ? 'disabled' : '' }}">

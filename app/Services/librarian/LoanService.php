@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
 class LoanService {
    public function fetchReturnedBooks() {
       $returnedBooks = LoanDetail::with(['book', 'loanHeader.user'])
-                        ->whereNotNull('returned_date')->where('status_id', 2)->get();
+                        ->whereNotNull('returned_date')->where('status_id', 2)->paginate(10);
       return $returnedBooks;
    }
 
@@ -58,12 +58,12 @@ class LoanService {
 
    public function showLoans() {
       $loanedBooks = LoanDetail::with(['book', 'loanHeader.user'])
-                     ->whereNull('returned_date')->whereIn('status_id', [0, 3])->oldest('due_date')->get();
+                     ->whereNull('returned_date')->whereIn('status_id', [0, 3])->oldest('due_date')->paginate(10);
       return $loanedBooks;
    }
 
    public function fetchRenewalRequests() {
-      return Renewal::with(['user', 'loanDetail.loanHeader', 'loanDetail.book'])->get();
+      return Renewal::with(['user', 'loanDetail.loanHeader', 'loanDetail.book'])->paginate(10);
    }
  
    public function confirmRenewal($request) {

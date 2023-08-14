@@ -15,32 +15,37 @@
          </form>
       </div>
       <div class="m-4">
-         <table class="table table-hover border">
-            <thead class="align-middle">
-               <tr>
-                  <th scope="col" class="border text-center">Book Preview</th>
-                  <th scope="col" class="border text-center">Book Title</th>
-                  <th scope="col" class="border text-center">Borrower</th>
-                  <th scope="col" class="border text-center">Loan Date</th>
-                  <th scope="col" class="border text-center">Returned Date</th>
-                  <th scope="col" class="border text-center">Action</th>
-               </tr>
-            </thead>
-            <tbody>
-               @foreach ($returnedBooks as $returnedBook)
-                  <tr class="align-middle">
-                     <td class="border text-center"><img src="{{ asset('storage/' . $returnedBook->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
-                     <td class="border text-center">{{ $returnedBook->book->book_title }}</td>
-                     <td class="border text-center">{{ $returnedBook->loanHeader->user->username }}</td>
-                     <td class="border text-center">{{ date('M d, Y', strtotime($returnedBook->loanHeader->loan_date)) }}</td>
-                     <td class="border text-center">{{ date('M d, Y', strtotime($returnedBook->returned_date)) }}</td>
-                     <td class="border text-center">
-                        <button class="btn btn-dark returnConfirmBtn" data-book-id="{{ $returnedBook->book->id }}" data-loan-id="{{ $returnedBook->id }}"><i class="bi bi-check-circle-fill me-2"></i>Confirm</button>
-                     </td>
+         <div class="table-responsive">
+            <table class="table table-hover border">
+               <thead class="align-middle">
+                  <tr>
+                     <th scope="col" class="border text-center">Book Preview</th>
+                     <th scope="col" class="border text-center">Book Title</th>
+                     <th scope="col" class="border text-center">Borrower</th>
+                     <th scope="col" class="border text-center">Loan Date</th>
+                     <th scope="col" class="border text-center">Returned Date</th>
+                     <th scope="col" class="border text-center">Action</th>
                   </tr>
-               @endforeach
-            </tbody>
-         </table>
+               </thead>
+               <tbody>
+                  @foreach ($returnedBooks as $returnedBook)
+                     <tr class="align-middle">
+                        <td class="border text-center"><img src="{{ asset('storage/' . $returnedBook->book->book_photo) }}" alt="Book Preview" width="60px" height="70px"></td>
+                        <td class="border text-center">{{ $returnedBook->book->book_title }}</td>
+                        <td class="border text-center">{{ $returnedBook->loanHeader->user->username }}</td>
+                        <td class="border text-center">{{ date('M d, Y', strtotime($returnedBook->loanHeader->loan_date)) }}</td>
+                        <td class="border text-center">{{ date('M d, Y', strtotime($returnedBook->returned_date)) }}</td>
+                        <td class="border text-center">
+                           <button class="btn btn-dark returnConfirmBtn" data-book-id="{{ $returnedBook->book->id }}" data-loan-id="{{ $returnedBook->id }}"><i class="bi bi-check-circle-fill me-2"></i>Confirm</button>
+                        </td>
+                     </tr>
+                  @endforeach
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center mx-5">
+         {{ $returnedBooks->links() }}
       </div>
    @endif
 @endsection

@@ -20,42 +20,41 @@
       </div>
    @else
       <div class="m-4">
-         <table class="table table-hover border">
-            <thead class="align-middle">
-               <tr>
-                  <th scope="col" class="border text-center">ISBN</th>
-                  <th scope="col" class="border text-center">Book Preview</th>
-                  <th scope="col" class="border text-center">Book Title</th>
-                  <th scope="col" class="border text-center">Author</th>
-                  <th scope="col" class="border text-center">Quantity</th>
-                  <th scope="col" class="border text-center">Action</th>
-               </tr>
-            </thead>
-            <tbody id="book_list">
-               @foreach ($books as $book)
-                  <tr class="align-middle">
-                     <td class="border text-center">{{ $book->isbn }}</td>
-                     <td class="border text-center"><img src="{{ asset('storage/' . $book->book_photo) }}" alt="Book Preview" width="60px" height="70px" id="displayBookPhoto"></td>
-                     <td class="border text-center">{{ $book->book_title }}</td>
-                     <td class="border text-center">{{ $book->author }}</td>
-                     <td class="border text-center">{{ $book->quantity }}</td>
-                     <td class="border text-center">
-                        <button type="button" class="btn updateBookBtn" data-book-id="{{ $book->id }}">
-                           <i class="bi bi-pencil-fill"></i>
-                        </button>
-                        <button type="button" class="btn removeBookBtn" data-book-id="{{ $book->id }}">
-                           <i class="bi bi-trash-fill"></i>
-                        </button>
-                     </td>
+         <div class="table-responsive">
+            <table class="table table-hover border">
+               <thead class="align-middle">
+                  <tr>
+                     <th scope="col" class="border text-center">ISBN</th>
+                     <th scope="col" class="border text-center">Book Preview</th>
+                     <th scope="col" class="border text-center">Book Title</th>
+                     <th scope="col" class="border text-center">Author</th>
+                     <th scope="col" class="border text-center">Quantity</th>
+                     <th scope="col" class="border text-center">Action</th>
                   </tr>
-               @endforeach
-            </tbody>
-         </table>
+               </thead>
+               <tbody id="book_list">
+                  @foreach ($books as $book)
+                     <tr class="align-middle">
+                        <td class="border text-center">{{ $book->isbn }}</td>
+                        <td class="border text-center"><img src="{{ asset('storage/' . $book->book_photo) }}" alt="Book Preview" width="60px" height="70px" id="displayBookPhoto"></td>
+                        <td class="border text-center">{{ $book->book_title }}</td>
+                        <td class="border text-center">{{ $book->author }}</td>
+                        <td class="border text-center">{{ $book->quantity }}</td>
+                        <td class="border text-center">
+                           <button type="button" class="btn updateBookBtn" data-book-id="{{ $book->id }}">
+                              <i class="bi bi-pencil-fill"></i>
+                           </button>
+                           <button type="button" class="btn removeBookBtn" data-book-id="{{ $book->id }}">
+                              <i class="bi bi-trash-fill"></i>
+                           </button>
+                        </td>
+                     </tr>
+                  @endforeach
+               </tbody>
+            </table>
+         </div>
       </div>
-      <div class="d-flex justify-content-between align-items-center mx-5">
-         <p class="text-secondary fw-normal fs-7">
-            Showing <span class="fw-medium">{{ $books->firstItem() }}</span> to <span class="fw-medium">{{ $books->lastItem() }}</span> of <span class="fw-medium">{{ $books->total() }}</span> results
-         </p>
+      <div class="d-flex justify-content-center align-items-center mx-5">
          {{ $books->links() }}
       </div>
    @endif
