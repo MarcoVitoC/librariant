@@ -1,7 +1,7 @@
 <footer class="mt-5">
    <hr class="text-secondary">
    <div class="mx-6 px-4">
-      <div class="row pt-3 pb-4">
+      <div class="row pt-2 pb-3">
          <div class="col-sm-12 col-md-10 d-flex align-items-center justify-content-center justify-content-md-start">
             <h6 class="fw-medium text-secondary">&copy; 2023 Librariant. All Rights Reserved.</h6>
          </div>
