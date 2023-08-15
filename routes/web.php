@@ -65,9 +65,7 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
 });
 
 Route::middleware(['librarian'])->prefix('/librarian')->name('librarian.')->group(function() {
-   Route::get('/', function() {
-      return view('librarian.dashboard');
-   })->name('dashboard');
+   Route::get('/', [LibrarianLoanController::class, 'dashboard'])->name('dashboard');
 
    Route::get('/book/search-book', [LibrarianBookController::class, 'search'])->name('search_book');
    Route::resource('book', LibrarianBookController::class)->except(['create', 'show']);

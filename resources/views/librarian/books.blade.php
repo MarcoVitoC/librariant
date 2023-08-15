@@ -37,8 +37,8 @@
                      <tr class="align-middle">
                         <td class="border text-center">{{ $book->isbn }}</td>
                         <td class="border text-center"><img src="{{ asset('storage/' . $book->book_photo) }}" alt="Book Preview" width="60px" height="70px" id="displayBookPhoto"></td>
-                        <td class="border text-center">{{ $book->book_title }}</td>
-                        <td class="border text-center">{{ $book->author }}</td>
+                        <td class="border text-center w-25">{{ $book->book_title }}</td>
+                        <td class="border text-center w-25">{{ $book->author }}</td>
                         <td class="border text-center">{{ $book->quantity }}</td>
                         <td class="border text-center">
                            <button type="button" class="btn updateBookBtn" data-book-id="{{ $book->id }}">

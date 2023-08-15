@@ -12,6 +12,20 @@ use App\Models\Notification;
 use Illuminate\Support\Carbon;
 
 class LoanService {
+   public function fetchDashboardData() {
+      $booksTotal = Book::count();
+      $loansTotal = LoanDetail::whereNull('returned_date')->whereIn('status_id', [0, 3])->count();
+      $renewalsTotal = Renewal::count();
+      $returnsTotal = LoanDetail::whereNotNull('returned_date')->where('status_id', 2)->count();
+
+      return [
+         'booksTotal' => $booksTotal,
+         'loansTotal' => $loansTotal,
+         'renewalsTotal' => $renewalsTotal, 
+         'returnsTotal' => $returnsTotal
+      ];
+   }
+
    public function fetchReturnedBooks() {
       $returnedBooks = LoanDetail::with(['book', 'loanHeader.user'])
                         ->whereNotNull('returned_date')->where('status_id', 2)->paginate(10);

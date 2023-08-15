@@ -14,6 +14,16 @@ class LoanController extends Controller
       $this->loanService = new LoanService;
    }
 
+   public function dashboard() {
+      $dashboardData = $this->loanService->fetchDashboardData();
+      return view('librarian.dashboard', [
+         'booksTotal' => $dashboardData['booksTotal'],
+         'loansTotal' => $dashboardData['loansTotal'],
+         'renewalsTotal' => $dashboardData['renewalsTotal'],
+         'returnsTotal' => $dashboardData['returnsTotal'],
+      ]);
+   }
+
    public function showReturnedBooks() {
       $returnedBooks = $this->loanService->fetchReturnedBooks();
       return view('librarian.returns', ['returnedBooks' => $returnedBooks]);
