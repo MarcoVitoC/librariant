@@ -192,7 +192,7 @@ return [
    */
 
    'aliases' => Facade::defaultAliases()->merge([
-      // ...
+      'cors' => \Fruitcake\Cors\HandleCors::class
    ])->toArray(),
 
 ];
