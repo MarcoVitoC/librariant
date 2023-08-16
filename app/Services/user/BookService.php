@@ -77,15 +77,6 @@ class BookService {
       return Bookmark::with('book')->where('user_id', auth()->id())->paginate(18);
    }
 
-   public function addToBookmark($request) {
-      Bookmark::create(['user_id' => auth()->id(), 'book_id' => $request->book_id]);
-   }
-
-   public function removeBookmark($request) {
-      $selectedBook = Bookmark::where('user_id', auth()->id())->where('book_id', $request->book_id)->first();
-      $selectedBook->delete();
-   }
-
    public function searchBook($request) {
       return Book::where('book_title', 'like', '%'.$request->search_book.'%')->paginate(12);
    }

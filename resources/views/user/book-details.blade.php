@@ -19,21 +19,12 @@
          <div class="col-lg-8 col-xl-9">
             <h2 class="fw-semibold">{{ $bookDetails->book_title }}</h2>
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
-            <button class="btn btn-dark btn-sm disabled">Quantity: {{ $bookDetails->quantity }}</button>
-            @if ($isBookmarked)
-               <button type="submit" class="btn btn-dark btn-sm ms-2 removeBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Added to bookmark</button>
-            @else
-               <button type="submit" class="btn btn-outline-dark btn-sm ms-2 addToBookmarkBtn" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-bookmark-plus-fill me-2"></i>Add to bookmark</button>
-            @endif
 
-            @if ($isReviewed != null)
-               <button class="btn btn-dark btn-sm ms-2 editReviewBtn" data-bs-toggle="modal" data-bs-target="#editReviewModal"  data-review-id="{{ $isReviewed->id }}"><i class="bi bi-star-fill me-2"></i>Rated</button>
-            @else
-               <button class="btn btn-outline-dark btn-sm ms-2 addReviewBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $bookDetails->id }}"><i class="bi bi-star-fill me-2"></i>Rate this book</button>
-            @endif
+            @livewire('metric', ['bookId' => $bookDetails->id, 'isBookmarked' => $isBookmarked, 'isReviewed' => $isReviewed])
             
             @include('user.modal.add-review-modal')
             @include('user.modal.update-review-modal')
+
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
             <div class="row mx-1">
@@ -264,50 +255,6 @@
                         console.log(response.message);
                      }
                   });
-               }
-            });
-         });
-
-         $('.addToBookmarkBtn').click(function() {
-            let bookId = $(this).data('book-id');
-
-            $.ajax({
-               type: 'POST',
-               url: "{{ route('user.add_bookmark') }}",
-               data: {book_id: bookId},
-               dataType: 'json',
-               success: function(response) {
-                  Swal.fire({
-                     position: 'center',
-                     title: response.message,
-                     background: '#F5F5F5',
-                     showConfirmButton: false,
-                     timer: 1200
-                  }).then(function() {
-                     location.reload();
-                  });
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
-               }
-            });
-         });
-
-         $('.removeBookmarkBtn').click(function() {
-            let bookId = $(this).data('book-id');
-
-            $.ajax({
-               type: 'DELETE',
-               url: "{{ route('user.remove_bookmark') }}",
-               data: {book_id: bookId},
-               dataType: 'json',
-               success: function() {
-                  location.reload();
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
                }
             });
          });

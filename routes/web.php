@@ -53,8 +53,6 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
 
    Route::get('/bookmarks', [UserBookController::class, 'bookmarks'])->name('bookmarks');
-   Route::post('/add-bookmark', [UserBookController::class, 'addBookmark'])->name('add_bookmark');
-   Route::delete('/remove-bookmark', [UserBookController::class, 'removeBookmark'])->name('remove_bookmark');
    
    Route::get('/loans', [UserLoanController::class, 'loans'])->name('loans');
    Route::post('/make-loan', [UserLoanController::class, 'makeLoan'])->name('make_loan');

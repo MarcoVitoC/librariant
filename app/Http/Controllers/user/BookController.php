@@ -40,16 +40,6 @@ class BookController extends Controller
       return view('user.bookmarks', ['bookmarks' => $bookmarks]);
    }
 
-   public function addBookmark(Request $request) {
-      $this->bookService->addToBookmark($request);
-      return response()->json(['message' => 'Added to bookmark!'], 200);
-   }
-
-   public function removeBookmark(Request $request) {
-      $this->bookService->removeBookmark($request);
-      return response()->json(['message' => 'Removed from bookmark!'], 200);
-   }
-
    public function search(Request $request) {
       $searchedBook = $this->bookService->searchBook($request);
       return response()->json(['searchedBook' => $searchedBook]);
