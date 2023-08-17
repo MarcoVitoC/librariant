@@ -107,7 +107,7 @@
          </div>
       </div>
    @else
-      <div class="d-flex justify-content-center align-items-center m-6">
+      <div class="d-flex justify-content-center align-items-center m-6" style="height: 45vh;">
          <h1 class="text-secondary pt-1">📑 No reviews available.</h1>
       </div>
    @endif
