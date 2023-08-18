@@ -8,7 +8,7 @@ use App\Models\Bookmark;
 
 class Metric extends Component
 {
-   public $book, $isBookmarked, $isReviewed;
+   public $book, $isBookmarked, $isReviewed, $rating = 0;
 
    public function mount($bookId, $isBookmarked, $isReviewed) {
       $this->book = Book::find($bookId);
@@ -26,6 +26,11 @@ class Metric extends Component
       }
 
       $this->isBookmarked = !$this->isBookmarked;
+   }
+
+   public function closeModal() {
+      $this->rating = 0;
+      $this->dispatch('resetRating', $this->rating);
    }
 
    public function render()

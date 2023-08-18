@@ -22,7 +22,7 @@
 
             @livewire('metric', ['bookId' => $bookDetails->id, 'isBookmarked' => $isBookmarked, 'isReviewed' => $isReviewed])
             
-            @include('user.modal.add-review-modal')
+            {{-- @include('user.modal.add-review-modal') --}}
             @include('user.modal.update-review-modal')
 
             <h5 class="fw-normal mt-4">Summary:</h5>

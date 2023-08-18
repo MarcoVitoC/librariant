@@ -12,4 +12,5 @@
    @else
       <button class="btn btn-outline-dark btn-sm ms-2 addReviewBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $book->id }}"><i class="bi bi-star-fill"></i></button>
    @endif
+   @include('user.modal.add-review-modal')
 </div>
