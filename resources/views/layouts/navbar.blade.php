@@ -38,7 +38,7 @@
                               {{ $notifications->count() }}
                            </span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-end" style="width: 300px;">
+                        <div class="dropdown-menu dropdown-menu-end overflow-y-auto" style="width: 300px; max-height: 600px;">
                            @foreach ($notifications as $notification)
                               <div class="dropdown-item py-2 text-wrap">{{ $notification->content }}</div>
                            @endforeach
