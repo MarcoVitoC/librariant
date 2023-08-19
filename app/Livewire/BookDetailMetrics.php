@@ -7,7 +7,7 @@ use App\Models\Review;
 use Livewire\Component;
 use App\Models\Bookmark;
 
-class Metric extends Component
+class BookDetailMetrics extends Component
 {
    public $book, $isBookmarked, $isReviewed, $rating = 0, $review = '';
 
@@ -65,6 +65,6 @@ class Metric extends Component
    }
 
    public function render() {
-      return view('livewire.metric');
+      return view('livewire.book-detail-metrics');
    }
 }
