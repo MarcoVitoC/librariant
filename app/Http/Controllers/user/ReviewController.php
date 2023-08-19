@@ -15,11 +15,6 @@ class ReviewController extends Controller
       $this->reviewService = new ReviewService;
    }
 
-   public function addReview(Request $request) {
-      $this->reviewService->addReview($request);
-      return response()->json(['message' => 'Review added successfully!'], 200);
-   }
-
    public function editReview(Review $review) {
       return response()->json(['review' => $review]);
    }

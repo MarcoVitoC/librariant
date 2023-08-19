@@ -44,7 +44,6 @@ Route::middleware(['user'])->prefix('/user')->name('user.')->group(function() {
    Route::get('/search-book', [UserBookController::class, 'search'])->name('search_book');
    Route::get('/books/book-details/{id}', [UserBookController::class, 'bookDetails'])->name('book_details');
    
-   Route::post('/add-review', [ReviewController::class, 'addReview'])->name('add_review');
    Route::get('/edit-review/{review}', [ReviewController::class, 'editReview'])->name('edit_review');
    Route::put('/update-review/{review}', [ReviewController::class, 'updateReview'])->name('update_review');
    Route::post('/like-review', [ReviewController::class, 'like'])->name('like_review');

@@ -272,8 +272,6 @@
          let rateValue = -1;
          $('.star').click(function() {
             rateIndex = $(this).data('index');
-            rateValue = $(this).data('value');
-            $('.submitReviewBtn').removeClass('disabled');
          });
          $('.star-update').click(function() {
             rateIndex = $(this).data('index');
@@ -323,38 +321,16 @@
                $('.submitReviewBtn').addClass('disabled');
                $('#addReviewForm')[0].reset();
                rateIndex = -1;
-               rateValue = -1;
             }
          });
 
-         $('#addReviewForm').submit(function(e) {
-            e.preventDefault();
-
-            let bookId = $('.addReviewBtn').data('book-id');
-            let addReviewModal = $('#addReviewModal');
-            let addReviewForm = addReviewModal.find('form');
-            addReviewForm.find('input[name="book_id"]').val(bookId);
-            addReviewForm.find('input[name="rate_value"]').val(rateValue);
-
-            $.ajax({
-               type: 'POST',
-               url: "{{ route('user.add_review') }}",
-               data: new FormData(this),
-               dataType: 'json',
-               processData: false,
-               contentType: false,
-               success: function(response) {
-                  Swal.fire({
-                     icon: 'success',
-                     title: response.message
-                  }).then(function() {
-                     location.reload();
-                  });
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
-               }
+         Livewire.on('reviewAdded', () => {
+            Swal.fire({
+               icon: 'success',
+               title: 'Review added successfully!'
+            }).then(function() {
+               $('#addReviewModal').modal('hide');
+               location.reload();
             });
          });
 

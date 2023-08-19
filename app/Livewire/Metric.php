@@ -3,12 +3,13 @@
 namespace App\Livewire;
 
 use App\Models\Book;
+use App\Models\Review;
 use Livewire\Component;
 use App\Models\Bookmark;
 
 class Metric extends Component
 {
-   public $book, $isBookmarked, $isReviewed, $rating = 0;
+   public $book, $isBookmarked, $isReviewed, $rating = 0, $review = '';
 
    public function mount($bookId, $isBookmarked, $isReviewed) {
       $this->book = Book::find($bookId);
@@ -28,9 +29,22 @@ class Metric extends Component
       $this->isBookmarked = !$this->isBookmarked;
    }
 
+   public function rate($rateValue) {
+      $this->rating = $rateValue;
+   }
+
+   public function addReview() {
+      Review::create([
+         'user_id' => auth()->id(), 
+         'book_id' => $this->book->id, 
+         'rating' => $this->rating, 
+         'review' => $this->review
+      ]);
+      $this->dispatch('reviewAdded');
+   }
+
    public function closeModal() {
       $this->rating = 0;
-      $this->dispatch('resetRating', $this->rating);
    }
 
    public function render()
