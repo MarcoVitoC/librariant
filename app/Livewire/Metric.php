@@ -40,15 +40,31 @@ class Metric extends Component
          'rating' => $this->rating, 
          'review' => $this->review
       ]);
+
       $this->dispatch('reviewAdded');
+   }
+
+   public function editReview($reviewId) {
+      $review = Review::find($reviewId);
+      $this->rating = $review->rating;
+      $this->review = $review->review;
+   }
+
+   public function updateReview($reviewId) {
+      $review = Review::find($reviewId);
+      $review->update([
+         'rating' => $this->rating,
+         'review' => $this->review
+      ]);
+
+      $this->dispatch('reviewUpdated');
    }
 
    public function closeModal() {
       $this->rating = 0;
    }
 
-   public function render()
-   {
+   public function render() {
       return view('livewire.metric');
    }
 }

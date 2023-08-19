@@ -19,11 +19,6 @@ class ReviewController extends Controller
       return response()->json(['review' => $review]);
    }
 
-   public function updateReview(Request $request, Review $review) {
-      $this->reviewService->updateReview($request, $review);
-      return response()->json(['message' => 'Review updated successfully!'], 200);
-   }
-
    public function like(Request $request) {
       $this->reviewService->likeReview($request);
       return response()->json();

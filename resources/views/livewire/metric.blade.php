@@ -8,9 +8,10 @@
    @endif
 
    @if ($isReviewed != null)
-      <button class="btn btn-dark btn-sm ms-2 editReviewBtn" data-bs-toggle="modal" data-bs-target="#editReviewModal"  data-review-id="{{ $isReviewed->id }}"><i class="bi bi-star-fill"></i></button>
+      <button class="btn btn-dark btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editReviewModal" wire:click="editReview({{ $isReviewed->id }})"><i class="bi bi-star-fill"></i></button>
+      @include('user.modal.update-review-modal')
    @else
-      <button class="btn btn-outline-dark btn-sm ms-2 addReviewBtn" data-bs-toggle="modal" data-bs-target="#addReviewModal" data-book-id="{{ $book->id }}"><i class="bi bi-star-fill"></i></button>
+      <button class="btn btn-outline-dark btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#addReviewModal"><i class="bi bi-star-fill"></i></button>
+      @include('user.modal.add-review-modal')
    @endif
-   @include('user.modal.add-review-modal')
 </div>

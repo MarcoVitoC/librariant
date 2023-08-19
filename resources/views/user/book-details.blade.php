@@ -21,9 +21,6 @@
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
 
             @livewire('metric', ['bookId' => $bookDetails->id, 'isBookmarked' => $isBookmarked, 'isReviewed' => $isReviewed])
-            
-            {{-- @include('user.modal.add-review-modal') --}}
-            @include('user.modal.update-review-modal')
 
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
@@ -269,13 +266,11 @@
          });
 
          let rateIndex = -1;
-         let rateValue = -1;
          $('.star').click(function() {
             rateIndex = $(this).data('index');
          });
          $('.star-update').click(function() {
             rateIndex = $(this).data('index');
-            rateValue = $(this).data('value');
          });
 
          $('.star').mouseover(function() {
@@ -334,51 +329,13 @@
             });
          });
 
-         $('.editReviewBtn').click(function() {
-            let reviewId = $(this).data('review-id');
-            let url = "{{ route('user.edit_review', ':reviewId') }}".replace(':reviewId', reviewId);
-            let editReviewModal = $('#editReviewModal');
-            let editReviewForm = editReviewModal.find('form');
-
-            $.get(url, {}, function(data) {
-               editReviewForm.find('input[name="review_id"]').val(reviewId);
-               editReviewForm.find('input[name="rating"]').val(data.review.rating);
-               editReviewForm.find('textarea[name="review"]').val(data.review.review);
-
-               $('.star-update').removeClass('bi-star-fill').addClass('bi-star');
-               let rating = $('#rating').val();
-               for (let i=0; i<=rating-1; i++) {
-                  $('.star-update:eq('+i+')').removeClass('bi-star').addClass('bi-star-fill');
-               }
-            });
-         });
-
-         $('#editReviewForm').submit(function(e) {
-            e.preventDefault();
-
-            let reviewId = $(this).find('input[name="review_id"]').val();
-            let updateReviewUrl = "{{ route('user.update_review', ':reviewId') }}".replace(':reviewId', reviewId);
-            $(this).find('input[name="rating"]').val(rateValue);
-
-            $.ajax({
-               type: 'POST',
-               url: updateReviewUrl,
-               data: new FormData(this),
-               dataType: 'json',
-               processData: false,
-               contentType: false,
-               success: function(response) {
-                  Swal.fire({
-                     icon: 'success',
-                     title: response.message
-                  }).then(function() {
-                     location.reload();
-                  });
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
-               }
+         Livewire.on('reviewUpdated', () => {
+            Swal.fire({
+               icon: 'success',
+               title: 'Review updated successfully!'
+            }).then(function() {
+               $('#editReviewModal').modal('hide');
+               location.reload();
             });
          });
 

@@ -7,10 +7,6 @@ use App\Models\Review;
 use App\Models\Comment;
 
 class ReviewService {
-   public function updateReview($request, $review) {
-      $review->update($request->all());
-   }
-
    public function likeReview($request) {
       $like = Like::where('user_id', auth()->id())->where('review_id', $request->review_id)->first();
       $review = Review::find($request->review_id);
