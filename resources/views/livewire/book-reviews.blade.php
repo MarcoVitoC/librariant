@@ -18,28 +18,7 @@
                </div>
                <p>{{ $review->review }}</p>
                <div class="d-flex align-items-center">
-                  @if ($review->likes->where('review_id', $review->id)->where('user_id', auth()->id())->count())
-                     <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}">
-                        <i class="bi bi-hand-thumbs-up-fill text-secondary me-1"></i>
-                        @if ($review->like_count > 0)
-                           ({{ $review->like_count }})
-                        @endif
-                     </button>
-                  @else
-                     <button class="btn-review bg-transparent likeBtn" data-review-id="{{ $review->id }}">
-                        <i class="bi bi-hand-thumbs-up text-secondary me-1"></i>
-                        @if ($review->like_count > 0)
-                           ({{ $review->like_count }})
-                        @endif
-                     </button>
-                  @endif
-
-                  <button class="btn-review bg-transparent" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $review->id }}" aria-expanded="false" aria-controls="collapse-{{ $review->id }}">
-                     <i class="bi bi-chat-dots text-secondary me-1"></i>
-                     @if ($review->comments->where('review_id', $review->id)->count())
-                        ({{ $review->comments->where('review_id', $review->id)->count() }})
-                     @endif
-                  </button>
+                  @livewire('book-review-metrics', ['reviewId' => $review->id])
                </div>
                <div class="mt-2 rounded collapse" id="collapse-{{ $review->id }}">
                   <div class="bg-body-tertiary card card-body">

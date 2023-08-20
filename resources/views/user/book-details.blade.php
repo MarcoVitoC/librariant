@@ -254,25 +254,6 @@
             });
          });
 
-         $('.likeBtn').click(function(e) {
-            e.preventDefault();
-
-            let reviewId = $(this).data('review-id');
-            $.ajax({
-               type: 'POST',
-               url: "{{ route('user.like_review') }}",
-               data: {review_id: reviewId},
-               dataType: 'json',
-               success: function() {
-                  location.reload();
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
-               }
-            });
-         });
-
          $('.comment-input').keyup(function(e) {
             e.preventDefault();
 
