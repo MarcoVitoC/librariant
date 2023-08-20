@@ -8,23 +8,15 @@ use Livewire\Component;
 
 class BookReviews extends Component
 {
-   public $book, $reviews;
-   protected $listeners = ['reviewAdded'];
+   public $book;
+   protected $listeners = ['reviewAdded' => 'render', 'reviewUpdated' => 'render'];
 
-   public function mount($bookId, $reviews) {
+   public function mount($bookId) {
       $this->book = Book::find($bookId);
-      $this->reviews = $reviews;
-   }
-
-   public function reviewAdded() {
-      $this->reviews = Review::where('book_id', $this->book->id)->get();
-   }
-
-   public function reviewUpdated() {
-      $this->reviews = Review::where('book_id', $this->book->id)->get();
    }
 
    public function render() {
-      return view('livewire.book-reviews');
+      $reviews = Review::where('book_id', $this->book->id)->get();
+      return view('livewire.book-reviews', ['reviews' => $reviews]);
    }
 }

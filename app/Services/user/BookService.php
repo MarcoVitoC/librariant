@@ -55,19 +55,13 @@ class BookService {
          $bookStatus = 'denied';
       }
 
-      $bookmark = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->first();
-      $isBookmarked = ($bookmark != null) ? true : false;
-
-      $isReviewed = Review::where('user_id', auth()->id())->where('book_id', $book->id)->first();
-      $reviews = Review::where('book_id', $book->id)->get();
+      $isBookmarked = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->count();
 
       $bookDetails = [
          'book' => $book, 
          'isLoaned' => $isLoaned,
          'bookStatus' => $bookStatus, 
-         'isBookmarked' => $isBookmarked, 
-         'isReviewed' => $isReviewed, 
-         'reviews' => $reviews
+         'isBookmarked' => $isBookmarked
       ];
       
       return $bookDetails;

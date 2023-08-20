@@ -20,7 +20,7 @@
             <h2 class="fw-semibold">{{ $bookDetails->book_title }}</h2>
             <h5 class="fw-normal text-secondary">{{ $bookDetails->author }}</h5>
 
-            @livewire('book-detail-metrics', ['bookId' => $bookDetails->id, 'isBookmarked' => $isBookmarked, 'isReviewed' => $isReviewed])
+            @livewire('book-detail-metrics', ['bookId' => $bookDetails->id, 'isBookmarked' => $isBookmarked])
 
             <h5 class="fw-normal mt-4">Summary:</h5>
             <h6 class="fw-normal mb-4">{{ $bookDetails->summary }}</h6>
@@ -33,7 +33,7 @@
          </div>
       </div>
    </div>
-   @livewire('book-reviews', ['bookId' => $bookDetails->id, 'reviews' => $reviews])
+   @livewire('book-reviews', ['bookId' => $bookDetails->id])
    @include('layouts.footer')
 @endsection
 
@@ -182,15 +182,6 @@
             });
          });
 
-         $('.review-rating').each(function() {
-            let reviewId = $(this).data('review-id');
-            let reviewRating = $(this).data('rating');
-               
-            for (let i=0; i<=reviewRating-1; i++) {
-               $('.star-review-'+reviewId+'').eq(i).removeClass('bi-star').addClass('bi-star-fill');
-            }
-         });
-
          let rateIndex = -1;
          $('.star').click(function() {
             rateIndex = $(this).data('index');
@@ -251,7 +242,6 @@
                title: 'Review added successfully!'
             }).then(function() {
                $('#addReviewModal').modal('hide');
-               location.reload();
             });
          });
 
@@ -261,7 +251,6 @@
                title: 'Review updated successfully!'
             }).then(function() {
                $('#editReviewModal').modal('hide');
-               location.reload();
             });
          });
 

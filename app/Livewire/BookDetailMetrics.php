@@ -9,12 +9,11 @@ use App\Models\Bookmark;
 
 class BookDetailMetrics extends Component
 {
-   public $book, $isBookmarked, $isReviewed, $rating = 0, $review = '';
+   public $book, $isBookmarked, $rating = 0, $review = '';
 
-   public function mount($bookId, $isBookmarked, $isReviewed) {
+   public function mount($bookId, $isBookmarked) {
       $this->book = Book::find($bookId);
       $this->isBookmarked = $isBookmarked;
-      $this->isReviewed = $isReviewed;
    }
 
    public function bookmark() {
@@ -65,6 +64,7 @@ class BookDetailMetrics extends Component
    }
 
    public function render() {
-      return view('livewire.book-detail-metrics');
+      $isReviewed = Review::where('user_id', auth()->id())->where('book_id', $this->book->id)->first();
+      return view('livewire.book-detail-metrics', ['isReviewed' => $isReviewed]);
    }
 }
