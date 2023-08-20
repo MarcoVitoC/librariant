@@ -3,20 +3,20 @@
 namespace App\Livewire;
 
 use App\Models\Book;
-use App\Models\Review as Review;
+use App\Models\Comment;
 use Livewire\Component;
+use App\Models\Review as Review;
 
 class BookReviews extends Component
 {
-   public $book;
+   public $reviews;
    protected $listeners = ['reviewAdded' => 'render', 'reviewUpdated' => 'render'];
 
    public function mount($bookId) {
-      $this->book = Book::find($bookId);
+      $this->reviews = Review::where('book_id', $bookId)->get();
    }
 
    public function render() {
-      $reviews = Review::where('book_id', $this->book->id)->get();
-      return view('livewire.book-reviews', ['reviews' => $reviews]);
+      return view('livewire.book-reviews');
    }
 }

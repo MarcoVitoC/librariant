@@ -17,30 +17,8 @@
                   <p>{{ date('M d, Y', strtotime($review->updated_at)) }}</p>
                </div>
                <p>{{ $review->review }}</p>
-               <div class="d-flex align-items-center">
-                  @livewire('book-review-metrics', ['reviewId' => $review->id])
-               </div>
-               <div class="mt-2 rounded collapse" id="collapse-{{ $review->id }}">
-                  <div class="bg-body-tertiary card card-body">
-                     <form class="input-group mb-3 addCommentForm" enctype="multipart/form-data" data-review-id="{{ $review->id }}">
-                        @csrf
-                        <textarea class="form-control comment-input rounded" type="text" name="comment" placeholder="Add a comment..."></textarea>
-                        <button class="btn btn-dark disabled addCommentBtn" type="submit"><i class="bi bi-send"></i></button>
-                     </form>
-                     @foreach ($review->comments as $comment)
-                        <div class="pb-2">
-                           <div class="d-flex align-items-center">
-                              <i class="bi bi-person-circle text-secondary fs-4 me-3"></i>
-                              <div class="d-flex align-items-baseline">
-                                 <h6>{{ $comment->user->username }}</h6>
-                                 <p class="mx-3 fs-7 text-secondary">{{ $comment->created_at->diffForHumans() }}</p>
-                              </div>
-                           </div>
-                           <p>{{ $comment->comment }}</p>
-                        </div>
-                     @endforeach
-                  </div>
-               </div>
+
+               @livewire('book-review-metrics', ['reviewId' => $review->id])
             </div>
          @endforeach
       </div>

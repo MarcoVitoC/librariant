@@ -259,29 +259,6 @@
 
             $('.addCommentBtn').toggleClass('disabled', $(this).val().trim() === '');
          });
-
-         $('.addCommentForm').submit(function(e) {
-            e.preventDefault();
-
-            let reviewId = $(this).data('review-id');
-            let addCommentUrl = "{{ route('user.add_comment', ':reviewId') }}".replace(':reviewId', reviewId);
-
-            $.ajax({
-               type: 'POST',
-               url: addCommentUrl,
-               data: new FormData(this),
-               dataType: 'json',
-               processData: false,
-               contentType: false,
-               success: function(response) {
-                  location.reload();
-               },
-               error: function(xhr, status, error) {
-                  let response = JSON.parse(xhr.responseText);
-                  console.log(response.message);
-               }
-            });
-         });
       });
    </script>
 @endsection

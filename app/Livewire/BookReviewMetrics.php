@@ -9,13 +9,13 @@ use Livewire\Component;
 
 class BookReviewMetrics extends Component
 {
-   public $review,$isLiked, $likeCount = 0, $hasComments = 0;
+   public $review, $isLiked, $likeCount = 0, $hasComments = 0, $comment = '';
 
    public function mount($reviewId) {
       $this->review = Review::find($reviewId);
-      $this->isLiked = Like::where('review_id', $this->review->id)->where('user_id', auth()->id())->count();
+      $this->isLiked = Like::where('review_id', $reviewId)->where('user_id', auth()->id())->count();
       $this->likeCount = $this->review->like_count;
-      $this->hasComments = Comment::where('review_id', $this->review->id)->count();
+      $this->hasComments = Comment::where('review_id', $reviewId)->count();
    }
 
    public function like() {
@@ -36,6 +36,18 @@ class BookReviewMetrics extends Component
 
       $this->isLiked = !$this->isLiked;
       $this->likeCount = $review->like_count;
+   }
+
+   public function addComment() {
+      Comment::create([
+         'user_id' => auth()->id(),
+         'review_id' => $this->review->id,
+         'comment' => $this->comment
+      ]);
+
+      $this->comment = '';
+      $this->hasComments = Comment::where('review_id', $this->review->id)->count();
+      $this->dispatch('commentAdded');
    }
 
    public function render() {
