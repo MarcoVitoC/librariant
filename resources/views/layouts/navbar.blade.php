@@ -21,30 +21,8 @@
                <a class="btn btn-dark" href="{{ route('login') }}" role="button">Log in</a>
             @else
                <div class="d-flex align-items-center">
-                  <div class="dropdown">
-                     @if ($notifications->isEmpty())
-                        <button class="nav-link text-secondary fs-4 position-relative" data-bs-toggle="dropdown">
-                           <i class="bi bi-bell-fill"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end">
-                           <a class="dropdown-item py-2" href="">
-                              <i class="bi bi-bell-slash me-2"></i>You have no notifications at the moment.
-                           </a>
-                        </div>
-                     @else
-                        <button class="nav-link text-secondary fs-4 position-relative" data-bs-display="static" data-bs-toggle="dropdown">
-                           <i class="bi bi-bell-fill"></i>
-                           <span class="badge rounded-pill bg-danger badge-size">
-                              {{ $notifications->count() }}
-                           </span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end overflow-y-auto" style="width: 300px; max-height: 600px;">
-                           @foreach ($notifications as $notification)
-                              <div class="dropdown-item py-2 text-wrap">{{ $notification->content }}</div>
-                           @endforeach
-                        </div>
-                     @endif
-                  </div>
+                  @livewire('notification')
+                  
                   <div class="vr mx-3 text-secondary"></div>
                   <div class="dropdown">
                      <a class="nav-link fs-4 text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
