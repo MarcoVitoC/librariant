@@ -23,7 +23,7 @@
          @endif
       </button>
    </div>
-   <div class="mt-2 rounded collapse" id="collapse-{{ $review->id }}">
+   <div class="mt-2 rounded collapse" id="collapse-{{ $review->id }}" wire:ignore>
       <div class="bg-body-tertiary card card-body">
          <form wire:submit="addComment" class="input-group mb-3" enctype="multipart/form-data">
             @csrf
