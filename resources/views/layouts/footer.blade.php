@@ -1,4 +1,4 @@
-<footer class="mt-5">
+<footer style="margin-top: 240px;">
    <hr class="text-secondary">
    <div class="mx-6 px-4">
       <div class="row pt-2 pb-3">

@@ -7,13 +7,6 @@
          <h1 class="text-secondary">🚫 No returned books available at the moment.</h1>
       </div>
    @else
-      <div class="container mt-4">
-         <form class="d-flex justify-content-center" role="search">
-            <input class="form-control w-50 me-2" type="search" placeholder="Search..." aria-label="Search">
-            <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
-            <button class="btn btn-dark ms-1" type="button"><i class="bi bi-sliders me-2"></i>Filter</button>
-         </form>
-      </div>
       <div class="m-4">
          <div class="table-responsive">
             <table class="table table-hover border">
