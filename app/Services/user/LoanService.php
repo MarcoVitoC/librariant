@@ -9,6 +9,7 @@ use App\Models\Renewal;
 use App\Models\LoanDetail;
 use App\Models\LoanHeader;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LoanService {
    public function fetchLoans() {
@@ -37,47 +38,87 @@ class LoanService {
    public function makeLoan($request) {
       $book = Book::find($request->book_id);
 
-      $loanHeader = LoanHeader::create(['user_id' => auth()->id()]);
-      LoanDetail::create([
-         'loan_header_id' => $loanHeader->id,
-         'book_id' => $book->id,
-         'due_date' => Carbon::parse($loanHeader->loan_date)->addWeeks(2)
-      ]);
+      try {
+         DB::beginTransaction();
 
-      $user = User::find(auth()->id());
-      $user->books_borrowed += 1;
-      $user->save();
-      
-      $book->quantity -= 1;
-      $book->save();
+         $loanHeader = LoanHeader::create(['user_id' => auth()->id()]);
+         LoanDetail::create([
+            'loan_header_id' => $loanHeader->id,
+            'book_id' => $book->id,
+            'due_date' => Carbon::parse($loanHeader->loan_date)->addWeeks(2)
+         ]);
+
+         $user = User::find(auth()->id());
+         $user->books_borrowed += 1;
+         $user->save();
+         
+         $book->quantity -= 1;
+         $book->save();
+
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function enqueue($request) {
-      Queue::create(['user_id' => auth()->id(), 'book_id' => $request->book_id]);
+      try {
+         DB::beginTransaction();
+
+         Queue::create(['user_id' => auth()->id(), 'book_id' => $request->book_id]);
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function cancelQueue($request) {
       $queue = Queue::find($request->queue_id);
-      $queue->delete();
+
+      try {
+         DB::beginTransaction();
+
+         $queue->delete();
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function returnBook($request) {
       $loan = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
                })->where('book_id', $request->book_id)->whereIn('status_id', [0, 3])->first();
-      $loan->returned_date = Carbon::now();
-      $loan->status_id = 2;
-      $loan->save();
+
+      try {
+         DB::beginTransaction();
+         
+         $loan->returned_date = Carbon::now();
+         $loan->status_id = 2;
+         $loan->save();
+
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function renewLoan($request) {
       $loanRenewal = $request->validated();
 
-      Renewal::create([
-         'user_id' => auth()->id(),
-         'loan_detail_id' => $request->selected_loan,
-         'renewal_date' => Carbon::now(),
-         'renewed_due_date' => $loanRenewal['renewed_due_date']
-      ]);
+      try {
+         DB::beginTransaction();
+
+         Renewal::create([
+            'user_id' => auth()->id(),
+            'loan_detail_id' => $request->selected_loan,
+            'renewal_date' => Carbon::now(),
+            'renewed_due_date' => $loanRenewal['renewed_due_date']
+         ]);
+
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 }

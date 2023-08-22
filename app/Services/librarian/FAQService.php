@@ -3,6 +3,7 @@
 namespace App\Services\librarian;
 
 use App\Models\Faq;
+use Illuminate\Support\Facades\DB;
 
 class FAQService {
    public function fetchFAQs() {
@@ -11,16 +12,39 @@ class FAQService {
 
    public function addFAQ($request) {
       $newFAQ = $request->validated();
-      Faq::create($newFAQ);
+      
+      try {
+         DB::beginTransaction();
+         
+         Faq::create($newFAQ);
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function updateFAQ($request, $faq) {
       $updatedFAQ = $request->validated();
-      $faq->update($updatedFAQ);
+      
+      try {
+         DB::beginTransaction();
+         
+         $faq->update($updatedFAQ);
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function deleteFAQ($faq) {
-      $faq->delete();
+      try {
+         DB::beginTransaction();
+         
+         $faq->delete();
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function searchFAQ($request) {

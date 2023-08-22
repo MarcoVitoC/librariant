@@ -3,6 +3,7 @@
 namespace App\Services\librarian;
 
 use App\Models\Book;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BookService {
@@ -14,25 +15,48 @@ class BookService {
       $newBook = $request->validated();
 
       $newBook["book_photo"] = $request->file('book_photo')->store('book-photos');
-      $book = Book::create($newBook);
+
+      try {
+         DB::beginTransaction();
+         
+         $book = Book::create($newBook);
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
 
       return $book;
    }
 
    public function updateBook($request, $book) {
       $updatedBook = $request->validated();
-      
+
       if ($request->file('book_photo')) {
          $updatedBook['book_photo'] = $request->file('book_photo')->store('book-photos');
          Storage::delete($request->oldBookPreview);
       }
-      
-      $book->update($updatedBook);
+
+      try {
+         DB::beginTransaction();
+
+         $book->update($updatedBook);
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function removeBook($book) {
       Storage::delete($book->book_photo);
-      $book->delete();
+
+      try {
+         DB::beginTransaction();
+         
+         $book->delete();
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 
    public function searchBook($request) {

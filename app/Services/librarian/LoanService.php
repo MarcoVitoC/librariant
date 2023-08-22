@@ -10,6 +10,7 @@ use App\Models\LoanDetail;
 use App\Models\LoanHeader;
 use App\Models\Notification;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LoanService {
    public function fetchDashboardData() {
@@ -36,37 +37,54 @@ class LoanService {
       $returnedBook = LoanDetail::with(['book', 'loanHeader'])
                         ->whereNotNull('returned_date')->where('id', $request->loan_detail_id)->first();
 
-      Notification::create([
-         'user_id' => $returnedBook->loanHeader->user_id,
-         'content' => '✅ Your "'.$returnedBook->book->book_title.'" returned book has been successfully verified.'
-      ]);
+      try {
+         DB::beginTransaction();
 
-      $returnedBook->status_id = 1;
-      $returnedBook->save();
+         Notification::create([
+            'user_id' => $returnedBook->loanHeader->user_id,
+            'content' => '✅ Your "'.$returnedBook->book->book_title.'" returned book has been successfully verified.'
+         ]);
+   
+         $returnedBook->status_id = 1;
+         $returnedBook->save();
+
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
 
       $queue = Queue::with('book')->where('book_id', $request->book_id)->oldest()->first();
       $book = Book::find($request->book_id);
-      if ($queue != null) {
-         $loanHeader = LoanHeader::create(['user_id' => $queue->user_id]);
-         LoanDetail::create([
-            'loan_header_id' => $loanHeader->id,
-            'book_id' => $book->id,
-            'due_date' => Carbon::parse($loanHeader->loan_date)->addWeeks(2)
-         ]);
 
-         $user = User::find($queue->user_id);
-         $user->books_borrowed += 1;
-         $user->save();
+      try {
+         DB::beginTransaction();
 
-         Notification::create([
-            'user_id' => $queue->user_id,
-            'content' => '🎉 Your queue for the book "'.$queue->book->book_title.'" can now be borrowed.'
-         ]);
+         if ($queue != null) {
+            $loanHeader = LoanHeader::create(['user_id' => $queue->user_id]);
+            LoanDetail::create([
+               'loan_header_id' => $loanHeader->id,
+               'book_id' => $book->id,
+               'due_date' => Carbon::parse($loanHeader->loan_date)->addWeeks(2)
+            ]);
+   
+            $user = User::find($queue->user_id);
+            $user->books_borrowed += 1;
+            $user->save();
+   
+            Notification::create([
+               'user_id' => $queue->user_id,
+               'content' => '🎉 Your queue for the book "'.$queue->book->book_title.'" can now be borrowed.'
+            ]);
+   
+            $queue->delete();
+         }else {
+            $book->quantity += 1;
+            $book->save();
+         }
 
-         $queue->delete();
-      }else {
-         $book->quantity += 1;
-         $book->save();
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
       }
    }
 
@@ -84,15 +102,22 @@ class LoanService {
       $renewedLoan = LoanDetail::where('id', $request->loan_detail_id)->first();
       $renewal = Renewal::with('loanDetail.book')->where('id', $request->renewal_id)->first();
 
-      $renewedLoan->status_id = 3;
-      $renewedLoan->due_date = $renewal->renewed_due_date;
-      $renewedLoan->save();
+      try {
+         DB::beginTransaction();
+         
+         $renewedLoan->status_id = 3;
+         $renewedLoan->due_date = $renewal->renewed_due_date;
+         $renewedLoan->save();
 
-      Notification::create([
-         'user_id' => $renewal->user_id,
-         'content' => '🎉 Your renewal request for the book "'.$renewal->loanDetail->book->book_title.'" has been verified.'
-      ]);
+         Notification::create([
+            'user_id' => $renewal->user_id,
+            'content' => '🎉 Your renewal request for the book "'.$renewal->loanDetail->book->book_title.'" has been verified.'
+         ]);
 
-      $renewal->delete();
+         $renewal->delete();
+         DB::commit();
+      } catch (\Exception $e) {
+         DB::rollback();
+      }
    }
 }
