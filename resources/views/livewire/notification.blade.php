@@ -1,6 +1,6 @@
 <div class="dropdown">
    @if ($notifications->isEmpty())
-      <button class="nav-link text-secondary fs-4 position-relative" data-bs-toggle="dropdown">
+      <button class="nav-link text-secondary fs-4 position-relative" data-bs-toggle="dropdown"  data-bs-auto-close="outside" aria-expanded="false">
          <i class="bi bi-bell-fill"></i>
       </button>
       <div class="dropdown-menu dropdown-menu-end">
@@ -9,7 +9,7 @@
          </a>
       </div>
    @else
-      <button class="nav-link text-secondary fs-4 position-relative" data-bs-display="static" data-bs-toggle="dropdown">
+      <button class="nav-link text-secondary fs-4 position-relative" data-bs-toggle="dropdown"  data-bs-auto-close="outside" aria-expanded="false">
          <i class="bi bi-bell-fill"></i>
          <span class="badge rounded-pill bg-danger badge-size">{{ $notifications->count() }}</span>
       </button>
@@ -19,7 +19,7 @@
                <div class="d-flex align-items-center">
                   {{ $notification->content }}
                   <div>
-                     <button class="btn btn-sm ms-1" wire:click="dismiss({{ $notification->id }})"><i class="bi bi-x-circle-fill text-secondary"></i></button>
+                     <button class="btn btn-sm ms-1" wire:click="dismiss({{ $notification->id }})" wire:click.prevent="$event.stopPropagation()"><i class="bi bi-x-circle-fill text-secondary"></i></button>
                   </div>
                </div>
             </div>

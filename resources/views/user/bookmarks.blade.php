@@ -25,10 +25,7 @@
             @endforeach
          </div>
       </div>
-      <div class="d-flex justify-content-between align-items-center mx-5">
-         <p class="text-secondary fw-normal fs-7">
-            Showing <span class="fw-medium">{{ $bookmarks->firstItem() }}</span> to <span class="fw-medium">{{ $bookmarks->lastItem() }}</span> of <span class="fw-medium">{{ $bookmarks->total() }}</span> results
-         </p>
+      <div class="d-flex justify-content-center align-items-center mx-5">
          <nav>
             <ul class="pagination">
                <li class="page-item {{ $bookmarks->currentPage() === 1 ? 'disabled' : '' }}">
