@@ -4,17 +4,18 @@
 @section('content')
    <div class="row">
       <div class="position-absolute top-50 start-50 translate-middle col-sm-8 col-md-8 col-lg-6 col-xl-4">
-         <div class="border p-4">
-            <div class="">
-               <h1 class="text-center fs-3">Login</h1>
-               <hr>
-            </div>
+         <div class="border p-4 rounded">
+            <div><h3 class="text-center">Login</h3><hr></div>
             @if (session()->has('registrationSuccess'))
                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
                   <i class="bi bi-check-circle-fill flex-shrink-0 me-2 text-success"></i>
-                  <div class="text-success fw-bold">
-                     {{ session('registrationSuccess') }}
-                  </div>
+                  <div class="text-success fw-bold">{{ session('registrationSuccess') }}</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+               </div>
+            @elseif (session()->has('status'))
+               <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
+                  <i class="bi bi-check-circle-fill flex-shrink-0 me-2 text-success"></i>
+                  <div class="text-success fw-bold">{{ session()->get('status') }}</div>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                </div>
             @endif
@@ -37,13 +38,9 @@
                   <input type="password" class="form-control input-field" id="password" name="password">
                   <div class="password-feedback"></div>
                </div>
-               <div class="d-flex justify-content-between">
-                  <div class="mb-3 form-check">
-                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                     <label class="form-check-label" for="exampleCheck1">Remember me</label>
-                  </div>
+               <div class="d-flex justify-content-end">
                   <div class="mb-3">
-                     <a href="/forgot-password" class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Forgot Password?</a>
+                     <a href="{{ route('password.request') }}" class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Forgot Password?</a>
                   </div>
                </div>
                <button type="submit" class="btn btn-dark col-12 mt-4" id="loginBtn">Log in</button>
