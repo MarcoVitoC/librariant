@@ -22,7 +22,7 @@ class StatusSeeder extends Seeder
 
       Status::create([
          'id' => 2,
-         'status_name' => 'Returned Pending'
+         'status_name' => 'Return Pending'
       ]);
       
       Status::create([

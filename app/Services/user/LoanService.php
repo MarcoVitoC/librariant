@@ -2,6 +2,7 @@
 
 namespace App\Services\user;
 
+use App\Interfaces\StatusInterface;
 use App\Models\Book;
 use App\Models\User;
 use App\Models\Queue;
@@ -11,15 +12,19 @@ use App\Models\LoanHeader;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class LoanService {
+class LoanService implements StatusInterface {
    public function fetchLoans() {
       $loanedBooks = LoanDetail::with(['book', 'loanHeader'])
                      ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
                         $query->where('user_id', auth()->id());
                      })->oldest('due_date')->get();
+
       $unconfirmedReturns = LoanDetail::with('book')
-                           ->whereNotNull('returned_date')->where('status_id', 2)->oldest('returned_date')->get();
+                           ->whereNotNull('returned_date')
+                           ->where('status_id', self::RETURN_PENDING)->oldest('returned_date')->get();
+
       $queues = Queue::with('book')->where('user_id', auth()->id())->oldest()->get();
+
       $renewableLoans = LoanDetail::with(['book', 'loanHeader'])
                         ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
                            $query->where('user_id', auth()->id())->whereDate('loan_date', '<=', now()->subDays(10));
@@ -49,11 +54,9 @@ class LoanService {
          ]);
 
          $user = User::find(auth()->id());
-         $user->books_borrowed += 1;
-         $user->save();
+         $user->increment('books_borrowed');
          
-         $book->quantity -= 1;
-         $book->save();
+         $book->decrement('quantity');
 
          DB::commit();
       } catch (\Exception $e) {
@@ -88,13 +91,13 @@ class LoanService {
    public function returnBook($request) {
       $loan = LoanDetail::whereHas('loanHeader', function($query) {
                   $query->where('user_id', auth()->id());
-               })->where('book_id', $request->book_id)->whereIn('status_id', [0, 3])->first();
+               })->where('book_id', $request->book_id)->whereIn('status_id', [self::LOANED, self::RENEWED])->first();
 
       try {
          DB::beginTransaction();
          
-         $loan->returned_date = Carbon::now();
-         $loan->status_id = 2;
+         $loan->returned_date = now();
+         $loan->status_id = self::RETURN_PENDING;
          $loan->save();
 
          DB::commit();
@@ -112,7 +115,7 @@ class LoanService {
          Renewal::create([
             'user_id' => auth()->id(),
             'loan_detail_id' => $request->selected_loan,
-            'renewal_date' => Carbon::now(),
+            'renewal_date' => now(),
             'renewed_due_date' => $loanRenewal['renewed_due_date']
          ]);
 

@@ -2,6 +2,7 @@
 
 namespace App\Services\librarian;
 
+use App\Interfaces\StatusInterface;
 use App\Models\Book;
 use App\Models\User;
 use App\Models\Queue;
@@ -12,12 +13,12 @@ use App\Models\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class LoanService {
+class LoanService implements StatusInterface {
    public function fetchDashboardData() {
       $booksTotal = Book::count();
-      $loansTotal = LoanDetail::whereNull('returned_date')->whereIn('status_id', [0, 3])->count();
+      $loansTotal = LoanDetail::whereNull('returned_date')->whereIn('status_id', [self::LOANED, self::RENEWED])->count();
       $renewalsTotal = Renewal::count();
-      $returnsTotal = LoanDetail::whereNotNull('returned_date')->where('status_id', 2)->count();
+      $returnsTotal = LoanDetail::whereNotNull('returned_date')->where('status_id', self::RETURN_PENDING)->count();
 
       return [
          'booksTotal' => $booksTotal,
@@ -29,7 +30,7 @@ class LoanService {
 
    public function fetchReturnedBooks() {
       $returnedBooks = LoanDetail::with(['book', 'loanHeader.user'])
-                        ->whereNotNull('returned_date')->where('status_id', 2)->paginate(10);
+                        ->whereNotNull('returned_date')->where('status_id', self::RETURN_PENDING)->paginate(10);
       return $returnedBooks;
    }
 
@@ -45,7 +46,7 @@ class LoanService {
             'content' => '✅ Your "'.$returnedBook->book->book_title.'" returned book has been successfully verified.'
          ]);
    
-         $returnedBook->status_id = 1;
+         $returnedBook->status_id = self::RETURNED;
          $returnedBook->save();
 
          DB::commit();
@@ -68,8 +69,7 @@ class LoanService {
             ]);
    
             $user = User::find($queue->user_id);
-            $user->books_borrowed += 1;
-            $user->save();
+            $user->increment('books_borrowed');
    
             Notification::create([
                'user_id' => $queue->user_id,
@@ -78,8 +78,7 @@ class LoanService {
    
             $queue->delete();
          }else {
-            $book->quantity += 1;
-            $book->save();
+            $book->increment('quantity');
          }
 
          DB::commit();
@@ -90,7 +89,7 @@ class LoanService {
 
    public function showLoans() {
       $loanedBooks = LoanDetail::with(['book', 'loanHeader.user'])
-                     ->whereNull('returned_date')->whereIn('status_id', [0, 3])->oldest('due_date')->paginate(10);
+                     ->whereNull('returned_date')->whereIn('status_id', [self::LOANED, self::RENEWED])->oldest('due_date')->paginate(10);
       return $loanedBooks;
    }
 
@@ -105,7 +104,7 @@ class LoanService {
       try {
          DB::beginTransaction();
          
-         $renewedLoan->status_id = 3;
+         $renewedLoan->status_id = self::RENEWED;
          $renewedLoan->due_date = $renewal->renewed_due_date;
          $renewedLoan->save();
 
