@@ -24,10 +24,17 @@ $ php artisan serve
 - Admin role:<br>
   email: librariant@gmail.com<br>
   password: librariant
+### Note:
+All email addresses used within this project are for testing purposes only. To fully implement and test the "Forgot Password" feature, it's recommended to set up your own <a href="https://mailtrap.io/" target="_blank">Mailtrap</a> account.
+### How to set up Mailtrap:
+- Go to <a href="https://mailtrap.io/" target="_blank">Mailtrap</a> and sign up for a new account if you don't already have one.
+- Create a new mailbox within Mailtrap.
+- In the SMTP Settings, change the integrations to Laravel 9+ since this project uses Laravel 10, and configure your mail configuration by setting the values below it in the .env file in your project root directory.
 
 ## 📋 Requirements
 ### Guest role:
 - Login and register
+- Forgot password
 - Search book with pagination
 ### User role:
 - Search book with pagination
@@ -39,6 +46,7 @@ $ php artisan serve
 - Holds and reservations
 - Loan limit
 - Penalty for late return
+- Notification
 ### Admin role:
 - CRUD and search book
 - CRUD and search FAQ
