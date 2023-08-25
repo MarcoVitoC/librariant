@@ -14,29 +14,11 @@ use Illuminate\Support\Facades\DB;
 
 class LoanService implements StatusInterface {
    public function fetchLoans() {
-      $loanedBooks = LoanDetail::with(['book', 'loanHeader'])
-                     ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
-                        $query->where('user_id', auth()->id());
-                     })->oldest('due_date')->get();
-
-      $unconfirmedReturns = LoanDetail::with('book')
-                           ->whereNotNull('returned_date')
-                           ->where('status_id', self::RETURN_PENDING)->oldest('returned_date')->get();
-
-      $queues = Queue::with('book')->where('user_id', auth()->id())->oldest()->get();
-
-      $renewableLoans = LoanDetail::with(['book', 'loanHeader'])
-                        ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
-                           $query->where('user_id', auth()->id())->whereDate('loan_date', '<=', now()->subDays(10));
-                        })->whereDoesntHave('renewal', function($query) {
-                           $query->whereColumn('loan_detail_id', 'id');
-                        })->get();
-
       return [
-         'loanedBooks' => $loanedBooks,
-         'unconfirmedReturns' => $unconfirmedReturns,
-         'queues' => $queues,
-         'renewableLoans' => $renewableLoans
+         'loanedBooks' => $this->getLoanedBooks(),
+         'unconfirmedReturns' => $this->getUnconfirmedReturns(),
+         'queues' => $this->getUserQueues(),
+         'renewableLoans' => $this->getRenewableLoans()
       ];
    }
 
@@ -123,5 +105,29 @@ class LoanService implements StatusInterface {
       } catch (\Exception $e) {
          DB::rollback();
       }
+   }
+
+   private function getLoanedBooks() {
+      return LoanDetail::with(['book', 'loanHeader'])
+      ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
+         $query->where('user_id', auth()->id());
+      })->oldest('due_date')->get();
+   }
+
+   private function getUnconfirmedReturns() {
+      return LoanDetail::with('book')->whereNotNull('returned_date')->where('status_id', self::RETURN_PENDING)->oldest('returned_date')->get();
+   }
+
+   private function getUserQueues() {
+      return Queue::with('book')->where('user_id', auth()->id())->oldest()->get();
+   }
+
+   private function getRenewableLoans() {
+      return LoanDetail::with(['book', 'loanHeader'])
+            ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
+               $query->where('user_id', auth()->id())->whereDate('loan_date', '<=', now()->subDays(10));
+            })->whereDoesntHave('renewal', function($query) {
+               $query->whereColumn('loan_detail_id', 'id');
+            })->get();
    }
 }

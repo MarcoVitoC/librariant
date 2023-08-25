@@ -10,59 +10,24 @@ use App\Models\LoanDetail;
 
 class BookService implements StatusInterface {
    public function fetchIndexDatas() {
-      $loans = LoanDetail::whereHas('loanHeader', function($query) {
-                  $query->where('user_id', auth()->id());
-               })->whereIn('status_id', [self::LOANED, self::RENEWED])->get();
-
+      $loans = $this->getLoans();
       $books = Book::paginate(12)->withQueryString();
-
-      $lateReturns = LoanDetail::with(['book', 'loanHeader'])
-                     ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
-                        $query->where('user_id', auth()->id())->whereDate('due_date', '<', now());
-                     })->get();
+      $lateReturns = $this->getLateReturns();
 
       return ['loans' => $loans, 'books' => $books, 'lateReturns' => $lateReturns];
    }
 
    public function fetchBookDetails($id) {
       $book = Book::find($id);
-      $loan = LoanDetail::whereHas('loanHeader', function($query) {
-                  $query->where('user_id', auth()->id());
-               })->where('book_id', $book->id)->latest()->first();
-
+      $loan = $this->getLatestLoanByBook($book);
       $isLoaned = ($loan != null && in_array($loan->status_id, [self::LOANED, self::RENEWED]));
-
-      $queue = Queue::where('user_id', auth()->id())->where('book_id', $book->id)->first();
-
-      $borrowAmount = LoanDetail::whereHas('loanHeader', function($query) {
-                        $query->where('user_id', auth()->id());
-                     })->whereIn('status_id', [self::LOANED, self::RENEWED])->count();
-
-      $lateReturns = LoanDetail::with(['book', 'loanHeader'])
-                     ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
-                        $query->where('user_id', auth()->id())->whereDate('due_date', '<', now());
-                     })->count();
-      
-      $bookStatus = '';
-      if ($queue != null) {
-         $bookStatus = 'queued';
-      }else if ($loan != null && $loan->returned_date != null && $loan->status_id === self::RETURN_PENDING) {
-         $bookStatus = 'pending';
-      }else if ($borrowAmount === 8) {
-         $bookStatus = 'limited';
-      }
-      
-      if ($lateReturns > 0) {
-         $bookStatus = 'denied';
-      }
-
-      $isBookmarked = Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->count();
+      $bookStatus = $this->checkBookStatus($book, $loan);
 
       $bookDetails = [
          'book' => $book, 
          'isLoaned' => $isLoaned,
          'bookStatus' => $bookStatus, 
-         'isBookmarked' => $isBookmarked
+         'isBookmarked' => $this->isBookmarked($book)
       ];
       
       return $bookDetails;
@@ -74,5 +39,52 @@ class BookService implements StatusInterface {
 
    public function searchBook($request) {
       return Book::where('book_title', 'like', '%'.$request->search_book.'%')->paginate(12);
+   }
+
+   private function getLoans() {
+      return LoanDetail::whereHas('loanHeader', function($query) {
+         $query->where('user_id', auth()->id());
+      })->whereIn('status_id', [self::LOANED, self::RENEWED])->get();
+   }
+
+   private function getLateReturns() {
+      return LoanDetail::with(['book', 'loanHeader'])
+      ->whereNull('returned_date')->whereHas('loanHeader', function($query) {
+         $query->where('user_id', auth()->id())->whereDate('due_date', '<', now());
+      })->get();
+   }
+
+   private function getLatestLoanByBook($book) {
+      return LoanDetail::whereHas('loanHeader', function($query) {
+         $query->where('user_id', auth()->id());
+      })->where('book_id', $book->id)->latest()->first();
+   }
+
+   private function isQueued($book) {
+      return Queue::where('user_id', auth()->id())->where('book_id', $book->id)->count();
+   }
+
+   private function checkBookStatus($book, $loan) {
+      $hasLateReturns = $this->getLateReturns()->count();
+      $isQueued = $this->isQueued($book);
+      $isReturnPending = ($loan != null && $loan->status_id === self::RETURN_PENDING);
+      $borrowAmount = $this->getLoans()->count();
+
+      $bookStatus = '';
+      if ($hasLateReturns) {
+         $bookStatus = 'denied';
+      }else if ($isQueued) {
+         $bookStatus = 'queued';
+      }else if ($isReturnPending) {
+         $bookStatus = 'pending';
+      }else if ($borrowAmount === 8) {
+         $bookStatus = 'limited';
+      }
+
+      return $bookStatus;
+   }
+
+   private function isBookmarked($book) {
+      return Bookmark::where('user_id', auth()->id())->where('book_id', $book->id)->count();
    }
 }
