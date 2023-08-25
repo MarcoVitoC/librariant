@@ -1,5 +1,5 @@
 # 🏛️ Librariant
-A library management system integrated with a bit of social networking.
+A library management system integrated with a bit of social networking. This project was undertaken to cultivate a deeper understanding of full-stack development using Laravel. By actively engaging with Laravel's features and capabilities, I aimed to enhance my proficiency in both backend and frontend development while building a functional application that showcases my grasp of modern web development practices.
 
 ## ⚙️ Installation
 ### Prerequisites:
