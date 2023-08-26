@@ -84,21 +84,31 @@
                let searchResults = response.searchedBook.data;
 
                $('#book_list').html('');
-               searchResults.forEach(function(book) {
+               if (searchResults.length) {
+                  searchResults.forEach(function(book) {
+                     $('#book_list').append(
+                        `
+                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center">
+                           <a href="/user/books/book-details/${book.id}" class="card w-100 text-decoration-none">
+                              <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
+                              <div class="card-body text-decoration">
+                                 <h5 class="card-title">${book.book_title}</h5>
+                                 <p class="card-text text-secondary">By: ${book.author}</p>
+                              </div>
+                           </a>
+                        </div>
+                        `
+                     );
+                  });
+               }else {
                   $('#book_list').append(
                      `
-                     <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center">
-                        <a href="/user/books/book-details/${book.id}" class="card w-100 text-decoration-none">
-                           <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
-                           <div class="card-body text-decoration">
-                              <h5 class="card-title">${book.book_title}</h5>
-                              <p class="card-text text-secondary">By: ${book.author}</p>
-                           </div>
-                        </a>
+                     <div class="d-flex justify-content-center align-items-center my-5" style="height: 30vh">
+                        <h1 class="text-secondary">🔍 No results match. Please check your search.</h1>
                      </div>
                      `
                   );
-               });
+               }
             });
          });
       });

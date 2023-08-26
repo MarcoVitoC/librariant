@@ -2,28 +2,26 @@
 @section('title', 'Librariant')
 
 @section('content')
-   <div class="">
-      <div class="container pt-4">
-         <div class="d-flex justify-content-center">
-            <div class="input-group w-50">
-               <input class="form-control" id="search_book" type="text" placeholder="Search..." aria-label="Search">
-               <button class="btn btn-dark"><i class="bi bi-search"></i></button>
-            </div>
+   <div class="container pt-4">
+      <div class="d-flex justify-content-center">
+         <div class="input-group w-50">
+            <input class="form-control" id="search_book" type="text" placeholder="Search..." aria-label="Search">
+            <button class="btn btn-dark"><i class="bi bi-search"></i></button>
          </div>
       </div>
-      <div class="row my-4 mx-4" id="book_list">
-         @foreach ($books as $book)
-            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
-               <a href="{{ route('guest.book_details', $book->id) }}" class="card w-100 text-decoration-none" data-aos="fade-up">
-                  <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
-                  <div class="card-body text-decoration">
-                     <h5 class="card-title">{{ $book->book_title }}</h5>
-                     <p class="card-text text-secondary">By: {{ $book->author }}</p>
-                  </div>
-               </a>
-            </div>
-         @endforeach
-      </div>
+   </div>
+   <div class="row my-4 mx-4" id="book_list">
+      @foreach ($books as $book)
+         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
+            <a href="{{ route('guest.book_details', $book->id) }}" class="card w-100 text-decoration-none" data-aos="fade-up">
+               <img src="{{ asset('storage/' . $book->book_photo) }}" class="card-img-top" alt="Book Preview" height="250px">
+               <div class="card-body text-decoration">
+                  <h5 class="card-title">{{ $book->book_title }}</h5>
+                  <p class="card-text text-secondary">By: {{ $book->author }}</p>
+               </div>
+            </a>
+         </div>
+      @endforeach
    </div>
    <div class="d-flex justify-content-center align-items-center mx-5">
       <nav>
@@ -58,21 +56,31 @@
                let searchResults = response.searchedBook.data;
                
                $('#book_list').html('');
-               searchResults.forEach(function(book) {
+               if (searchResults.length > 0) {
+                  searchResults.forEach(function(book) {
+                     $('#book_list').append(
+                        `
+                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
+                           <a href="/user/books/book-details/${book.id}" class="card w-100 text-decoration-none">
+                              <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
+                              <div class="card-body text-decoration">
+                                 <h5 class="card-title">${book.book_title}</h5>
+                                 <p class="card-text text-secondary">By: ${book.author}</p>
+                              </div>
+                           </a>
+                        </div>
+                        `
+                     );
+                  });
+               }else {
                   $('#book_list').append(
                      `
-                     <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
-                        <a href="/user/books/book-details/${book.id}" class="card w-100 text-decoration-none">
-                           <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
-                           <div class="card-body text-decoration">
-                              <h5 class="card-title">${book.book_title}</h5>
-                              <p class="card-text text-secondary">By: ${book.author}</p>
-                           </div>
-                        </a>
+                     <div class="d-flex justify-content-center align-items-center my-5" style="height: 30vh">
+                        <h1 class="text-secondary">🔍 No results match. Please check your search.</h1>
                      </div>
                      `
                   );
-               });
+               }
             });
          });
       });
