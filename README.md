@@ -39,6 +39,7 @@ All email addresses used within this project are for testing purposes only. To f
 ### User role:
 - Search book with pagination
 - Loan and return book
+- View loan history
 - Request loan renewal
 - Bookmark
 - Rate and make feedback/review
