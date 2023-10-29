@@ -61,7 +61,7 @@
                      $('#book_list').append(
                         `
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center my-2">
-                           <a href="/user/books/book-details/${book.id}" class="card w-100 text-decoration-none">
+                           <a href="/book-details/${book.id}" class="card w-100 text-decoration-none">
                               <img src="{{ asset('storage/') }}${'/'}${book.book_photo}" class="card-img-top" alt="Book Preview" height="250px">
                               <div class="card-body text-decoration">
                                  <h5 class="card-title">${book.book_title}</h5>
