@@ -242,6 +242,7 @@
                title: 'Review added successfully!'
             }).then(function() {
                $('#addReviewModal').modal('hide');
+               location.reload();
             });
          });
 
@@ -251,6 +252,7 @@
                title: 'Review updated successfully!'
             }).then(function() {
                $('#editReviewModal').modal('hide');
+               location.reload();
             });
          });
 
